@@ -2,7 +2,39 @@
 	
 	window.SpriteLibrary = window.SpriteLibrary || { };
 
-	SpriteLibrary.arrow = function () {
+	var FLETCH_MIDDLE_X = 75;
+	var FLETCH_MIDDLE_Y = 15;
+	var FLETCH_BOTTOM = 50;
+
+	SpriteLibrary.arrow = function (arrowSpecification) {
+		var ctx = arrowSpecification.ctx;
+
+
+		//fletching
+		ctx.beginPath();
+		ctx.fillStyle = "white";
+		ctx.moveTo(FLETCH_MIDDLE_X, FLETCH_MIDDLE_Y);
+		ctx.lineTo(FLETCH_BOTTOM, 30);
+		ctx.lineTo(FLETCH_BOTTOM, 0);
+		ctx.closePath();
+		ctx.stroke();
+
+		//Shaft
+		ctx.fillStyle = "brown";
+		ctx.rotate(-Math.PI / 2);
+		ctx.translate(-95, 35);
+		ctx.fillRect(FLETCH_MIDDLE_X, FLETCH_MIDDLE_Y, 10, 100);
+
+		//Arrow Tip
+		ctx.beginPath();
+		ctx.fillStyle = "gray";
+		ctx.translate(95, 60);
+		ctx.rotate(Math.PI / 2);
+		ctx.moveTo(FLETCH_MIDDLE_X, FLETCH_MIDDLE_Y);
+		ctx.lineTo(FLETCH_BOTTOM, 30);
+		ctx.lineTo(FLETCH_BOTTOM, 0);
+		ctx.closePath();
+		ctx.fill();
 
 	};
 }());

@@ -11,12 +11,13 @@
 	var ARM_LENGTH = 80;
 
 	SpriteLibrary.stickman = function (stickmanSpecification) {
-	
 		var ctx = stickmanSpecification.ctx;
 
 		//Head
+		ctx.beginPath();
 		ctx.arc(10, 0, HEAD_RADIUS, 0, 2 * Math.PI, false);
 		ctx.fill();
+		ctx.closePath();
 
 		//Body
 		ctx.fillRect(0, 0, BODY_WIDTH, BODY_LENGTH);

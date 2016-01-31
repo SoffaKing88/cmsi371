@@ -39,6 +39,7 @@
 				ctx.fillStyle = "red";
 			}
 			ctx.fill();
+			ctx.stroke();
 			ctx.closePath();
 		}
 
