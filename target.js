@@ -6,10 +6,31 @@
 		var ctx = targetSpecification.ctx;
 
 		//Drawing Legs
-		
+		var rightStandAngle = -Math.PI / 4;
+		var leftStandAngle = Math.PI / 10;
+
+		//Right Leg
+		ctx.save();
+		ctx.beginPath();
+		ctx.fillStyle = "brown";
+		ctx.rotate(rightStandAngle);
+		ctx.translate(0, 150);
+		ctx.fillRect(0, 0, 15, 125);
+		ctx.closePath();
+		ctx.restore();
+
+		//Left Leg
+		ctx.save();
+		ctx.beginPath();
+		ctx.fillStyle = "brown";
+		ctx.rotate(leftStandAngle);
+		ctx.translate(145, 80);
+		ctx.fillRect(0, 0, 15, 80);
+		ctx.closePath();
+		ctx.restore();
 
 		//Drawing each circle of the target
-		for(i = 2; i <= 6; i++){
+		for(i = 3; i <= 6; i++){
 			ctx.beginPath();
 			ctx.ellipse(100, 100, 80 / i, 250 / i, -Math.PI / 1.05, 0, 2 * Math.PI);
 			if(i % 2 == 0){
@@ -28,15 +49,5 @@
 		ctx.fill();
 		ctx.closePath();
 
-		//Back of Target
-		ctx.beginPath();
-		ctx.moveTo(110, 18);
-		ctx.lineTo(140, 18);
-		ctx.stroke();
-		ctx.moveTo(85, 185);
-		ctx.lineTo(115, 185);
-		ctx.stroke();
-
-		ctx.closePath();
 	};
 }());

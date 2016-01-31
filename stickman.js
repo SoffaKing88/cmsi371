@@ -44,10 +44,12 @@
 		var leftArmAngle = Math.PI / 6;
 
 		//Left Arm
+			//Upper Arm
 		ctx.save();
 		ctx.translate(BODY_WIDTH - 5, BODY_LENGTH / 3);
 		ctx.rotate(leftArmAngle);
 		ctx.fillRect(-ARM_WIDTH / 2, 0, ARM_WIDTH, ARM_LENGTH / 2);
+			//Fore Arm
 		ctx.translate(0, ARM_LENGTH / 2);
 		ctx.rotate(-leftArmAngle * 3);
 		ctx.fillRect(-ARM_WIDTH / 2, 0, ARM_WIDTH, ARM_LENGTH / 2);
