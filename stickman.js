@@ -49,8 +49,13 @@
 		ctx.translate(BODY_WIDTH - 5, BODY_LENGTH / 3);
 		ctx.rotate(leftArmAngle);
 		ctx.fillRect(-ARM_WIDTH / 2, 0, ARM_WIDTH, ARM_LENGTH / 2);
-			//Fore Arm
+			//Elbow
+		ctx.beginPath();
 		ctx.translate(0, ARM_LENGTH / 2);
+		ctx.arc(0, 0, ARM_WIDTH / 2, 0, 2 * Math.PI, false);
+		ctx.fill();
+		ctx.closePath();
+			//Fore Arm
 		ctx.rotate(-leftArmAngle * 3);
 		ctx.fillRect(-ARM_WIDTH / 2, 0, ARM_WIDTH, ARM_LENGTH / 2);
 		ctx.restore();
