@@ -6,7 +6,7 @@
 	</head>
 
 	<body>
-		<canvas id="canvas", width="500", height="500"> </canvas>
+		<canvas id="canvas", width="1024", height="512"> </canvas>
 
 		<script src="https://code.jquery.com/jquery-latest.min.js"> </script>
 		<script src="stickman.js"> </script>
@@ -15,7 +15,32 @@
 		<script src="target.js"> </script>
 
 		<script>
-			SpriteLibrary.stickman();
+		(function () {
+			var canvas = document.getElementById("canvas");
+			var ctx = canvas.getContext("2d");
+
+			var drawScene = function () {
+				ctx.save();
+				ctx.translate(120, 100);
+				ctx.scale(0.7, 0.7);
+				SpriteLibrary.stickman({
+					ctx: ctx
+				});
+				ctx.restore();
+
+				ctx.save();
+				ctx.translate(800, 70);
+				ctx.scale(0.7, 0.7);
+				SpriteLibrary.target({
+					ctx: ctx
+				});
+				ctx.restore();
+
+				window.requestAnimationFrame(drawScene);
+			};
+
+			window.requestAnimationFrame(drawScene);
+		}());
 		</script>
 	</body>
 </html>

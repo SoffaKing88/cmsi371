@@ -2,21 +2,62 @@
 
 	window.SpriteLibrary = window.SpriteLibrary || { };
 
-	SpriteLibrary.stickman = function () {
+	var HEAD_RADIUS = 20;
+	var BODY_WIDTH = 10;
+	var BODY_LENGTH = 100;
+	var LEG_WIDTH = BODY_WIDTH;
+	var LEG_LENGTH = 85;
+	var ARM_WIDTH = BODY_WIDTH;
+	var ARM_LENGTH = 80;
+
+	SpriteLibrary.stickman = function (stickmanSpecification) {
 	
-		var canvas = document.getElementById("canvas");
-		var ctx = canvas.getContext("2d");
+		var ctx = stickmanSpecification.ctx;
 
 		//Head
-		var radius = 20;
-		ctx.arc(210, 200, radius, 0, 2 * Math.PI, false);
+		ctx.arc(10, 0, HEAD_RADIUS, 0, 2 * Math.PI, false);
 		ctx.fill();
 
 		//Body
-		ctx.fillRect(200, 200, 15, 100);
+		ctx.fillRect(0, 0, BODY_WIDTH, BODY_LENGTH);
 
 		//Legs
-		ctx.fillRect(200, 350, 15, 75);
+		var leftLegAngle = Math.PI / 15;
+		var rightLegAngle = -Math.PI / 15;
 
+		//Left Leg
+		ctx.save();
+		ctx.translate(BODY_WIDTH - 5, BODY_LENGTH);
+		ctx.rotate(leftLegAngle);
+		ctx.fillRect(-LEG_WIDTH / 2, 0, LEG_WIDTH, LEG_LENGTH);
+		ctx.restore();
+
+		//Right Leg
+		ctx.save();
+		ctx.translate(BODY_WIDTH / 2.2, BODY_LENGTH);
+		ctx.rotate(rightLegAngle);
+		ctx.fillRect(-LEG_WIDTH / 2, 0, LEG_WIDTH, LEG_LENGTH);
+		ctx.restore();
+
+		//Arms
+		var rightArmAngle = -Math.PI / 6;
+		var leftArmAngle = Math.PI / 6;
+
+		//Left Arm
+		ctx.save();
+		ctx.translate(BODY_WIDTH - 5, BODY_LENGTH / 3);
+		ctx.rotate(leftArmAngle);
+		ctx.fillRect(-ARM_WIDTH / 2, 0, ARM_WIDTH, ARM_LENGTH / 2);
+		ctx.translate(0, ARM_LENGTH / 2);
+		ctx.rotate(-leftArmAngle * 3);
+		ctx.fillRect(-ARM_WIDTH / 2, 0, ARM_WIDTH, ARM_LENGTH / 2);
+		ctx.restore();
+
+		//Right Arm
+		ctx.save();
+		ctx.translate(BODY_WIDTH / 2.2, BODY_LENGTH / 3);
+		ctx.rotate(rightArmAngle);
+		ctx.fillRect(-ARM_WIDTH / 2, 0, ARM_WIDTH, ARM_LENGTH);
+		ctx.restore();
 	}
 }());
