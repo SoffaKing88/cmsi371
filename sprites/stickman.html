@@ -10,9 +10,6 @@
 
 		<script src="https://code.jquery.com/jquery-latest.min.js"> </script>
 		<script src="stickman.js"> </script>
-		<script src="bow.js"> </script>
-		<script src="arrow.js"> </script>
-		<script src="target.js"> </script>
 
 		<script>
 		(function () {
@@ -28,34 +25,6 @@
 					ctx: ctx,
 					leftUpArmAngle: Math.PI / 2,
 					rightArmAngle: -Math.PI / 6
-				});
-				ctx.restore();
-
-				//Target
-				ctx.save();
-				ctx.translate(800, 70);
-				ctx.scale(0.7, 0.7);
-				SpriteLibrary.target({
-					ctx: ctx,
-					opacity: 1
-				});
-				ctx.restore();
-
-				//Arrow
-				ctx.save();
-				ctx.translate(150, 150);
-				ctx.scale(0.5, 0.5);
-				SpriteLibrary.arrow({
-					ctx: ctx
-				});
-				ctx.restore();
-
-				ctx.save();
-				ctx.translate(300, 100);
-				ctx.scale(0.3, 0.3);
-				SpriteLibrary.bow({
-					ctx: ctx,
-					pullPointX: -125
 				});
 				ctx.restore();
 
