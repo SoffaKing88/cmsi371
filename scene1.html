@@ -25,7 +25,19 @@
 				ctx.translate(120, 100);
 				ctx.scale(0.7, 0.7);
 				SpriteLibrary.stickman({
-					ctx: ctx
+					ctx: ctx,
+					leftUpArmAngle: Math.PI / 2,
+					rightArmAngle: -Math.PI / 6
+				});
+				ctx.restore();
+
+				//Archer2
+				ctx.save();
+				ctx.translate(500, 100);
+				SpriteLibrary.stickman({
+					ctx: ctx,
+					leftUpArmAngle: Math.PI / 8,
+					rightArmAngle: -Math.PI / 2
 				});
 				ctx.restore();
 

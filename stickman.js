@@ -10,45 +10,27 @@
 	var ARM_WIDTH = BODY_WIDTH;
 	var ARM_LENGTH = 80;
 
-	SpriteLibrary.stickman = function (stickmanSpecification) {
-		var ctx = stickmanSpecification.ctx;
-
-		//Head
-		ctx.beginPath();
-		ctx.arc(10, 0, HEAD_RADIUS, 0, 2 * Math.PI, false);
-		ctx.fill();
-		ctx.closePath();
-
-		//Body
-		ctx.fillRect(0, 0, BODY_WIDTH, BODY_LENGTH);
-
-		//Legs
-		var leftLegAngle = Math.PI / 15;
-		var rightLegAngle = -Math.PI / 15;
-
-		//Left Leg
+	var drawLeg = function (ctx, legOffset, legAngle) {
 		ctx.save();
-		ctx.translate(BODY_WIDTH - 5, BODY_LENGTH);
-		ctx.rotate(leftLegAngle);
+		ctx.translate(legOffset, BODY_LENGTH);
+		ctx.rotate(legAngle);
 		ctx.fillRect(-LEG_WIDTH / 2, 0, LEG_WIDTH, LEG_LENGTH);
 		ctx.restore();
+	}
 
-		//Right Leg
+	var drawStraightArm = function(ctx, armOffset, armAngle) {
 		ctx.save();
-		ctx.translate(BODY_WIDTH / 2.2, BODY_LENGTH);
-		ctx.rotate(rightLegAngle);
-		ctx.fillRect(-LEG_WIDTH / 2, 0, LEG_WIDTH, LEG_LENGTH);
+		ctx.translate(armOffset, BODY_LENGTH / 3);
+		ctx.rotate(armAngle);
+		ctx.fillRect(-ARM_WIDTH / 2, 0, ARM_WIDTH, ARM_LENGTH);
 		ctx.restore();
+	}
 
-		//Arms
-		var rightArmAngle = -Math.PI / 6;
-		var leftArmAngle = Math.PI / 6;
-
-		//Left Arm
+	var drawBentArm = function(ctx, upArmOffset, upArmAngle, forearmAngle) {
 			//Upper Arm
 		ctx.save();
-		ctx.translate(BODY_WIDTH - 5, BODY_LENGTH / 3);
-		ctx.rotate(leftArmAngle);
+		ctx.translate(upArmOffset, BODY_LENGTH / 3);
+		ctx.rotate(upArmAngle);
 		ctx.fillRect(-ARM_WIDTH / 2, 0, ARM_WIDTH, ARM_LENGTH / 2);
 			//Elbow
 		ctx.beginPath();
@@ -57,15 +39,41 @@
 		ctx.fill();
 		ctx.closePath();
 			//Fore Arm
-		ctx.rotate(-leftArmAngle * 3);
+		ctx.rotate(forearmAngle);
 		ctx.fillRect(-ARM_WIDTH / 2, 0, ARM_WIDTH, ARM_LENGTH / 2);
 		ctx.restore();
+	}
+
+	SpriteLibrary.stickman = function (stickmanSpecification) {
+		var ctx = stickmanSpecification.ctx;
+
+		var leftLegAngle = stickmanSpecification.leftLegAngle || (Math.PI / 15);
+		var rightLegAngle = stickmanSpecification.rightLegAngle || (-Math.PI / 15);
+
+		var leftUpArmAngle = stickmanSpecification.leftUpArmAngle || (Math.PI / 6);
+		var leftForearmAngle = stickmanSpecification.leftForearmAngle || (-leftUpArmAngle * 3);
+		var rightArmAngle = stickmanSpecification.rightArmAngle || (-Math.PI / 6);
+
+		//Head
+		ctx.beginPath();
+		ctx.arc(15, 0, HEAD_RADIUS, 0, 2 * Math.PI, false);
+		ctx.fill();
+		ctx.closePath();
+
+		//Body
+		ctx.fillRect(5, 0, BODY_WIDTH, BODY_LENGTH);
+
+		//Legs
+		drawLeg(ctx, BODY_WIDTH, leftLegAngle);
+		drawLeg(ctx, BODY_WIDTH, rightLegAngle);
+
+		//Arms
+
+
+		//Left Arm
+		drawBentArm(ctx, BODY_WIDTH, leftUpArmAngle, leftForearmAngle);
 
 		//Right Arm
-		ctx.save();
-		ctx.translate(BODY_WIDTH / 2.2, BODY_LENGTH / 3);
-		ctx.rotate(rightArmAngle);
-		ctx.fillRect(-ARM_WIDTH / 2, 0, ARM_WIDTH, ARM_LENGTH);
-		ctx.restore();
+		drawStraightArm(ctx, BODY_WIDTH, rightArmAngle);
 	}
 }());
