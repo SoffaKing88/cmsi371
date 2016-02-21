@@ -19,15 +19,22 @@
 			var canvas = document.getElementById("canvas");
 			var ctx = canvas.getContext("2d");
 
+			var archerLeftUpArmAngle = Math.PI / 2;
+			var archerRightArmAngle = -Math.PI / 6;
+			var targetOpacity = 1.0;
+			var bowPullPointX = -125;
+
 			var drawScene = function () {
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+
 				//Archer
 				ctx.save();
 				ctx.translate(120, 100);
 				ctx.scale(0.7, 0.7);
 				SpriteLibrary.stickman({
 					ctx: ctx,
-					leftUpArmAngle: Math.PI / 2,
-					rightArmAngle: -Math.PI / 6
+					leftUpArmAngle: archerLeftUpArmAngle,
+					rightArmAngle: archerRightArmAngle
 				});
 				ctx.restore();
 
@@ -37,7 +44,7 @@
 				ctx.scale(0.7, 0.7);
 				SpriteLibrary.target({
 					ctx: ctx,
-					opacity: 1
+					opacity: targetOpacity
 				});
 				ctx.restore();
 
@@ -55,15 +62,17 @@
 				ctx.scale(0.3, 0.3);
 				SpriteLibrary.bow({
 					ctx: ctx,
-					pullPointX: -125
+					pullPointX: bowPullPointX
 				});
 				ctx.restore();
 
-				//window.requestAnimationFrame(drawScene);
+				archerLeftUpArmAngle += Math.PI / 180;
 
-			}();
+				window.requestAnimationFrame(drawScene);
 
-			//window.requestAnimationFrame(drawScene);
+			};
+
+			window.requestAnimationFrame(drawScene);
 
 		}());
 		</script>
