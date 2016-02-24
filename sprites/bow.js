@@ -76,25 +76,5 @@
 
 		drawString(ctx, pullPointX, pullPointY);
 
-		//String
-		// ctx.save();
-		// ctx.beginPath();
-		// ctx.lineWidth = 1;
-		// ctx.moveTo(0, 0);
-		// ctx.lineTo(0, pullPoint);
-		// ctx.stroke();
-		// ctx.closePath();
-		// ctx.restore();
-
-		// ctx.save();
-		// ctx.beginPath();
-		// ctx.scale(1, -1);
-		// ctx.translate(0,-360);
-		// ctx.moveTo(0, 0);
-		// ctx.lineTo(0, pullPoint);
-		// ctx.lineWidth = 1;
-		// ctx.stroke();
-		// ctx.closePath();
-		// ctx.restore();
 	};
 }());

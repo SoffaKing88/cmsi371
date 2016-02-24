@@ -10,6 +10,6 @@
 	SpriteLibrary.background = function (backgroundSpecification) {
 		var ctx = backgroundSpecification.ctx;
 
-			ctx.drawImage(backgroundImage, 0, 0);
+		ctx.drawImage(backgroundImage, 0, 0);
 	};
 }());

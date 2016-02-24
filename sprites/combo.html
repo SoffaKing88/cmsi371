@@ -14,6 +14,7 @@
 		<script src="arrow.js"> </script>
 		<script src="target.js"> </script>
 		<script src="background.js"> </script>
+		<script src="dmgnums.js"> </script>
 
 		<script>
 		(function () {
@@ -22,8 +23,14 @@
 
 			var archerLeftUpArmAngle = Math.PI / 2;
 			var archerRightArmAngle = -Math.PI / 6;
+
 			var targetOpacity = 1.0;
+
 			var bowPullPointX = -125;
+
+			var numsOpacity = 1.0;
+			var dmgfirstNum = "3";
+			var dmgsecondNum = "8";
 
 			var drawScene = function () {
 				ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -32,7 +39,7 @@
 				ctx.save();
 				ctx.scale(1.8, 1.2);
 				SpriteLibrary.background({
-					ctx: ctx,
+					ctx: ctx
 				});
 				ctx.restore();
 
@@ -54,6 +61,17 @@
 				SpriteLibrary.target({
 					ctx: ctx,
 					opacity: targetOpacity
+				});
+				ctx.restore();
+
+				//Numbers
+				ctx.save();
+				ctx.translate(860, 70);
+				SpriteLibrary.dmgnums({
+					ctx: ctx,
+					opacity: numsOpacity,
+					firstNum: dmgfirstNum,
+					secondNum: dmgsecondNum
 				});
 				ctx.restore();
 
