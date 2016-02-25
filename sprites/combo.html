@@ -13,35 +13,16 @@
 		<script src="bow.js"> </script>
 		<script src="arrow.js"> </script>
 		<script src="target.js"> </script>
-		<script src="background.js"> </script>
-		<script src="dmgnums.js"> </script>
 
 		<script>
 		(function () {
 			var canvas = document.getElementById("canvas");
 			var ctx = canvas.getContext("2d");
 
-			var archerLeftUpArmAngle = Math.PI / 2;
-			var archerRightArmAngle = -Math.PI / 6;
-
-			var targetOpacity = 1.0;
-
-			var bowPullPointX = -125;
-
-			var numsOpacity = 1.0;
-			var dmgfirstNum = "3";
-			var dmgsecondNum = "8";
+			var arrowPosX = 150;
 
 			var drawScene = function () {
 				ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-				//Background
-				ctx.save();
-				ctx.scale(1.8, 1.2);
-				SpriteLibrary.background({
-					ctx: ctx
-				});
-				ctx.restore();
 
 				//Archer
 				ctx.save();
@@ -49,8 +30,8 @@
 				ctx.scale(0.7, 0.7);
 				SpriteLibrary.stickman({
 					ctx: ctx,
-					leftUpArmAngle: archerLeftUpArmAngle,
-					rightArmAngle: archerRightArmAngle
+					leftUpArmAngle: Math.PI / 2,
+					rightArmAngle: -Math.PI / 6
 				});
 				ctx.restore();
 
@@ -60,24 +41,13 @@
 				ctx.scale(0.7, 0.7);
 				SpriteLibrary.target({
 					ctx: ctx,
-					opacity: targetOpacity
-				});
-				ctx.restore();
-
-				//Numbers
-				ctx.save();
-				ctx.translate(860, 70);
-				SpriteLibrary.dmgnums({
-					ctx: ctx,
-					opacity: numsOpacity,
-					firstNum: dmgfirstNum,
-					secondNum: dmgsecondNum
+					opacity: 0.3
 				});
 				ctx.restore();
 
 				//Arrow
 				ctx.save();
-				ctx.translate(150, 150);
+				ctx.translate(arrowPosX, 150);
 				ctx.scale(0.5, 0.5);
 				SpriteLibrary.arrow({
 					ctx: ctx
@@ -89,12 +59,11 @@
 				ctx.scale(0.3, 0.3);
 				SpriteLibrary.bow({
 					ctx: ctx,
-					pullPointX: bowPullPointX
+					pullPointX: -125
 				});
 				ctx.restore();
 
-				archerLeftUpArmAngle += Math.PI / 180;
-
+				arrowPosX += 3;
 				window.requestAnimationFrame(drawScene);
 
 			};
