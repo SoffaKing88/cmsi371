@@ -29,8 +29,10 @@
 			var bowPullPointX = -125;
 
 			var numsOpacity = 1.0;
-			var dmgfirstNum = "3";
-			var dmgsecondNum = "8";
+			var ONEdmgFirstNum = "3";
+			var ONEdmgSecondNum = "8";
+			var TWOdmgFirstNum = "2";
+			var TWOdmgSecondNum = "5";
 
 			var drawScene = function () {
 				ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -70,8 +72,10 @@
 				SpriteLibrary.dmgnums({
 					ctx: ctx,
 					opacity: numsOpacity,
-					firstNum: dmgfirstNum,
-					secondNum: dmgsecondNum
+					ONEfirstNum: ONEdmgFirstNum,
+					ONEsecondNum: ONEdmgSecondNum,
+					TWOfirstNum: TWOdmgFirstNum,
+					TWOsecondNum: TWOdmgSecondNum
 				});
 				ctx.restore();
 
@@ -93,7 +97,7 @@
 				});
 				ctx.restore();
 
-				archerLeftUpArmAngle += Math.PI / 180;
+				//archerLeftUpArmAngle += Math.PI / 180;
 
 				window.requestAnimationFrame(drawScene);
 
