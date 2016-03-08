@@ -79,7 +79,7 @@
                     sx: 0.7,
                     sy: 0.7,
                     parameters: {
-                        leftUpArmAngle: Math.PI / 6,
+                        leftUpArmAngle: Math.PI,
                         leftForearmAngle: -Math.PI / 2,
                         rightArmAngle: -Math.PI / 2.2
                     }
@@ -92,7 +92,7 @@
                     sx: 0.7,
                     sy: 0.7,
                     parameters: {
-                        leftUpArmAngle: Math.PI / 6,
+                        leftUpArmAngle: Math.PI,
                         leftForearmAngle: -Math.PI / 2,
                         rightArmAngle: -Math.PI / 2.2
                     }
