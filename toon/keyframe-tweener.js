@@ -92,6 +92,9 @@
                         var rotateStart = (startKeyframe.rotate || 0) * Math.PI / 180;
                         var rotateDistance = (endKeyframe.rotate || 0) * Math.PI / 180 - rotateStart;
 
+                        var startSpriteSpecification = startKeyframe.parameters || {};
+                        var endSpriteSpecification = endKeyframe.parameters || {};
+
                         var currentTweenFrame = currentFrame - startKeyframe.frame;
                         var duration = endKeyframe.frame - startKeyframe.frame + 1;
 
@@ -108,24 +111,51 @@
                             ease(currentTweenFrame, syStart, syDistance, duration)
                         );
 
-                        var startParameters = Object.keys(startKeyframe.parameters);
-                        var endParameters = Object.keys(endKeyframe.parameters);
-                        var resultingParameters = {};
+                        var spriteParameters = {
+                            ctx: renderingContext
+                        };
 
-                        for (var k = 0, maxK = startParameters.length; i < maxK; k++){
-                            var key = startParameters[k];
-                            var parameterStart = startKeyframe.parameters[key];
-                            var parameterEnd = endKeyframe.parameters[key];
-                            if (typeof parameterStart === typeof parameterEnd && typeof parameterStart === typeof 0) {
-                                var parameterDistance = parameterEnd - parameterStart;
-                                resultingParameters[key] = ease(currentTweenFrame, parameterStart, parameterDistance, duration);
-                            } else {
-                                resultingParameters[key] = parameterStart;
-                            }
+                        console.log (startSpriteSpecification);
+
+                        for (var specification in startSpriteSpecification) {
+                            // console.log("currentTweenFrame: " + currentTweenFrame);
+                            // console.log("start spec: " + startSpriteSpecification[specification]);
+                            // console.log("end spec: " + endSpriteSpecification[specification]);
+
+                            spriteParameters[specification] = ease(currentTweenFrame, startSpriteSpecification[specification], endSpriteSpecification[specification] - startSpriteSpecification[specification], duration);
                         }
 
+                        console.log(spriteParameters);
+
+                        /*var startParameters = Object.keys(startKeyframe.parameters) || {};
+                        var endParameters = Object.keys(endKeyframe.parameters) || {};
+                        var resultingParameters = {
+                            renderingContext: renderingContext
+                        };
+
+                        console.log(startParameters.length);
+                        for (var k = 0, maxK = startParameters.length; i <= maxK; k++){
+                            var key = startParameters[k];
+                            console.log(key);
+                            var parameterStart = startKeyframe.parameters[key];
+                            console.log(parameterStart);
+                            var parameterEnd = endKeyframe.parameters[key];
+                            console.log(parameterEnd);
+                            if (typeof parameterStart === typeof parameterEnd && typeof parameterStart === typeof 0) {
+                                console.log("IF statement");
+                                var parameterDistance = parameterEnd - parameterStart;
+                                console.log("Step 1");
+                                resultingParameters[key] = ease(currentTweenFrame, parameterStart, parameterDistance, duration);
+                                console.log("Step 2");
+                            } else {
+                                console.log("ELSE statement");
+                                resultingParameters[key] = parameterStart;
+                                console.log("Step 1");
+                            }
+                        }*/
+
                         // Draw the sprite.
-                        sprites[i].draw(resultingParameters);
+                        sprites[i].draw(spriteParameters);
 
                         // Clean up.
                         renderingContext.restore();

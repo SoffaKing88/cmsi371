@@ -53,7 +53,7 @@
                     sy: 0.3,
                     ease: KeyframeTweener.linear,
                     parameters: {
-                        bowPullPointX: 0
+                        pullPointX: 0
                     }
                 },
 
@@ -65,7 +65,7 @@
                     sy: 0.3,
                     ease: KeyframeTweener.linear,
                     parameters: {
-                        bowPullPointX: 100
+                        pullPointX: 500
                     }
                 }
             ]
