@@ -43,12 +43,95 @@
         },
 
         {
-            draw: SpriteLibrary.arrow,
+            draw: SpriteLibrary.bow,
+            keyframes: [
+                {
+                    frame: 0,
+                    tx: 150,
+                    ty: 150,
+                    sx: 0.3,
+                    sy: 0.3,
+                    ease: KeyframeTweener.linear,
+                    parameters: {
+                        bowPullPointX: 0
+                    }
+                },
+
+                {
+                    frame: 250,
+                    tx: 200,
+                    ty: 150,
+                    sx: 0.3,
+                    sy: 0.3,
+                    ease: KeyframeTweener.linear,
+                    parameters: {
+                        bowPullPointX: 100
+                    }
+                }
+            ]
+        },
+
+        {
+            draw: SpriteLibrary.stickman,
             keyframes: [
                 {
                     frame: 0,
                     tx: 100,
                     ty: 100,
+                    sx: 0.7,
+                    sy: 0.7,
+                    parameters: {
+
+                    }
+                },
+
+                {
+                    frame: 250,
+                    tx: 100,
+                    ty: 100,
+                    sx: 0.7,
+                    sy: 0.7,
+                    parameters: {
+
+                    }
+                }
+            ]
+        },
+
+        {
+            draw: SpriteLibrary.target,
+            keyframes: [
+                {
+                    frame: 0,
+                    tx: 800,
+                    ty: 70,
+                    sx: 0.7,
+                    sy: 0.7,
+                    parameters: {
+
+                    }
+                },
+
+                {
+                    frame: 250,
+                    tx: 800,
+                    ty: 70,
+                    sx: 0.7,
+                    sy: 0.7,
+                    parameters: {
+
+                    }
+                }
+            ]
+        },
+
+        {
+            draw: SpriteLibrary.arrow,
+            keyframes: [
+                {
+                    frame: 0,
+                    tx: 100,
+                    ty: 110,
                     sx: 0.5,
                     sy: 0.5,
                     ease: KeyframeTweener.linear,
@@ -59,8 +142,8 @@
 
                 {
                     frame: 100,
-                    tx: 800,
-                    ty: 100,
+                    tx: 820,
+                    ty: 110,
                     sx: 0.5,
                     sy: 0.5,
                     ease: KeyframeTweener.linear,
@@ -72,25 +155,25 @@
         },
 
         {
-            draw: SpriteLibrary.bow,
+            draw: SpriteLibrary.dmgnums,
             keyframes: [
                 {
                     frame: 0,
-                    tx: 150,
-                    ty: 150,
-                    ease: KeyframeTweener.linear,
+                    tx: 860,
+                    ty: 70,
+                    ease: KeyframeTweener.quadEaseOut,
                     parameters: {
-                        pullPointX: 25
+
                     }
                 },
 
                 {
-                    frame: 250,
-                    tx: 200,
-                    ty: 150,
-                    ease: KeyframeTweener.linear,
+                    frame: 30,
+                    tx: 860,
+                    ty: 60,
+                    ease: KeyframeTweener.quadEaseOut,
                     parameters: {
-                        pullPointX: 80
+
                     }
                 }
             ]
