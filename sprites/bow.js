@@ -1,7 +1,7 @@
 (function () {
 	
 	window.SpriteLibrary = window.SpriteLibrary || { };
-
+	
 	var drawBow = function (ctx, x1, y1, x2, y2, x3, y3, bowLineWidth) {
 		//Top half
 		ctx.save();
@@ -58,7 +58,7 @@
 	}
 
 	SpriteLibrary.bow = function (bowSpecification) {
-		var ctx = bowSpecification.ctx;
+		var ctx = bowSpecification.ctx || document.getElementById("canvas").getContext("2d");
 
 		var x1 = 0;
 		var y1 = 80;

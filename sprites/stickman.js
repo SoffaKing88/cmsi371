@@ -1,7 +1,7 @@
 (function () {
 
 	window.SpriteLibrary = window.SpriteLibrary || { };
-
+	
 	var HEAD_RADIUS = 20;
 	var BODY_WIDTH = 10;
 	var BODY_LENGTH = 100;
@@ -45,7 +45,7 @@
 	}
 
 	SpriteLibrary.stickman = function (stickmanSpecification) {
-		var ctx = stickmanSpecification.ctx;
+		var ctx = stickmanSpecification.ctx || document.getElementById("canvas").getContext("2d");
 
 		var leftLegAngle = stickmanSpecification.leftLegAngle || (Math.PI / 15);
 		var rightLegAngle = stickmanSpecification.rightLegAngle || (-Math.PI / 15);

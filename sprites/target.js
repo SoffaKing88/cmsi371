@@ -1,7 +1,7 @@
 (function () {
 	
 	window.SpriteLibrary = window.SpriteLibrary || { };
-
+	
 	var drawRightLeg = function (ctx, legAngle, opacity) {
 
 		ctx.save();
@@ -59,7 +59,7 @@
 	}
 
 	SpriteLibrary.target = function (targetSpecification) {
-		var ctx = targetSpecification.ctx;
+		var ctx = targetSpecification.ctx || document.getElementById("canvas").getContext("2d");
 
 		var opacity = targetSpecification.opacity || 1;
 

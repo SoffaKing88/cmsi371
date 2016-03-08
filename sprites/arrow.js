@@ -7,7 +7,7 @@
 	var FLETCH_BOTTOM = 50;
 
 	SpriteLibrary.arrow = function (arrowSpecification) {
-		var ctx = arrowSpecification.ctx;
+		var ctx = arrowSpecification.ctx || document.getElementById("canvas").getContext("2d");
 
 
 		//fletching

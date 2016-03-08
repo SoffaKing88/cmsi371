@@ -50,7 +50,7 @@
             }
 
             // Bail-out #2: Too soon.
-            if (timestamp - previousTimestamp < (1000 / (settings.frameRate || 24))) {
+            if (timestamp - previousTimestamp < (100 / (settings.frameRate || 24))) {
                 window.requestAnimationFrame(nextFrame);
                 return;
             }
@@ -112,8 +112,8 @@
                         var endParameters = Object.keys(endKeyframe.parameters);
                         var resultingParameters = {};
 
-                        for (var i = 0, maxK = startParameters.length; i < maxK; i++){
-                            var key = startParameters[i];
+                        for (var k = 0, maxK = startParameters.length; i < maxK; k++){
+                            var key = startParameters[k];
                             var parameterStart = startKeyframe.parameters[key];
                             var parameterEnd = endKeyframe.parameters[key];
                             if (typeof parameterStart === typeof parameterEnd && typeof parameterStart === typeof 0) {
@@ -125,7 +125,7 @@
                         }
 
                         // Draw the sprite.
-                        sprites[i].draw(renderingContext);
+                        sprites[i].draw(resultingParameters);
 
                         // Clean up.
                         renderingContext.restore();

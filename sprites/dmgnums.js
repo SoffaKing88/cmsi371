@@ -1,7 +1,7 @@
 (function () {
 
 	window.SpriteLibrary = window.SpriteLibrary || { };
-
+	
 	var numSpacing = 13;
 
 	var drawNum = function(ctx, num, opacity) {
@@ -11,7 +11,7 @@
 	}
 
 	SpriteLibrary.dmgnums = function (dmgnumsSpecification) {
-		var ctx = dmgnumsSpecification.ctx;
+		var ctx = dmgnumsSpecification.ctx || document.getElementById("canvas").getContext("2d");
 
 		var opacity = dmgnumsSpecification.opacity || 1;
 		var firstNum = dmgnumsSpecification.ONEfirstNum || 0;
