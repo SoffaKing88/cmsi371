@@ -20,6 +20,11 @@
         renderingContext.stroke();
     };
 
+    var arrow = function (parameters) {
+        renderingContext = parameters.renderingContext,
+        length = parameters.length
+    }
+
     // Then, we have "easing functions" that determine how
     // intermediate frames are computed.
 
@@ -27,61 +32,61 @@
     // has a drawing function and an array of keyframes.
     var sprites = [
         {
-            draw: square,
+            draw: arrow,
             keyframes: [
                 {
                     frame: 0,
-                    tx: 20,
-                    ty: 20,
-                    ease: KeyframeTweener.linear
-                },
-
-                {
-                    frame: 30,
                     tx: 100,
-                    ty: 50,
-                    ease: KeyframeTweener.quadEaseInOut
+                    ty: 100,
+                    ease: KeyframeTweener.linear,
+                    parameters: {
+                        length: 50,
+                        height: 10
+                    }
                 },
 
-                // The last keyframe does not need an easing function.
                 {
-                    frame: 80,
-                    tx: 80,
-                    ty: 500,
-                    rotate: 60 // Keyframe.rotate uses degrees.
+                    frame: 20,
+                    tx: 150,
+                    ty: 100,
+                    ease: KeyframeTweener.linear,
+                    parameters: {
+                        length: 100,
+                        height: 10
+                    }
                 }
             ]
         },
 
         {
-            draw: circle,
+            draw: background,
             keyframes: [
                 {
-                    frame: 50,
-                    tx: 300,
-                    ty: 600,
-                    sx: 0.5,
-                    sy: 0.5,
-                    ease: KeyframeTweener.quadEaseOut
+                    frame: 0,
+                    tx: 0,
+                    ty: 0
                 },
 
                 {
-                    frame: 100,
-                    tx: 300,
-                    ty: 0,
-                    sx: 3,
-                    sy: 0.25,
-                    ease: KeyframeTweener.quadEaseOut
-                },
-
-                {
-                    frame: 150,
-                    tx: 300,
-                    ty: 600,
-                    sx: 0.5,
-                    sy: 0.5
+                    frame: 5000,
+                    tx: 0,
+                    ty: 0
                 }
             ]
+        },
+
+        {
+            draw: bow,
+            keyframes: [
+                {
+                    frame: 0,
+                    tx: 150,
+                    ty: 150,
+                    ease: KeyframeTweener.linear,
+                    parameters: {
+
+                    }
+                }]
         }
     ];
 

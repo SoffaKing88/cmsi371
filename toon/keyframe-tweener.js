@@ -108,6 +108,22 @@
                             ease(currentTweenFrame, syStart, syDistance, duration)
                         );
 
+                        var startParameters = Object.keys(startKeyframe.parameters);
+                        var endParameters = Object.keys(endKeyframe.parameters);
+                        var resultingParameters = {};
+
+                        for (var i = 0, maxK = startParameters.length; i < maxK; i++){
+                            var key = startParameters[i];
+                            var parameterStart = startKeyframe.parameters[key];
+                            var parameterEnd = endKeyframe.parameters[key];
+                            if (typeof parameterStart === typeof parameterEnd && typeof parameterStart === typeof 0) {
+                                var parameterDistance = parameterEnd - parameterStart;
+                                resultingParameters[key] = ease(currentTweenFrame, parameterStart, parameterDistance, duration);
+                            } else {
+                                resultingParameters[key] = parameterStart;
+                            }
+                        }
+
                         // Draw the sprite.
                         sprites[i].draw(renderingContext);
 
