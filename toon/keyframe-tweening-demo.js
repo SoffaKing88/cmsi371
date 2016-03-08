@@ -43,35 +43,6 @@
         },
 
         {
-            draw: SpriteLibrary.bow,
-            keyframes: [
-                {
-                    frame: 0,
-                    tx: 150,
-                    ty: 150,
-                    sx: 0.3,
-                    sy: 0.3,
-                    ease: KeyframeTweener.linear,
-                    parameters: {
-                        pullPointX: 0
-                    }
-                },
-
-                {
-                    frame: 250,
-                    tx: 200,
-                    ty: 150,
-                    sx: 0.3,
-                    sy: 0.3,
-                    ease: KeyframeTweener.linear,
-                    parameters: {
-                        pullPointX: 500
-                    }
-                }
-            ]
-        },
-
-        {
             draw: SpriteLibrary.stickman,
             keyframes: [
                 {
@@ -81,18 +52,106 @@
                     sx: 0.7,
                     sy: 0.7,
                     parameters: {
-
+                        leftUpArmAngle: Math.PI / 6,
+                        leftForearmAngle: -Math.PI / 2,
+                        rightArmAngle: -Math.PI / 5.6
                     }
                 },
 
                 {
-                    frame: 250,
+                    frame: 30,
+                    tx: 100,
+                    ty: 100,
+                    sx: 0.7,
+                    sy: 0.7,
+                    ease: KeyframeTweener.quadEaseInAndOut,
+                    parameters: {
+                        leftUpArmAngle: Math.PI / 6,
+                        leftForearmAngle: -Math.PI / 2,
+                        rightArmAngle: -Math.PI / 5.6
+                    }
+                },
+
+                {
+                    frame: 100,
                     tx: 100,
                     ty: 100,
                     sx: 0.7,
                     sy: 0.7,
                     parameters: {
+                        leftUpArmAngle: Math.PI / 6,
+                        leftForearmAngle: -Math.PI / 2,
+                        rightArmAngle: -Math.PI / 2.2
+                    }
+                },
 
+                {
+                    frame: 400,
+                    tx: 100,
+                    ty: 100,
+                    sx: 0.7,
+                    sy: 0.7,
+                    parameters: {
+                        leftUpArmAngle: Math.PI / 6,
+                        leftForearmAngle: -Math.PI / 2,
+                        rightArmAngle: -Math.PI / 2.2
+                    }
+                }
+            ]
+        },
+
+        {
+            draw: SpriteLibrary.bow,
+            keyframes: [
+                {
+                    frame: 0,
+                    tx: 168,
+                    ty: 122,
+                    sx: 0.3,
+                    sy: 0.3,
+                    rotate: 50,
+                    ease: KeyframeTweener.quadEaseInAndOut,
+                    parameters: {
+                        pullPointX: 0
+                    }
+                },
+
+                {
+                    frame: 30,
+                    tx: 168,
+                    ty: 122,
+                    sx: 0.3,
+                    sy: 0.3,
+                    rotate: 50,
+                    ease: KeyframeTweener.quadEaseInAndOut,
+                    parameters: {
+                        pullPointX: 0
+                    }
+                },
+
+                {
+                    frame: 100,
+                    tx: 150,
+                    ty: 75,
+                    sx: 0.3,
+                    sy: 0.3,
+                    rotate: 3,
+                    ease: KeyframeTweener.quadEaseInAndOut,
+                    parameters: {
+                        pullPointX: 0
+                    }
+                },
+
+                {
+                    frame: 400,
+                    tx: 150,
+                    ty: 75,
+                    sx: 0.3,
+                    sy: 0.3,
+                    rotate: 3,
+                    ease: KeyframeTweener.quadEaseInAndOut,
+                    parameters: {
+                        pullPointX: 0
                     }
                 }
             ]
@@ -163,7 +222,7 @@
                     ty: 60,
                     ease: KeyframeTweener.easeOutBounce,
                     parameters: {
-                        opacity: 0.2,
+                        opacity: 0,
                         ONEfirstNum: 3,
                         ONEsecondNum: 8
                     }
@@ -175,7 +234,7 @@
                     ty: 70,
                     ease: KeyframeTweener.easeOutBounce,
                     parameters: {
-                        opacity: 0.2,
+                        opacity: 1,
                         ONEfirstNum: 3,
                         ONEsecondNum: 8
                     }
@@ -187,7 +246,7 @@
                     ty: 70,
                     ease: KeyframeTweener.linear,
                     parameters: {
-                        opacity: 0.2,
+                        opacity: 1,
                         ONEfirstNum: 3,
                         ONEsecondNum: 8
                     }
@@ -199,7 +258,7 @@
                     ty: 70,
                     ease: KeyframeTweener.linear,
                     parameters: {
-                        opacity: 0.2,
+                        opacity: 0,
                         ONEfirstNum: 3,
                         ONEsecondNum: 8
                     }

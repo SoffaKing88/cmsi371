@@ -127,33 +127,6 @@
 
                         //console.log(spriteParameters);
 
-                        /*var startParameters = Object.keys(startKeyframe.parameters) || {};
-                        var endParameters = Object.keys(endKeyframe.parameters) || {};
-                        var resultingParameters = {
-                            renderingContext: renderingContext
-                        };
-
-                        console.log(startParameters.length);
-                        for (var k = 0, maxK = startParameters.length; i <= maxK; k++){
-                            var key = startParameters[k];
-                            console.log(key);
-                            var parameterStart = startKeyframe.parameters[key];
-                            console.log(parameterStart);
-                            var parameterEnd = endKeyframe.parameters[key];
-                            console.log(parameterEnd);
-                            if (typeof parameterStart === typeof parameterEnd && typeof parameterStart === typeof 0) {
-                                console.log("IF statement");
-                                var parameterDistance = parameterEnd - parameterStart;
-                                console.log("Step 1");
-                                resultingParameters[key] = ease(currentTweenFrame, parameterStart, parameterDistance, duration);
-                                console.log("Step 2");
-                            } else {
-                                console.log("ELSE statement");
-                                resultingParameters[key] = parameterStart;
-                                console.log("Step 1");
-                            }
-                        }*/
-
                         // Draw the sprite.
                         sprites[i].draw(spriteParameters);
 
@@ -206,6 +179,10 @@
             } else {
                 return distance * (7.5625 * (currentTime -= (2.625 / 2.75)) * currentTime + .984375) + start;
             }
+        },
+
+        easeOutCirc: function (currentTime, start, distance, duration) {
+        return distance * Math.sqrt(1 - (currentTime = currentTime / duration - 1) * currentTime) + start;
         },
 
         initialize: initializeAnimation

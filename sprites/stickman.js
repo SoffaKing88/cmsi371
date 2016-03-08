@@ -51,7 +51,7 @@
 		var rightLegAngle = stickmanSpecification.rightLegAngle || (-Math.PI / 15);
 
 		var leftUpArmAngle = stickmanSpecification.leftUpArmAngle || (Math.PI / 6);
-		var leftForearmAngle = stickmanSpecification.leftForearmAngle || (-leftUpArmAngle * 3);
+		var leftForearmAngle = stickmanSpecification.leftForearmAngle || (-Math.PI / 2);
 		var rightArmAngle = stickmanSpecification.rightArmAngle || (-Math.PI / 6);
 
 		//Head

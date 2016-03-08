@@ -6,8 +6,10 @@
 
 	var drawNum = function(ctx, num, opacity) {
 
+		ctx.fillStyle = "rgba(255, 0, 0, " + opacity + ")";
 		ctx.fillText(num, 0, 0);
 		ctx.translate(numSpacing, 0);
+		
 	}
 
 	SpriteLibrary.dmgnums = function (dmgnumsSpecification) {
@@ -20,7 +22,6 @@
 		var fourthNum = dmgnumsSpecification.TWOsecondNum || 0;
 
 		ctx.font = "24px Arial";
-		ctx.fillStyle = "red";
 
 		drawNum(ctx, firstNum, opacity);
 		drawNum(ctx, secondNum, opacity);

@@ -35,7 +35,7 @@
 			ctx.beginPath();
 			ctx.ellipse(100, 100, radiusX / i, radiusY / i, rotation, 0, 2 * Math.PI);
 			if(i % 2 == 0){
-				ctx.fillStyle = "white";
+				ctx.fillStyle = "rgba(255, 255, 255, " + opacity + ")";
 			} else {
 				ctx.fillStyle = "rgba(255, 0, 0, " + opacity + ")";
 			}
