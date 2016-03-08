@@ -108,7 +108,7 @@
                     sx: 0.7,
                     sy: 0.7,
                     parameters: {
-
+                        opacity: 1
                     }
                 },
 
@@ -119,7 +119,7 @@
                     sx: 0.7,
                     sy: 0.7,
                     parameters: {
-
+                        opacity: 0.1
                     }
                 }
             ]
@@ -158,22 +158,50 @@
             draw: SpriteLibrary.dmgnums,
             keyframes: [
                 {
-                    frame: 0,
+                    frame: 100,
                     tx: 860,
-                    ty: 70,
-                    ease: KeyframeTweener.quadEaseOut,
+                    ty: 60,
+                    ease: KeyframeTweener.easeOutBounce,
                     parameters: {
-
+                        opacity: 0.2,
+                        ONEfirstNum: 3,
+                        ONEsecondNum: 8
                     }
                 },
 
                 {
-                    frame: 30,
+                    frame: 140,
                     tx: 860,
-                    ty: 60,
-                    ease: KeyframeTweener.quadEaseOut,
+                    ty: 70,
+                    ease: KeyframeTweener.easeOutBounce,
                     parameters: {
+                        opacity: 0.2,
+                        ONEfirstNum: 3,
+                        ONEsecondNum: 8
+                    }
+                },
 
+                {
+                    frame: 200,
+                    tx: 860,
+                    ty: 70,
+                    ease: KeyframeTweener.linear,
+                    parameters: {
+                        opacity: 0.2,
+                        ONEfirstNum: 3,
+                        ONEsecondNum: 8
+                    }
+                },
+
+                {
+                    frame: 280,
+                    tx: 860,
+                    ty: 70,
+                    ease: KeyframeTweener.linear,
+                    parameters: {
+                        opacity: 0.2,
+                        ONEfirstNum: 3,
+                        ONEsecondNum: 8
                     }
                 }
             ]

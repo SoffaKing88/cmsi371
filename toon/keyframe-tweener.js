@@ -115,7 +115,7 @@
                             ctx: renderingContext
                         };
 
-                        console.log (startSpriteSpecification);
+                        //console.log (startSpriteSpecification);
 
                         for (var specification in startSpriteSpecification) {
                             // console.log("currentTweenFrame: " + currentTweenFrame);
@@ -125,7 +125,7 @@
                             spriteParameters[specification] = ease(currentTweenFrame, startSpriteSpecification[specification], endSpriteSpecification[specification] - startSpriteSpecification[specification], duration);
                         }
 
-                        console.log(spriteParameters);
+                        //console.log(spriteParameters);
 
                         /*var startParameters = Object.keys(startKeyframe.parameters) || {};
                         var endParameters = Object.keys(endKeyframe.parameters) || {};
@@ -194,6 +194,18 @@
             return (percentComplete < 1) ?
                     (distance / 2) * percentComplete * percentComplete + start :
                     (-distance / 2) * ((percentComplete - 1) * (percentComplete - 3) - 1) + start;
+        },
+
+        easeOutBounce: function (currentTime, start, distance, duration) {
+            if ((currentTime /= duration) < (1 / 2.75)) {
+                return distance * (7.5625 * currentTime * currentTime) + start;
+            } else if (currentTime < (2 / 2.75)) {
+                return distance * (7.5625 * (currentTime -= (1.5 / 2.75)) * currentTime + .75) + start;
+            } else if (currentTime < (2.5 / 2.75)) {
+                return distance * (7.5625 * (currentTime -= (2.25 / 2.75)) * currentTime + .9375) + start;
+            } else {
+                return distance * (7.5625 * (currentTime -= (2.625 / 2.75)) * currentTime + .984375) + start;
+            }
         },
 
         initialize: initializeAnimation
