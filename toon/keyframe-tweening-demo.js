@@ -43,6 +43,87 @@
         },
 
         {
+            draw: SpriteLibrary.target,
+            keyframes: [
+                {
+                    frame: 0,
+                    tx: 800,
+                    ty: 70,
+                    sx: 0.7,
+                    sy: 0.7,
+                    parameters: {
+                        opacity: 1
+                    }
+                },
+
+                {
+                    frame: 250,
+                    tx: 800,
+                    ty: 70,
+                    sx: 0.7,
+                    sy: 0.7,
+                    parameters: {
+                        opacity: 1
+                    }
+                }
+            ]
+        },
+
+        {
+            draw: SpriteLibrary.arrow,
+            keyframes: [
+                {
+                    frame: 0,
+                    tx: 105,
+                    ty: 90,
+                    sx: 0.5,
+                    sy: 0.5,
+                    rotate: 85,
+                    ease: KeyframeTweener.linear,
+                    parameters: {
+                        
+                    }
+                },
+
+                {
+                    frame: 500,
+                    tx: 105,
+                    ty: 90,
+                    sx: 0.5,
+                    sy: 0.5,
+                    rotate: 85,
+                    ease: KeyframeTweener.linear,
+                    parameters: {
+                        
+                    }
+                }
+            ]
+        },
+
+        {
+            draw: SpriteLibrary.quiver,
+            keyframes: [
+                {
+                    frame: 0,
+                    tx: 95,
+                    ty: 120,
+                    parameters: {
+
+                    }
+                },
+
+                {
+                    frame: 400,
+                    tx: 95,
+                    ty: 120,
+                    parameters: {
+
+                    }
+                }
+            ]
+        },
+
+        {
             draw: SpriteLibrary.stickman,
             keyframes: [
                 {
@@ -152,62 +233,6 @@
                     ease: KeyframeTweener.quadEaseInAndOut,
                     parameters: {
                         pullPointX: 0
-                    }
-                }
-            ]
-        },
-
-        {
-            draw: SpriteLibrary.target,
-            keyframes: [
-                {
-                    frame: 0,
-                    tx: 800,
-                    ty: 70,
-                    sx: 0.7,
-                    sy: 0.7,
-                    parameters: {
-                        opacity: 1
-                    }
-                },
-
-                {
-                    frame: 250,
-                    tx: 800,
-                    ty: 70,
-                    sx: 0.7,
-                    sy: 0.7,
-                    parameters: {
-                        opacity: 0.1
-                    }
-                }
-            ]
-        },
-
-        {
-            draw: SpriteLibrary.arrow,
-            keyframes: [
-                {
-                    frame: 0,
-                    tx: 100,
-                    ty: 110,
-                    sx: 0.5,
-                    sy: 0.5,
-                    ease: KeyframeTweener.linear,
-                    parameters: {
-                        
-                    }
-                },
-
-                {
-                    frame: 100,
-                    tx: 820,
-                    ty: 110,
-                    sx: 0.5,
-                    sy: 0.5,
-                    ease: KeyframeTweener.linear,
-                    parameters: {
-                        
                     }
                 }
             ]

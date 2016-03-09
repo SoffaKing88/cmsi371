@@ -2,9 +2,9 @@
 
 	window.SpriteLibrary = window.SpriteLibrary || { };
 
-	var length = 80;
-	var width = 20;
-	var rotation = 10;
+	var length = 50;
+	var width = 15;
+	var rotation = -5 * Math.PI / 180;
 
 	SpriteLibrary.quiver = function (quiverSpecification) {
 		var ctx = quiverSpecification.ctx || document.getElementById("canvas").getContext("2d");
