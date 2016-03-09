@@ -14,6 +14,7 @@
 
     // Now, to actually define the animated sprites.  Each sprite
     // has a drawing function and an array of keyframes.
+
     var sprites = [
         {
             draw: SpriteLibrary.background,
@@ -30,7 +31,7 @@
                 },
 
                 {
-                    frame: 5000,
+                    frame: 500,
                     tx: 0,
                     ty: 0,
                     sx: 1.8,
@@ -57,13 +58,24 @@
                 },
 
                 {
-                    frame: 500,
+                    frame: 300,
                     tx: 800,
                     ty: 70,
                     sx: 0.7,
                     sy: 0.7,
                     parameters: {
                         opacity: 1
+                    }
+                },
+
+                {
+                    frame: 400,
+                    tx: 800,
+                    ty: 70,
+                    sx: 0.7,
+                    sy: 0.7,
+                    parameters: {
+                        opacity: 0
                     }
                 }
             ]
@@ -198,12 +210,12 @@
                     rotate: 365,
                     ease: KeyframeTweener.linear,
                     parameters: {
-                        
+                        opacity: 1
                     }
                 },
 
                 {
-                    frame: 500,
+                    frame: 350,
                     tx: 800,
                     ty: 135,
                     sx: 0.5,
@@ -211,7 +223,7 @@
                     rotate: 365,
                     ease: KeyframeTweener.linear,
                     parameters: {
-                        
+                        opacity: 0
                     }
                 }
             ]
@@ -230,7 +242,7 @@
                 },
 
                 {
-                    frame: 400,
+                    frame: 500,
                     tx: 95,
                     ty: 120,
                     parameters: {
@@ -342,7 +354,7 @@
                 },
 
                 {
-                    frame: 400,
+                    frame: 500,
                     tx: 100,
                     ty: 100,
                     sx: 0.7,
@@ -452,7 +464,7 @@
                 },
 
                 {
-                    frame: 400,
+                    frame: 500,
                     tx: 150,
                     ty: 75,
                     sx: 0.3,
@@ -476,8 +488,10 @@
                     ease: KeyframeTweener.easeOutBounce,
                     parameters: {
                         opacity: 0,
-                        ONEfirstNum: 3,
-                        ONEsecondNum: 8
+                        firstNum: 9,
+                        secondNum: 9,
+                        thirdNum: 9,
+                        fourthNum: 9
                     }
                 },
 
@@ -488,8 +502,10 @@
                     ease: KeyframeTweener.easeOutBounce,
                     parameters: {
                         opacity: 1,
-                        ONEfirstNum: 3,
-                        ONEsecondNum: 8
+                        firstNum: 9,
+                        secondNum: 9,
+                        thirdNum: 9,
+                        fourthNum: 9
                     }
                 },
 
@@ -500,20 +516,24 @@
                     ease: KeyframeTweener.linear,
                     parameters: {
                         opacity: 1,
-                        ONEfirstNum: 3,
-                        ONEsecondNum: 8
+                        firstNum: 9,
+                        secondNum: 9,
+                        thirdNum: 9,
+                        fourthNum: 9
                     }
                 },
 
                 {
-                    frame: 445,
+                    frame: 400,
                     tx: 860,
                     ty: 70,
                     ease: KeyframeTweener.linear,
                     parameters: {
                         opacity: 0,
-                        ONEfirstNum: 3,
-                        ONEsecondNum: 8
+                        firstNum: 9,
+                        secondNum: 9,
+                        thirdNum: 9,
+                        fourthNum: 9
                     }
                 }
             ]
