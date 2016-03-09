@@ -50,7 +50,7 @@
             }
 
             // Bail-out #2: Too soon.
-            if (timestamp - previousTimestamp < (100 / (settings.frameRate || 24))) {
+            if (timestamp - previousTimestamp < (100 / (settings.frameRate || 10))) {
                 window.requestAnimationFrame(nextFrame);
                 return;
             }
@@ -183,6 +183,12 @@
 
         easeOutCirc: function (currentTime, start, distance, duration) {
         return distance * Math.sqrt(1 - (currentTime = currentTime / duration - 1) * currentTime) + start;
+        },
+
+        easeOutElastic: function (currentTime, start, distance, duration) {
+            var ts = (currentTime/=duration)*currentTime;
+            var tc = ts*currentTime;
+            return start+distance*(33*tc*ts + -106*ts*ts + 126*tc + -67*ts + 15*currentTime);
         },
 
         initialize: initializeAnimation

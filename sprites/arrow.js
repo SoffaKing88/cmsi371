@@ -9,7 +9,6 @@
 	SpriteLibrary.arrow = function (arrowSpecification) {
 		var ctx = arrowSpecification.ctx || document.getElementById("canvas").getContext("2d");
 
-
 		//fletching
 		ctx.beginPath();
 		ctx.fillStyle = "white";

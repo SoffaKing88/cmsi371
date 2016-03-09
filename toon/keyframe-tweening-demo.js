@@ -57,7 +57,7 @@
                 },
 
                 {
-                    frame: 250,
+                    frame: 500,
                     tx: 800,
                     ty: 70,
                     sx: 0.7,
@@ -86,12 +86,129 @@
                 },
 
                 {
-                    frame: 500,
+                    frame: 100,
                     tx: 105,
                     ty: 90,
                     sx: 0.5,
                     sy: 0.5,
                     rotate: 85,
+                    ease: KeyframeTweener.linear,
+                    parameters: {
+                        
+                    }
+                },
+
+                {
+                    frame: 125,
+                    tx: 100,
+                    ty: 70,
+                    sx: 0.5,
+                    sy: 0.5,
+                    rotate: 85,
+                    ease: KeyframeTweener.linear,
+                    parameters: {
+                        
+                    }
+                },
+
+                {
+                    frame: 140,
+                    tx: 145,
+                    ty: 60,
+                    sx: 0.5,
+                    sy: 0.5,
+                    rotate: 130,
+                    ease: KeyframeTweener.linear,
+                    parameters: {
+                        
+                    }
+                },
+
+                {
+                    frame: 170,
+                    tx: 120,
+                    ty: 100,
+                    sx: 0.5,
+                    sy: 0.5,
+                    rotate: 270,
+                    ease: KeyframeTweener.linear,
+                    parameters: {
+                        
+                    }
+                },
+
+                {
+                    frame: 190,
+                    tx: 125,
+                    ty: 125,
+                    sx: 0.5,
+                    sy: 0.5,
+                    rotate: 365,
+                    ease: KeyframeTweener.linear,
+                    parameters: {
+                        
+                    }
+                },
+
+                {
+                    frame: 200,
+                    tx: 125,
+                    ty: 125,
+                    sx: 0.5,
+                    sy: 0.5,
+                    rotate: 365,
+                    ease: KeyframeTweener.linear,
+                    parameters: {
+                        
+                    }
+                },
+
+                {
+                    frame: 240,
+                    tx: 75,
+                    ty: 120,
+                    sx: 0.5,
+                    sy: 0.5,
+                    rotate: 365,
+                    ease: KeyframeTweener.linear,
+                    parameters: {
+                        
+                    }
+                },
+
+                {
+                    frame: 270,
+                    tx: 75,
+                    ty: 120,
+                    sx: 0.5,
+                    sy: 0.5,
+                    rotate: 365,
+                    ease: KeyframeTweener.linear,
+                    parameters: {
+                        
+                    }
+                },
+
+                {
+                    frame: 285,
+                    tx: 800,
+                    ty: 135,
+                    sx: 0.5,
+                    sy: 0.5,
+                    rotate: 365,
+                    ease: KeyframeTweener.linear,
+                    parameters: {
+                        
+                    }
+                },
+
+                {
+                    frame: 500,
+                    tx: 800,
+                    ty: 135,
+                    sx: 0.5,
+                    sy: 0.5,
+                    rotate: 365,
                     ease: KeyframeTweener.linear,
                     parameters: {
                         
@@ -132,10 +249,11 @@
                     ty: 100,
                     sx: 0.7,
                     sy: 0.7,
+                    ease: KeyframeTweener.quadEaseInAndOut,
                     parameters: {
-                        leftUpArmAngle: Math.PI / 6,
-                        leftForearmAngle: -Math.PI / 2,
-                        rightArmAngle: -Math.PI / 5.6
+                        leftUpArmAngle: (Math.PI / 6),
+                        leftForearmAngle: (11 * Math.PI / 6),
+                        rightArmAngle: (-Math.PI / 5.6)
                     }
                 },
 
@@ -147,9 +265,9 @@
                     sy: 0.7,
                     ease: KeyframeTweener.quadEaseInAndOut,
                     parameters: {
-                        leftUpArmAngle: Math.PI / 6,
-                        leftForearmAngle: -Math.PI / 2,
-                        rightArmAngle: -Math.PI / 5.6
+                        leftUpArmAngle: (Math.PI / 6),
+                        leftForearmAngle: (11 * Math.PI / 6),
+                        rightArmAngle: (-Math.PI / 5.6)
                     }
                 },
 
@@ -159,10 +277,67 @@
                     ty: 100,
                     sx: 0.7,
                     sy: 0.7,
+                    ease: KeyframeTweener.quadEaseInAndOut,
                     parameters: {
-                        leftUpArmAngle: Math.PI,
-                        leftForearmAngle: -Math.PI / 2,
-                        rightArmAngle: -Math.PI / 2.2
+                        leftUpArmAngle: (-5 * Math.PI / 6),
+                        leftForearmAngle: (7 * Math.PI / 6),
+                        rightArmAngle: (-Math.PI / 2.2)
+                    }
+                },
+
+                {
+                    frame: 150,
+                    tx: 100,
+                    ty: 100,
+                    sx: 0.7,
+                    sy: 0.7,
+                    ease: KeyframeTweener.quadEaseInAndOut,
+                    parameters: {
+                        leftUpArmAngle: (-5 * Math.PI / 6),
+                        leftForearmAngle: (11 * Math.PI / 6),
+                        rightArmAngle: (-Math.PI / 2.2)
+                    }
+                },
+
+                {
+                    frame: 160,
+                    tx: 100,
+                    ty: 100,
+                    sx: 0.7,
+                    sy: 0.7,
+                    ease: KeyframeTweener.quadEaseInAndOut,
+                    parameters: {
+                        leftUpArmAngle: (-5 * Math.PI / 6),
+                        leftForearmAngle: (11 * Math.PI / 6),
+                        rightArmAngle: (-Math.PI / 2.2)
+                    }
+                },
+
+                {
+                    frame: 200,
+                    tx: 100,
+                    ty: 100,
+                    sx: 0.7,
+                    sy: 0.7,
+                    ease: KeyframeTweener.quadEaseInAndOut,
+                    parameters: {
+                        leftUpArmAngle: (-1 * Math.PI / 3),
+                        leftForearmAngle: (5 * Math.PI / 3),
+                        rightArmAngle: (-Math.PI / 2.2)
+                    }
+                },
+
+                {
+                    frame: 240,
+                    tx: 100,
+                    ty: 100,
+                    sx: 0.7,
+                    sy: 0.7,
+                    ease: KeyframeTweener.quadEaseInAndOut,
+                    parameters: {
+                        leftUpArmAngle: (Math.PI / 3),
+                        leftForearmAngle: (Math.PI),
+                        rightArmAngle: (-Math.PI / 2.2)
                     }
                 },
 
@@ -172,10 +347,11 @@
                     ty: 100,
                     sx: 0.7,
                     sy: 0.7,
+                    ease: KeyframeTweener.quadEaseInAndOut,
                     parameters: {
-                        leftUpArmAngle: Math.PI,
-                        leftForearmAngle: -Math.PI / 2,
-                        rightArmAngle: -Math.PI / 2.2
+                        leftUpArmAngle: (Math.PI / 3),
+                        leftForearmAngle: (Math.PI),
+                        rightArmAngle: (-Math.PI / 2.2)
                     }
                 }
             ]
@@ -224,13 +400,65 @@
                 },
 
                 {
-                    frame: 400,
+                    frame: 200,
                     tx: 150,
                     ty: 75,
                     sx: 0.3,
                     sy: 0.3,
                     rotate: 3,
                     ease: KeyframeTweener.quadEaseInAndOut,
+                    parameters: {
+                        pullPointX: 0
+                    }
+                },
+
+                {
+                    frame: 240,
+                    tx: 150,
+                    ty: 75,
+                    sx: 0.3,
+                    sy: 0.3,
+                    rotate: 3,
+                    ease: KeyframeTweener.quadEaseInAndOut,
+                    parameters: {
+                        pullPointX: -130
+                    }
+                },
+
+                {
+                    frame: 270,
+                    tx: 150,
+                    ty: 75,
+                    sx: 0.3,
+                    sy: 0.3,
+                    rotate: 3,
+                    ease: KeyframeTweener.easeOutElastic,
+                    parameters: {
+                        pullPointX: -130
+                    }
+                },
+
+                {
+                    frame: 275,
+                    tx: 150,
+                    ty: 75,
+                    sx: 0.3,
+                    sy: 0.3,
+                    rotate: 3,
+                    ease: KeyframeTweener.easeOutElastic,
+                    parameters: {
+                        pullPointX: 0
+                    }
+                },
+
+                {
+                    frame: 400,
+                    tx: 150,
+                    ty: 75,
+                    sx: 0.3,
+                    sy: 0.3,
+                    rotate: 3,
+                    ease: KeyframeTweener.easeOutElastic,
                     parameters: {
                         pullPointX: 0
                     }
@@ -242,7 +470,7 @@
             draw: SpriteLibrary.dmgnums,
             keyframes: [
                 {
-                    frame: 100,
+                    frame: 285,
                     tx: 860,
                     ty: 60,
                     ease: KeyframeTweener.easeOutBounce,
@@ -254,7 +482,7 @@
                 },
 
                 {
-                    frame: 140,
+                    frame: 325,
                     tx: 860,
                     ty: 70,
                     ease: KeyframeTweener.easeOutBounce,
@@ -266,7 +494,7 @@
                 },
 
                 {
-                    frame: 200,
+                    frame: 365,
                     tx: 860,
                     ty: 70,
                     ease: KeyframeTweener.linear,
@@ -278,7 +506,7 @@
                 },
 
                 {
-                    frame: 280,
+                    frame: 445,
                     tx: 860,
                     ty: 70,
                     ease: KeyframeTweener.linear,
