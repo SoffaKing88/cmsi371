@@ -272,16 +272,30 @@ var Primitives = {
      * permutations of that eighth's coordinates.  So we define a helper
      * function that all of the circle implementations will use...
      */
+
+     // var fillRectOneColor = function () {
+     //        // Single color all the way through.
+     //        for (i = y; i < bottom; i += 1) {
+     //            for (j = x; j < right; j += 1) {
+     //                module.setPixel(context, j, i, c1[0], c1[1], c1[2]);
+     //            }
+     //        }
+     //    };
+
     plotCirclePoints: function (context, xc, yc, x, y, color) {
         color = color || [0, 0, 0];
-        this.setPixel(context, xc + x, yc + y, color[0], color[1], color[2]);
-        this.setPixel(context, xc + x, yc - y, color[0], color[1], color[2]);
-        this.setPixel(context, xc + y, yc + x, color[0], color[1], color[2]);
-        this.setPixel(context, xc + y, yc - x, color[0], color[1], color[2]);
-        this.setPixel(context, xc - x, yc + y, color[0], color[1], color[2]);
-        this.setPixel(context, xc - x, yc - y, color[0], color[1], color[2]);
-        this.setPixel(context, xc - y, yc + x, color[0], color[1], color[2]);
-        this.setPixel(context, xc - y, yc - x, color[0], color[1], color[2]);
+        for(var i = 0; i <= y; i += 1) {
+            this.setPixel(context, xc + i, yc + x, color[0], color[1], color[2]);
+            this.setPixel(context, xc + i, yc - x, color[0], color[1], color[2]);
+            this.setPixel(context, xc - i, yc + x, color[0], color[1], color[2]);
+            this.setPixel(context, xc - i, yc - x, color[0], color[1], color[2]);
+        }
+        for (var j = 0; j <= x; j += 1){
+            this.setPixel(context, xc + j, yc + y, color[0], color[1], color[2]);
+            this.setPixel(context, xc + j, yc - y, color[0], color[1], color[2]);
+            this.setPixel(context, xc - j, yc + y, color[0], color[1], color[2]);
+            this.setPixel(context, xc - j, yc - y, color[0], color[1], color[2]);
+        }
     },
 
     // First, the most naive possible implementation: circle by trigonometry.
