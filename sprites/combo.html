@@ -24,15 +24,15 @@
 			var archerLeftUpArmAngle = Math.PI / 2;
 			var archerRightArmAngle = -Math.PI / 6;
 
-			var targetOpacity = 1.0;
+			var targetOpacity = 1;
 
 			var bowPullPointX = -125;
 
-			var numsOpacity = 1.0;
-			var ONEdmgFirstNum = "3";
-			var ONEdmgSecondNum = "8";
-			var TWOdmgFirstNum = "2";
-			var TWOdmgSecondNum = "5";
+			var numsOpacity = 1;
+			var firstNum = 3;
+			var secondNum = 8;
+			var thirdNum = 2;
+			var fourthNum = 5;
 
 			var drawScene = function () {
 				ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -72,10 +72,10 @@
 				SpriteLibrary.dmgnums({
 					ctx: ctx,
 					opacity: numsOpacity,
-					ONEfirstNum: ONEdmgFirstNum,
-					ONEsecondNum: ONEdmgSecondNum,
-					TWOfirstNum: TWOdmgFirstNum,
-					TWOsecondNum: TWOdmgSecondNum
+					firstNum: firstNum,
+					secondNum: secondNum,
+					thirdNum: thirdNum,
+					fourthNum: fourthNum
 				});
 				ctx.restore();
 
