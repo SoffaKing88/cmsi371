@@ -10,6 +10,17 @@ var Nanoshop = {
         return [ r / 2, g / 2, b / 2, a ];
     },
 
+    negative: function (x, y, r, g, b, a) {
+        var red = 255 - r;
+        var green = 255 - g;
+        var blue = 255 - b;
+        return [red, green, blue, a];
+    },
+
+    shifter: function (x, y, r, g, b, a) {
+        return [b, r, g, a];
+    },
+
     /*
      * Applies the given filter to the given ImageData object,
      * then modifies its pixels according to the given filter.

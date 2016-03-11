@@ -36,6 +36,35 @@ var NanoshopNeighborhood = {
         return [ rTotal / 9, gTotal / 9, bTotal / 9, aTotal / 9 ];
     },
 
+    grainy: function (x, y, rgbaNeighborhood) {
+        var ranNum = Math.floor(Math.random() * 9)
+        while (rNum == 4) {
+            ranNum = Math.floor(Math.random() * 9)
+        }
+        return [rgbaNeighborhood[ranNum].r, rgbaNeighborhood[ranNum].g, rgbaNeighborhood[ranNum].b, rgbaNeighborhood[ranNum].a];
+
+    },
+
+    next: function (x, y, rgbaNeighborhood) {
+        var rNum = 0;
+        var gNum = 0;
+        var bNum = 0;
+        for(var i = 0; i < 9; i += 1) {
+            if(i != 4) {
+                rNum += rgbaNeighborhood[i].r;
+                gNum += rgbaNeighborhood[i].g;
+                bNum += rgbaNeighborhood[i].b;
+            }
+        }
+
+        rNum = rNum % 255;
+        gNum = gNum % 255;
+        bNum = bNum % 255;
+
+        return [rNum, gNum, bNum, rgbaNeighborhood[4].a];
+                
+    },
+
     /*
      * This is a rudimentary edge dector---another filter that would not be possible
      * without knowing about the other pixels in our neighborhood.

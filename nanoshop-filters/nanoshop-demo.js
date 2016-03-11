@@ -22,75 +22,75 @@
             var TWOdmgFirstNum = "2";
             var TWOdmgSecondNum = "5";
 
-            var drawScene = function () {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-                //Background
-                ctx.save();
-                ctx.scale(1.8, 1.2);
-                SpriteLibrary.background({
-                    ctx: ctx
-                });
-                ctx.restore();
+            //Background
+            ctx.save();
+            ctx.scale(1.8, 1.2);
+            SpriteLibrary.background({
+                ctx: ctx
+            });
+            ctx.restore();
 
-                //Archer
-                ctx.save();
-                ctx.translate(120, 100);
-                ctx.scale(0.7, 0.7);
-                SpriteLibrary.stickman({
-                    ctx: ctx,
-                    leftUpArmAngle: archerLeftUpArmAngle,
-                    rightArmAngle: archerRightArmAngle
-                });
-                ctx.restore();
+            ctx.save();
+            ctx.fillStyle = "blue";
+            ctx.fillRect(0, 0, canvas.width, canvas.height * (2/3))
+            ctx.fillStyle = "green";
+            ctx.fillRect(0, canvas.height * (2/3), canvas.width, canvas.height * (1/3))
+            ctx.restore();
 
-                //Target
-                ctx.save();
-                ctx.translate(800, 70);
-                ctx.scale(0.7, 0.7);
-                SpriteLibrary.target({
-                    ctx: ctx,
-                    opacity: targetOpacity
-                });
-                ctx.restore();
+            //Archer
+            ctx.save();
+            ctx.translate(120, 100);
+            ctx.scale(0.7, 0.7);
+            SpriteLibrary.stickman({
+                ctx: ctx,
+                leftUpArmAngle: archerLeftUpArmAngle,
+                rightArmAngle: archerRightArmAngle
+            });
+            ctx.restore();
 
-                //Numbers
-                ctx.save();
-                ctx.translate(100, 100);
-                SpriteLibrary.dmgnums({
-                    ctx: ctx,
-                    opacity: numsOpacity,
-                    ONEfirstNum: ONEdmgFirstNum,
-                    ONEsecondNum: ONEdmgSecondNum,
-                    TWOfirstNum: TWOdmgFirstNum,
-                    TWOsecondNum: TWOdmgSecondNum
-                });
-                ctx.restore();
+            //Target
+            ctx.save();
+            ctx.translate(800, 70);
+            ctx.scale(0.7, 0.7);
+            SpriteLibrary.target({
+                ctx: ctx,
+                opacity: targetOpacity
+            });
+            ctx.restore();
 
-                //Arrow
-                ctx.save();
-                ctx.translate(150, 150);
-                ctx.scale(0.5, 0.5);
-                SpriteLibrary.arrow({
-                    ctx: ctx
-                });
-                ctx.restore();
+            //Numbers
+            ctx.save();
+            ctx.translate(100, 100);
+            SpriteLibrary.dmgnums({
+                ctx: ctx,
+                opacity: numsOpacity,
+                ONEfirstNum: ONEdmgFirstNum,
+                ONEsecondNum: ONEdmgSecondNum,
+                TWOfirstNum: TWOdmgFirstNum,
+                TWOsecondNum: TWOdmgSecondNum
+            });
+            ctx.restore();
 
-                //Bow
-                ctx.save();
-                ctx.translate(300, 100);
-                ctx.scale(0.3, 0.3);
-                SpriteLibrary.bow({
-                    ctx: ctx,
-                    pullPointX: bowPullPointX
-                });
-                ctx.restore();
+            //Arrow
+            ctx.save();
+            ctx.translate(150, 150);
+            ctx.scale(0.5, 0.5);
+            SpriteLibrary.arrow({
+                ctx: ctx
+            });
+            ctx.restore();
 
-                window.requestAnimationFrame(drawScene);
-
-            };
-
-        window.requestAnimationFrame(drawScene);
+            //Bow
+            ctx.save();
+            ctx.translate(300, 100);
+            ctx.scale(0.3, 0.3);
+            SpriteLibrary.bow({
+                ctx: ctx,
+                pullPointX: bowPullPointX
+            });
+            ctx.restore();
 
     // Set a little event handler to apply the filter.
     $("#apply-filter-button").click(function () {
@@ -98,7 +98,9 @@
         ctx.putImageData(
             Nanoshop.applyFilter(
                 ctx.getImageData(0, 0, canvas.width, canvas.height),
-                Nanoshop.darkener
+                //Nanoshop.darkener
+                //Nanoshop.shifter
+                Nanoshop.negative
             ),
             0, 0
         );

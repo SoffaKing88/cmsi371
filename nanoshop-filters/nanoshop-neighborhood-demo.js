@@ -4,130 +4,105 @@
  */
 (function () {
     var canvas = $("#picture")[0];
-    var renderingContext = canvas.getContext("2d");
+    var ctx = canvas.getContext("2d");
+
+    window.SpriteLibrary = window.SpriteLibrary || { };
 
     // Scene created by Angela Elgar: https://github.com/aelgar
-    renderingContext.save();
-    renderingContext.translate(400, 200);
-    Sprites.Wall.draw(renderingContext, { });
-    
-    renderingContext.resetTransform();
-    renderingContext.translate(120, 220);
-    Sprites.Shelf.draw(renderingContext);
-    renderingContext.translate(220, 0);
-    Sprites.Shelf.draw(renderingContext);
-    renderingContext.resetTransform();
-    renderingContext.translate(510, 120);
-    Sprites.Chalkboard.draw(renderingContext, { variation: "A" });
-    renderingContext.translate(110, 0);
-    Sprites.Chalkboard.draw(renderingContext, { variation: "B" });
-    renderingContext.translate(110, 0);
-    Sprites.Chalkboard.draw(renderingContext, { variation: "A" });
+    var archerLeftUpArmAngle = Math.PI / 2;
+        var archerRightArmAngle = -Math.PI / 6;
 
-    renderingContext.resetTransform();
-    renderingContext.translate(80, 88);
-    renderingContext.scale(0.2, 0.2);
-    renderingContext.rotate(Math.PI);
-    Sprites.Cup.draw(renderingContext, { color:"PapayaWhip" });
-    renderingContext.translate(-180, 0);
-    Sprites.Cup.draw(renderingContext, { color:"DarkSalmon" });
-    renderingContext.translate(-180, 0);
-    Sprites.Cup.draw(renderingContext, { color:"PapayaWhip" });
-    
-    renderingContext.translate(-690, 0);
-    renderingContext.rotate(Math.PI);
-    Sprites.Cup.draw(renderingContext, { color:"SeaGreen" });
-    renderingContext.translate(250, 0);
-    Sprites.Cup.draw(renderingContext, { });
-    
-    renderingContext.resetTransform();
-    renderingContext.translate(70, 158);
-    renderingContext.scale(0.2, 0.2);
-    Sprites.Cup.draw(renderingContext, { color:"CadetBlue" });
-    renderingContext.translate(220, 0);
-    Sprites.Cup.draw(renderingContext, { color: "Plum" });
-    renderingContext.translate(220, 0);
-    Sprites.Cup.draw(renderingContext, { color: "CadetBlue" });
+        var targetOpacity = 1;
 
-    renderingContext.resetTransform();
-    renderingContext.translate(290, 228);
-    renderingContext.scale(0.2, 0.2);
-    Sprites.Cup.draw(renderingContext, { color: "LemonChiffon" });
-    renderingContext.translate(220, 0);
-    Sprites.Cup.draw(renderingContext, { color: "LemonChiffon" });
-    renderingContext.translate(220, 0);
-    Sprites.Cup.draw(renderingContext, { color: "LemonChiffon" });
+        var bowPullPointX = -50;
 
-    renderingContext.resetTransform();
-    renderingContext.translate(570, 360);
-    Sprites.Counter.draw(renderingContext);
-    
-    renderingContext.resetTransform();
-    renderingContext.translate(540, 280);
-    renderingContext.scale(0.2, 0.2);
-    Sprites.Cup.draw(renderingContext, { steamOpacity: 0.3 });
-    renderingContext.translate(300,0);
-    Sprites.Cup.draw(renderingContext, { steamOpacity: 0.4, color: "SeaGreen" });
+        var numsOpacity = 1;
+        var firstNum = "3";
+        var secondNum = "8";
+        var thirdNum = "2";
+        var fourthNum = "5";
 
-    renderingContext.setTransform(.5, 0, 0, .5, 60, 50);
-    Sprites.RoomLight.draw(renderingContext, { brightness: 0.3 });
-    renderingContext.translate(300, -50);
-    renderingContext.scale(1.5, 1.2);
-    Sprites.RoomLight.draw(renderingContext, { brightness: 0.5 });
-    renderingContext.translate(280, -20);
-    renderingContext.scale(0.5, 1);
-    Sprites.RoomLight.draw(renderingContext, { brightness: 0.3 });
-    renderingContext.translate(500, 30);
-    renderingContext.scale(2.5, 0.7);
-    Sprites.RoomLight.draw(renderingContext, { brightness: 0.4 });
-    renderingContext.translate(160, -80);
-    renderingContext.scale(0.5, 1);
-    Sprites.RoomLight.draw(renderingContext, { brightness: 0.4 });
-    renderingContext.translate(-800, -600);
-    renderingContext.scale(5, 2.5);
-    Sprites.RoomLight.draw(renderingContext, { brightness: 0.4 });
-    renderingContext.restore();
+        //Background
+        ctx.save();
+        ctx.scale(1.8, 1.2);
+        SpriteLibrary.background({
+            ctx: ctx
+        });
+        ctx.restore();
 
-    // Some edge lines to test for wraparound bleeding.
-    renderingContext.strokeStyle = "yellow";
-    renderingContext.beginPath();
-    renderingContext.moveTo(0, 0);
-    renderingContext.lineTo(canvas.width - 1, 0);
-    renderingContext.stroke();
+        ctx.save();
+        ctx.fillStyle = "blue";
+        ctx.fillRect(0, 0, canvas.width, canvas.height * (2/3))
+        ctx.fillStyle = "green";
+        ctx.fillRect(0, canvas.height * (2/3), canvas.width, canvas.height * (1/3))
+        ctx.restore();
 
-    renderingContext.strokeStyle = "cyan";
-    renderingContext.beginPath();
-    renderingContext.moveTo(0, canvas.height - 1);
-    renderingContext.lineTo(canvas.width - 1, canvas.height - 1);
-    renderingContext.stroke();
+        //Archer
+        ctx.save();
+        ctx.translate(120, 100);
+        ctx.scale(0.7, 0.7);
+        SpriteLibrary.stickman({
+            ctx: ctx,
+            leftUpArmAngle: archerLeftUpArmAngle,
+            rightArmAngle: archerRightArmAngle
+        });
+        ctx.restore();
 
-    renderingContext.strokeStyle = "green";
-    renderingContext.beginPath();
-    renderingContext.moveTo(0, 0);
-    renderingContext.lineTo(0, canvas.height - 1);
-    renderingContext.stroke();
+        //Target
+        ctx.save();
+        ctx.translate(800, 70);
+        ctx.scale(0.7, 0.7);
+        SpriteLibrary.target({
+            ctx: ctx,
+            opacity: targetOpacity
+        });
+        ctx.restore();
 
-    renderingContext.strokeStyle = "red";
-    renderingContext.beginPath();
-    renderingContext.moveTo(canvas.width - 1, 0);
-    renderingContext.lineTo(canvas.width - 1, canvas.height / 2);
-    renderingContext.stroke();
+        //Numbers
+        ctx.save();
+        ctx.translate(860, 70);
+        SpriteLibrary.dmgnums({
+            ctx: ctx,
+            opacity: numsOpacity,
+            firstNum: firstNum,
+            secondNum: secondNum,
+            thirdNum: thirdNum,
+            fourthNum: fourthNum
+        });
+        ctx.restore();
 
-    renderingContext.strokeStyle = "blue";
-    renderingContext.beginPath();
-    renderingContext.moveTo(canvas.width - 1, canvas.height / 2);
-    renderingContext.lineTo(canvas.width - 1, canvas.height - 1);
-    renderingContext.stroke();
+        //Arrow
+        ctx.save();
+        ctx.translate(150, 150);
+        ctx.scale(0.5, 0.5);
+        SpriteLibrary.arrow({
+            ctx: ctx
+        });
+        ctx.restore();
+
+        //Bow
+        ctx.save();
+        ctx.translate(300, 100);
+        ctx.scale(0.3, 0.3);
+        SpriteLibrary.bow({
+            ctx: ctx,
+            pullPointX: bowPullPointX
+        });
+        ctx.restore();
 
     // Set a little event handler to apply the filter.
     $("#apply-filter-button").click(function () {
         // Filter time.
-        renderingContext.putImageData(
+        ctx.putImageData(
             NanoshopNeighborhood.applyFilter(
-                renderingContext,
-                renderingContext.getImageData(0, 0, canvas.width, canvas.height),
-                NanoshopNeighborhood.darkener
+                ctx,
+                ctx.getImageData(0, 0, canvas.width, canvas.height),
+                //NanoshopNeighborhood.darkener
                 //NanoshopNeighborhood.averager // Convenience comment for easy switching.
+                //NanoshopNeighborhood.swapper
+                //NanoshopNeighborhood.basicEdgeDetector
+                // NanoshopNeighborhood.grainy
+                NanoshopNeighborhood.next
             ),
             0, 0
         );
