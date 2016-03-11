@@ -464,6 +464,9 @@ var Primitives = {
         // The usual color guard.
         color = color || [0, 0, 0];
 
+        var topColor = [0, 255, 0];
+        var bottomColor = [0, 0, 255];
+
         // Create the global edge list.
         for (i = 0, max = polygon.length; i < max; i += 1) {
             // If we are at the last vertex, we go back to the first one.
@@ -488,6 +491,14 @@ var Primitives = {
 
         // We start at the lowest y coordinate.
         currentScanLine = toScanLine(globalEdgeList[0].minY);
+        var maxScanLine = toScanLine(globalEdgeList[globalEdgeList.length - 1].maxY);
+
+        var colorDelta = [(bottomColor[0] - topColor[0]) / (maxScanLine - currentScanLine),
+                            (bottomColor[1] - topColor[1]) / (maxScanLine - currentScanLine),
+                            (bottomColor[2] - topColor[2]) / (maxScanLine - currentScanLine),
+        ];
+
+        var currentColor = [topColor[0], topColor[1], topColor[2]];
 
         // Initialize the active edge list.
         globalEdgeList = moveMatchingMinYs(globalEdgeList, activeEdgeList, currentScanLine);
@@ -506,7 +517,7 @@ var Primitives = {
                     // No cheating here --- draw each pixel, one by one.
                     for (x = fromX; x <= toX; x += 1) {
                         this.setPixel(context, x, currentScanLine,
-                                color[0], color[1], color[2]);
+                                currentColor[0], currentColor[1], currentColor[2]);
                     }
                 } else {
                     fromX = toScanLine(activeEdgeList[i].currentX);
@@ -524,6 +535,9 @@ var Primitives = {
 
             // Go to the next scan line.
             currentScanLine += 1;
+            currentColor[0] += colorDelta[0];
+            currentColor[1] += colorDelta[1];
+            currentColor[2] += colorDelta[2];
 
             // Remove edges for which we have reached the maximum y.
             edgesToRemove = [];
