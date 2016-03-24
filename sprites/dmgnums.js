@@ -16,15 +16,25 @@
 		var ctx = dmgnumsSpecification.ctx || document.getElementById("canvas").getContext("2d");
 
 		var opacity = dmgnumsSpecification.opacity || 1;
-		var firstNum = dmgnumsSpecification.ONEfirstNum || 0;
-		var secondNum = dmgnumsSpecification.ONEsecondNum || 0;
-		var thirdNum = dmgnumsSpecification.TWOfirstNum || 0;
-		var fourthNum = dmgnumsSpecification.TWOsecondNum || 0;
+		var firstNum = dmgnumsSpecification.firstNum || 0;
+		var secondNum = dmgnumsSpecification.secondNum || 0;
+		var thirdNum = dmgnumsSpecification.thirdNum || 0;
+		var fourthNum = dmgnumsSpecification.fourthNum || 0;
 
 		ctx.font = "24px Arial";
 
-		drawNum(ctx, firstNum, opacity);
-		drawNum(ctx, secondNum, opacity);
+		if (firstNum != 0) {
+			drawNum(ctx, firstNum, opacity);
+		}
+		if (secondNum != 0) {
+			drawNum(ctx, secondNum, opacity);
+		}
+		if (thirdNum != 0) {
+			drawNum(ctx, thirdNum, opacity);
+		}
+		if (fourthNum != 0) {
+			drawNum(ctx, fourthNum, opacity);
+		}
 		
 	};
 	
