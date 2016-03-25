@@ -183,7 +183,7 @@
      * Displays an individual object.
      */
     drawObject = function (object) {
-        gl.uniform3f(gl.getUniformLocation(shaderProgram, "color"),
+        gl.uniform3f(gl.getUniformLocation(shaderProgram, "solidColor"),
             object.color.r, object.color.g, object.color.b);
         gl.bindBuffer(gl.ARRAY_BUFFER, object.buffer);
         gl.vertexAttribPointer(vertexPosition, 3, gl.FLOAT, false, 0, 0);
