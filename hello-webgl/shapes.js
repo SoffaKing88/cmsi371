@@ -4,6 +4,42 @@
  * converting these into "raw" coordinate arrays.
  */
 var Shapes = {
+    //Returns the vertices for a cube
+    cube: function () {
+        
+        var x = 1.0,
+            y = 1.0,
+            z = -1.0;
+
+        return {
+            vertices: [
+                [x, y, z],
+                [x, -y, z],
+                [-x,-y, z],
+                [-x, y, z],
+                [x, y, -z],
+                [x, -y, -z],
+                [-x, -y, -z],
+                [-x, y, -z]
+            ],
+
+            indices: [
+                [0, 1, 3],
+                [3, 1, 2],
+                [0, 5, 1],
+                [5, 0, 4],
+                [3, 2, 6],
+                [6, 7, 3],
+                [0, 3, 4],
+                [3, 7, 4],
+                [1, 5, 2],
+                [2, 5, 6],
+                [4, 6, 5],
+                [4, 7, 6]
+            ]
+        };
+    },
+
     /*
      * Returns the vertices for a small icosahedron.
      */
