@@ -175,23 +175,29 @@
         //     mode: gl.LINE_LOOP
         // },
 
-        {
-            color: { r: 0.0, g: 0.5, b: 0.0 },
-            vertices: Shapes.toRawLineArray(Shapes.cube()),
-            mode: gl.LINES,
-            children: [
-                {
-                    color: { r: 1.0, g: 0.5, b: 0.0 },
-                    vertices: Shapes.toRawLineArray(Shapes.icosahedron()),
-                    mode: gl.LINES
-                }
-            ]
-        },
+        // {
+        //     color: { r: 0.0, g: 0.5, b: 0.0 },
+        //     vertices: Shapes.toRawLineArray(Shapes.cube()),
+        //     mode: gl.LINES,
+        //     children: [
+        //         {
+        //             color: { r: 1.0, g: 0.5, b: 0.0 },
+        //             vertices: Shapes.toRawLineArray(Shapes.icosahedron()),
+        //             mode: gl.LINES
+        //         }
+        //     ]
+        // },
+
+        // {
+        //     color: { r: 0.0, g: 0.0, b: 1.0 },
+        //     vertices: Shapes.toRawLineArray(Shapes.pyramid()),
+        //     mode: gl.LINES,
+        // },
 
         {
             color: { r: 0.0, g: 0.0, b: 1.0 },
-            vertices: Shapes.toRawPointArray(Shapes.sphere()),
-            mode: gl.POINTS
+            vertices: Shapes.toRawLineArray(Shapes.sphere()),
+            mode: gl.LINES
         }
     ];
 

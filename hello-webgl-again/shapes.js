@@ -40,51 +40,64 @@ var Shapes = {
         };
     },
 
+    pyramid: function () {
+        return {
+            vertices: [
+                [0, 1, 0],
+                [1, 0, 0],
+                [0, 0, -1],
+                [-1, 0, 0],
+                [0, 0, 1]
+            ],
+
+            indices: [
+                [0, 4, 1],
+                [0, 1, 2],
+                [0, 2, 3],
+                [0, 3, 4],
+                [1, 2, 3],
+                [2, 3, 1]
+            ]
+        };
+    },
+
     sphere: function () {
-        var radius = 0.2,
-            theta,
-            sinTheta,
-            cosTheta,
-            phi,
-            sinPhi,
-            cosPhi,
-            latitudeBelts = 12,
-            longitudeBelts = 12,
+        var radius = 0.5,
+            latitudeBands = 50,
+            longitudeBands = 50,
             vertices = [],
-            indices = [],
-            latitude,
-            longitude,
-            x,
-            y,
-            z,
-            sphereData = {};
+            indices = [];
 
-        for (i = 0; i < latitudeBelts + 1; i += 1) {
-            theta = (i * Math.PI) / latitudeBelts;
+        for (var i = 0; i < latitudeBands; i += 1) {
+            var theta = (i * Math.PI) / latitudeBands;
+            var sinTheta = Math.sin(theta);
+            var cosTheta = Math.cos(theta);
 
-            for(j = 0; j < longitudeBelts + 1; j += 1) {
-                phi = (j * 2 * Math.PI) / longitudeBelts;
 
-                x = radius * Math.cos(phi) * Math.sin(theta);
-                y = radius * Math.cos(theta);
-                z = radius * Math.sin(phi) * Math.sin(theta);
+            for(var j = 0; j < longitudeBands; j += 1) {
+                var phi = (j * 2 * Math.PI) / longitudeBands;
+                var sinPhi = Math.sin(phi);
+                var cosPhi = Math.cos(phi)
+
+                var x = cosPhi * sinTheta * radius;
+                var y = cosTheta * radius;
+                var z = sinPhi * sinTheta * radius;
 
                 vertices.push([x, y, z]);
             }
         }
 
-        for (k = 0; k < latitudeBelts + 1; k += 1) {
-            for (l = 0; l < longitudeBelts + 1; l += 1) {
-                top = (k * (longitudeBelts + 1)) + l;
-                bottom = top + longitudeBelts + 1;
-            }
-            indices.push([top,bottom, top + 1]);
-            indices.push([bottom, bottom + 1, top + 1]);
+        for (var k = 0; k <= vertices.length; k += 1) {
+            indices.push(
+                [k, k + 1, k + latitudeBands + 1],
+                [k + 1, k + latitudeBands + 1, k + latitudeBands + 2]
+            );
         }
 
-        sphereData.vertices = vertices;
-        sphereData.indices = indices;
-        return sphereData;
+        return {
+            vertices: vertices,
+            indices: indices
+        }
     },
 
     /*
