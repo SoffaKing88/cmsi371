@@ -40,10 +40,52 @@ var Shapes = {
         };
     },
 
-    // sphere: function () {
-    //     var radius = 0.5,
-            
-    // },
+    sphere: function () {
+        var radius = 0.2,
+            theta,
+            sinTheta,
+            cosTheta,
+            phi,
+            sinPhi,
+            cosPhi,
+            latitudeBelts = 12,
+            longitudeBelts = 12,
+            vertices = [],
+            indices = [],
+            latitude,
+            longitude,
+            x,
+            y,
+            z,
+            sphereData = {};
+
+        for (i = 0; i < latitudeBelts + 1; i += 1) {
+            theta = (i * Math.PI) / latitudeBelts;
+
+            for(j = 0; j < longitudeBelts + 1; j += 1) {
+                phi = (j * 2 * Math.PI) / longitudeBelts;
+
+                x = radius * Math.cos(phi) * Math.sin(theta);
+                y = radius * Math.cos(theta);
+                z = radius * Math.sin(phi) * Math.sin(theta);
+
+                vertices.push([x, y, z]);
+            }
+        }
+
+        for (k = 0; k < latitudeBelts + 1; k += 1) {
+            for (l = 0; l < longitudeBelts + 1; l += 1) {
+                top = (k * (longitudeBelts + 1)) + l;
+                bottom = top + longitudeBelts + 1;
+            }
+            indices.push([top,bottom, top + 1]);
+            indices.push([bottom, bottom + 1, top + 1]);
+        }
+
+        sphereData.vertices = vertices;
+        sphereData.indices = indices;
+        return sphereData;
+    },
 
     /*
      * Returns the vertices for a small icosahedron.
@@ -141,6 +183,17 @@ var Shapes = {
                     ]
                 );
             }
+        }
+
+        return result;
+    },
+
+    toRawPointArray: function (indexedVertices) {
+        var result = [],
+            max = indexedVertices.vertices.length;
+
+        for (i = 0; i < max; i += 1) {
+            result = result.concat(indexedVertices.vertices[i]);
         }
 
         return result;
