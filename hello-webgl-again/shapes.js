@@ -40,10 +40,10 @@ var Shapes = {
         };
     },
 
-    sphere: function () {
-        var radius = 0.5,
+    // sphere: function () {
+    //     var radius = 0.5,
             
-    }
+    // },
 
     /*
      * Returns the vertices for a small icosahedron.
