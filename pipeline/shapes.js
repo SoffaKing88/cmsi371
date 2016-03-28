@@ -63,8 +63,10 @@ var Shapes = {
 
     sphere: function () {
         var radius = 0.5,
-            latitudeBands = 50,
-            longitudeBands = 50,
+            //Higher the number the more detailed the sphere, but longer loading time
+            latitudeBands = 20,
+            longitudeBands = 20,
+
             vertices = [],
             indices = [];
 
