@@ -129,7 +129,7 @@
     gl.viewport(0, 0, canvas.width, canvas.height);
 
     // Build the objects to display.
-    objectsToDraw = [
+    var objectsToDraw = [
         // {
         //     vertices: [].concat(
         //         [ 0.0, 0.0, 0.0 ],
@@ -293,7 +293,7 @@
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         // Set up the rotation matrix.
-        gl.uniformMatrix4fv(rotationMatrix, gl.FALSE, new Float32Array(getRotationMatrix(currentRotation, 0, 1, 0)));
+        gl.uniformMatrix4fv(rotationMatrix, gl.FALSE, new Float32Array(getRotationMatrix(currentRotation, 1, 1, 1)));
 
         // Display the objects.
         drawObject(objectsToDraw);

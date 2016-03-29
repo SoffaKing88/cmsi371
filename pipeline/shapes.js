@@ -61,22 +61,28 @@ var Shapes = {
         };
     },
 
+    /* 
+
+
+    http://stackoverflow.com/questions/20353339/having-trouble-rendering-a-sphere-in-webgl
+
+    */
     sphere: function () {
-        var radius = 0.5,
+        var radius = 0.5
             //Higher the number the more detailed the sphere, but longer loading time
             latitudeBands = 20,
-            longitudeBands = 20,
+            longitudeBands = latitudeBands,
 
             vertices = [],
             indices = [];
 
-        for (var i = 0; i < latitudeBands; i += 1) {
+        for (var i = 0; i <= latitudeBands; i += 1) {
             var theta = (i * Math.PI) / latitudeBands;
             var sinTheta = Math.sin(theta);
             var cosTheta = Math.cos(theta);
 
 
-            for(var j = 0; j < longitudeBands; j += 1) {
+            for(var j = 0; j <= longitudeBands; j += 1) {
                 var phi = (j * 2 * Math.PI) / longitudeBands;
                 var sinPhi = Math.sin(phi);
                 var cosPhi = Math.cos(phi)
@@ -89,7 +95,7 @@ var Shapes = {
             }
         }
 
-        for (var k = 0; k <= vertices.length; k += 1) {
+        for (var k = 0; k <= vertices.length - latitudeBands - 2; k += 1) {
             indices.push(
                 [k, k + 1, k + latitudeBands + 1],
                 [k + 1, k + latitudeBands + 1, k + latitudeBands + 2]
