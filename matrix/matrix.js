@@ -26,23 +26,7 @@ var Matrix = (function () {
         return this.width;
     }
 
-    // matrix.prototype.x = function () {
-    //     return this.elements[0];
-    // };
-
-    // matrix.prototype.y = function () {
-    //     return this.elements[1];
-    // };
-
-    // matrix.prototype.z = function () {
-    //     return this.elements[2];
-    // };
-
-    // matrix.prototype.w = function () {
-    //     return this.elements[3];
-    // };
-
-    // Scalar multiplication and division.
+    // Scalar multiplication
     matrix.prototype.multiply = function (m) {
         var result = []
 
@@ -65,6 +49,7 @@ var Matrix = (function () {
         return endMatrix;
     };
 
+    //Supplemental function to multiply the two array's together
     matrix.prototype.getProduct = function (row, col) {
         var result = 0;
 
@@ -74,6 +59,21 @@ var Matrix = (function () {
 
         return result;
     }
+
+    // Scaling
+    matrix.prototype.scale = function (sx, sy, sz) {
+        var scaleX = sx || 1,
+            scaleY = sy || 1,
+            scaleZ = sz || 1;
+
+        return new Matrix(
+            [
+                scaleX, 0, 0, 0,
+                0, scaleY, 0, 0,
+                0, 0, scaleZ, 0,
+                0, 0, 0, 1
+            ], 4, 4);
+    };
 
     // Projection.
     matrix.prototype.projection = function (m) {

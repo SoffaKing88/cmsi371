@@ -34,4 +34,19 @@ $(function() {
 		deepEqual(result.elements, answer.elements, "Matrix Multiplied!");
 	});
 
+	test( "Scale Test", function() {
+		var m = new Matrix();
+		var result = m.scale(8, 10, 3);
+		deepEqual(result.elements,
+			[8, 0, 0, 0,
+			 0, 10, 0, 0,
+			 0, 0, 3, 0,
+			 0, 0, 0, 1],
+			 "Matrix has been Scaled");
+	});
+
+	test( "Translate Test", function() {
+		var m = new Matrix();
+	})
+
 });
