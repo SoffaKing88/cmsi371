@@ -1,37 +1,45 @@
 var Matrix = (function () {
     // Define the constructor.
-    var matrix = function () {
-        this.elements = [].slice.call(arguments);
-    },
-    
-        // A private method for checking dimensions,
-        // throwing an exception when different.
-        checkDimensions = function (m1, m2) {
-            if (m1.dimensions() !== m2.dimensions()) {
-                throw "Matrices have different dimensions";
-            }
-        };
+    var matrix = function (array, height, width) {
+        this.elements = array || [
+                                  1, 0, 0, 0,
+                                  0, 1, 0, 0,
+                                  0, 0, 1, 0,
+                                  0, 0, 0, 1
+                                  ];
+        this.height = height || 4;
+        this.width = width || 4;
+    }
+        
 
     // Basic methods.
     matrix.prototype.dimensions = function () {
-        return this.elements.length;
+        return this.height * this.width;
     };
 
-    matrix.prototype.x = function () {
-        return this.elements[0];
-    };
+    matrix.prototype.height = function () {
+        return this.height;
+    }
 
-    matrix.prototype.y = function () {
-        return this.elements[1];
-    };
+    matrix.prototype.width = function () {
+        return this.width;
+    }
 
-    matrix.prototype.z = function () {
-        return this.elements[2];
-    };
+    // matrix.prototype.x = function () {
+    //     return this.elements[0];
+    // };
 
-    matrix.prototype.w = function () {
-        return this.elements[3];
-    };
+    // matrix.prototype.y = function () {
+    //     return this.elements[1];
+    // };
+
+    // matrix.prototype.z = function () {
+    //     return this.elements[2];
+    // };
+
+    // matrix.prototype.w = function () {
+    //     return this.elements[3];
+    // };
 
     // Addition and subtraction.
     matrix.prototype.add = function (m) {
