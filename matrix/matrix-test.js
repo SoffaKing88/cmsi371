@@ -14,4 +14,24 @@ $(function() {
   		equal(m2.size, 8, "Matrix2 Length");
 	});
 
+	test( "Multiply Test", function() {
+		var m1 = new Matrix([2, 2, 2, 2,
+							 2, 2, 2, 2,
+							 2, 2, 2, 2,
+							 2, 2, 2, 2], 4, 4);
+
+		var m2 = new Matrix([2, 2, 2, 2,
+							 2, 2, 2, 2,
+							 2, 2, 2, 2,
+							 2, 2, 2, 2], 4, 4);
+
+		var answer = new Matrix([4, 4, 4, 4,
+								 4, 4, 4, 4,
+								 4, 4, 4, 4,
+								 4, 4, 4, 4], 4, 4);
+
+		var result = m1.multiply(m2);
+		deepEqual(result.elements, answer.elements, "Matrix Multiplied!");
+	});
+
 });

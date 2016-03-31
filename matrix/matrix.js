@@ -44,30 +44,32 @@ var Matrix = (function () {
 
     // Scalar multiplication and division.
     matrix.prototype.multiply = function (m) {
-        var result = [],
-            row = [],
-            col = [];
+        var result = []
 
-        for (var rowNum = 0; rowNum < this.height; rowNum += this.width) {
+        for (var rowNum = 0, rowMax = this.dimensions(); rowNum < rowMax; rowNum += this.height) {
+            var row = [];
             for (var rowIterator = rowNum, rowIteratorMax = rowNum + this.width; rowIterator < rowIteratorMax; rowIterator++) {
-                row.push(this.matrix[rowIterator]);
+                row.push(this.elements[rowIterator]);
             }
-            for (var colNum = 0, colNumMax = m.length; colNum < colNumMax; colNum += m.width) {
-                for (var colIterator = colNum, colIteratorMax = colIterator + m.width; colIterator < colIteratorMax; colIterator++) {
-                    col.push(this.matrix[colIterator]);
+            for (var colNum = 0, colNumMax = m.width; colNum < colNumMax; colNum++) {
+                var col = [];
+                for (var colIterator = colNum, colIteratorMax = m.dimensions(); colIterator < colIteratorMax; colIterator += this.width) {
+                    col.push(this.elements[colIterator]);
                 }
                 result.push(this.getProduct(row, col));
             }
         }
+        // console.log(result);
         var endMatrix = new Matrix(result, this.height, this.width);
+        // console.log(endMatrix);
         return endMatrix;
     };
 
     matrix.prototype.getProduct = function (row, col) {
-        var result = [];
+        var result = 0;
 
         for (var i = 0; i < row.length; i++) {
-            result[i] = row[i] + col[i];
+            result = row[i] + col[i];
         }
 
         return result;
