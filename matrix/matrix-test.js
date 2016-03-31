@@ -42,11 +42,18 @@ $(function() {
 			 0, 10, 0, 0,
 			 0, 0, 3, 0,
 			 0, 0, 0, 1],
-			 "Matrix has been Scaled");
+			 "Scale Matrix returned");
 	});
 
 	test( "Translate Test", function() {
 		var m = new Matrix();
-	})
+		var result = m.translate(8, 10, 3);
+		deepEqual(result.elements,
+			[1, 0, 0, 8,
+			 0, 1, 0, 10,
+			 0, 0, 1, 3,
+			 0, 0, 0, 1],
+			 "Translate Matrix returned");
+	});
 
 });

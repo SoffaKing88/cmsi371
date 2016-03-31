@@ -75,6 +75,22 @@ var Matrix = (function () {
             ], 4, 4);
     };
 
+    // Translating
+    matrix.prototype.translate = function (tx, ty, tz) {
+        var translateX = tx || 1,
+            translateY = ty || 1,
+            translateZ = tz || 1;
+
+        return new Matrix(
+            [
+            1, 0, 0, translateX,
+            0, 1, 0, translateY,
+            0, 0, 1, translateZ,
+            0, 0, 0, 1
+            ]
+        );
+    };
+
     // Projection.
     matrix.prototype.projection = function (m) {
         var unitm;
