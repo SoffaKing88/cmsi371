@@ -9,12 +9,13 @@ var Matrix = (function () {
                                   ];
         this.height = height || 4;
         this.width = width || 4;
+        this.size = height * width || 16;
     }
         
 
     // Basic methods.
     matrix.prototype.dimensions = function () {
-        return this.height * this.width;
+        return this.size;
     };
 
     matrix.prototype.height = function () {
@@ -41,103 +42,36 @@ var Matrix = (function () {
     //     return this.elements[3];
     // };
 
-    // Addition and subtraction.
-    matrix.prototype.add = function (m) {
-        var result = new Matrix(),
-            i,
-            max;
-
-        // Dimensionality check.
-        checkDimensions(this, m);
-
-        for (i = 0, max = this.dimensions(); i < max; i += 1) {
-            result.elements[i] = this.elements[i] + m.elements[i];
-        }
-
-        return result;
-    };
-
-    matrix.prototype.subtract = function (m) {
-        var result = new Matrix(),
-            i,
-            max;
-
-        // Dimensionality check.
-        checkDimensions(this, m);
-
-        for (i = 0, max = this.dimensions(); i < max; i += 1) {
-            result.elements[i] = this.elements[i] - m.elements[i];
-        }
-
-        return result;
-    };
-
     // Scalar multiplication and division.
-    matrix.prototype.multiply = function (s) {
-        var result = new Matrix(),
-            i,
-            max;
+    matrix.prototype.multiply = function (m) {
+        var result = [],
+            row = [],
+            col = [];
 
-        for (i = 0, max = this.dimensions(); i < max; i += 1) {
-            result.elements[i] = this.elements[i] * s;
+        for (var rowNum = 0; rowNum < this.height; rowNum += this.width) {
+            for (var rowIterator = rowNum, rowIteratorMax = rowNum + this.width; rowIterator < rowIteratorMax; rowIterator++) {
+                row.push(this.matrix[rowIterator]);
+            }
+            for (var colNum = 0, colNumMax = m.length; colNum < colNumMax; colNum += m.width) {
+                for (var colIterator = colNum, colIteratorMax = colIterator + m.width; colIterator < colIteratorMax; colIterator++) {
+                    col.push(this.matrix[colIterator]);
+                }
+                result.push(this.getProduct(row, col));
+            }
+        }
+        var endMatrix = new Matrix(result, this.height, this.width);
+        return endMatrix;
+    };
+
+    matrix.prototype.getProduct = function (row, col) {
+        var result = [];
+
+        for (var i = 0; i < row.length; i++) {
+            result[i] = row[i] + col[i];
         }
 
         return result;
-    };
-
-    matrix.prototype.divide = function (s) {
-        var result = new Matrix(),
-            i,
-            max;
-
-        for (i = 0, max = this.dimensions(); i < max; i += 1) {
-            result.elements[i] = this.elements[i] / s;
-        }
-
-        return result;
-    };
-
-    // Dot product.
-    matrix.prototype.dot = function (m) {
-        var result = 0,
-            i,
-            max;
-
-        // Dimensionality check.
-        checkDimensions(this, m);
-
-        for (i = 0, max = this.dimensions(); i < max; i += 1) {
-            result += this.elements[i] * m.elements[i];
-        }
-
-        return result;
-    };
-
-    // Cross product.
-    matrix.prototype.cross = function (m) {
-        // This method is for 3D vectors only.
-        if (this.dimensions() !== 3 || m.dimensions() !== 3) {
-            throw "Cross product is for 3D matrices only.";
-        }
-
-        // With 3D vectors, we can just return the result directly.
-        return new Matrix(
-            (this.y() * m.z()) - (this.z() * m.y()),
-            (this.z() * m.x()) - (this.x() * m.z()),
-            (this.x() * m.y()) - (this.y() * m.x())
-        );
-    };
-
-    // Magnitude and unit vector.
-    matrix.prototype.magnitude = function () {
-        // Make use of the dot product.
-        return Math.sqrt(this.dot(this));
-    };
-
-    matrix.prototype.unit = function () {
-        // At this point, we can leverage our more "primitive" methods.
-        return this.divide(this.magnitude());
-    };
+    }
 
     // Projection.
     matrix.prototype.projection = function (m) {
