@@ -56,4 +56,15 @@ $(function() {
 			 "Translate Matrix returned");
 	});
 
+	test( "Rotate Test", function() {
+		var m = new Matrix();
+		var result = m.rotate(90, 0, 0, 1);
+		deepEqual(result.elements,
+			[Math.cos(Math.PI / 2), -Math.sin(Math.PI / 2), 0, 0,
+			 Math.sin(Math.PI / 2),  Math.cos(Math.PI / 2), 0, 0,
+			 0, 0, 1, 0,
+			 0, 0, 0, 1],
+			 "Rotate Test 1 returned");
+	});
+
 });

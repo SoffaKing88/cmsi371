@@ -91,6 +91,53 @@ var Matrix = (function () {
         );
     };
 
+    // Rotating
+    matrix.prototype.rotate = function (angle, rx, ry, rz) {
+
+        var axisLength = Math.sqrt((rx * rx) + (ry * ry) + (rz * rz)),
+            sin = Math.sin(angle * Math.PI / 180),
+            cos = Math.cos(angle * Math.PI / 180),
+            oneMinCos = 1 - cos,
+
+            x2,
+            y2,
+            z2,
+            xy,
+            yz,
+            xz,
+            xsin,
+            ysin,
+            zsin;
+            // console.log(cos);
+            // console.log(oneMinCos);
+
+        rx /= axisLength;
+        ry /= axisLength;
+        rz /= axisLength;
+
+        x2 = rx * rx;
+        y2 = ry * ry;
+        z2 = rz * rz;
+        xy = rx * ry;
+        yz = ry * rz;
+        xz = rx * rz;
+        xsin = rx * sin;
+        ysin = ry * sin;
+        zsin = rz * sin;
+
+        console.log(y2);
+        console.log(cos);
+        console.log(oneMinCos);
+        console.log(xsin);
+        console.log((y2 * oneMinCos) - xsin);
+        return new Matrix([
+            (x2 * oneMinCos) + cos, (xy * oneMinCos) - zsin, (xz * oneMinCos) + ysin, 0,
+            (xy * oneMinCos) + zsin, (y2 * oneMinCos) + cos, (y2 * oneMinCos) - xsin, 0,
+            (xz * oneMinCos) - ysin, (yz * oneMinCos) + xsin, (z2 * oneMinCos) + cos, 0,
+            0, 0, 0, 1
+            ]);
+    };
+
     // Projection.
     matrix.prototype.projection = function (m) {
         var unitm;
