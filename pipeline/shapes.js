@@ -1,15 +1,39 @@
+
+var Shape = (function (color, vertices, mode, children) {
+    this.colors = color;
+    this.vertices = vertices;
+    this.mode = mode;
+    this.children = children || [];
+
+    Shape.prototype.addChildren = function (children) {
+        this.children.push(child);
+        return this;
+    }
+
+    Shape.prototype.removeChild = function (index) {
+        this.children.splice(index, 1);
+        return this;
+    }
+
+    Shape.prototype.clearChildren = function () {
+        this.children = [];
+        return this;
+    }
+});
+
 /*
  * This module defines/generates vertex arrays for certain predefined shapes.
  * The "shapes" are returned as indexed vertices, with utility functions for
  * converting these into "raw" coordinate arrays.
  */
 var Shapes = {
+
     //Returns the vertices for a cube
-    cube: function () {
+    rectangularPrism: function (length, height, depth) {
         
-        var x = 0.5,
-            y = 0.5,
-            z = 0.5;
+        var x = length || 0.5,
+            y = height || 0.5,
+            z = depth || 0.5;
 
         return {
             vertices: [
@@ -67,10 +91,10 @@ var Shapes = {
     http://stackoverflow.com/questions/20353339/having-trouble-rendering-a-sphere-in-webgl
 
     */
-    sphere: function () {
-        var radius = 0.5
+    sphere: function (radius, resolution) {
+        var radius = radius || 0.5
             //Higher the number the more detailed the sphere, but longer loading time
-            latitudeBands = 20,
+            latitudeBands = resolution || 20,
             longitudeBands = latitudeBands,
 
             vertices = [],
@@ -219,5 +243,4 @@ var Shapes = {
 
         return result;
     }
-
 };

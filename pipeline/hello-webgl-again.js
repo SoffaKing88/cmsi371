@@ -128,91 +128,23 @@
     gl.clearColor(0.0, 0.0, 0.0, 0.0);
     gl.viewport(0, 0, canvas.width, canvas.height);
 
+
     // Build the objects to display.
-    var objectsToDraw = [
-        // {
-        //     vertices: [].concat(
-        //         [ 0.0, 0.0, 0.0 ],
-        //         [ 0.5, 0.0, -0.75 ],
-        //         [ 0.0, 0.5, 0.0 ]
-        //     ),
-        //     colors: [].concat(
-        //         [ 1.0, 0.0, 0.0 ],
-        //         [ 0.0, 1.0, 0.0 ],
-        //         [ 0.0, 0.0, 1.0 ]
-        //     ),
-        //     mode: gl.TRIANGLES
-        // },
-
-        // {
-        //     color: { r: 0.0, g: 1.0, b: 0 },
-        //     vertices: [].concat(
-        //         [ 0.25, 0.0, -0.5 ],
-        //         [ 0.75, 0.0, -0.5 ],
-        //         [ 0.25, 0.5, -0.5 ]
-        //     ),
-        //     mode: gl.TRIANGLES
-        // },
-
-        // {
-        //     color: { r: 0.0, g: 0.0, b: 1.0 },
-        //     vertices: [].concat(
-        //         [ -0.25, 0.0, 0.5 ],
-        //         [ 0.5, 0.0, 0.5 ],
-        //         [ -0.25, 0.5, 0.5 ]
-        //     ),
-        //     mode: gl.TRIANGLES
-        // },
-
-        // {
-        //     color: { r: 0.0, g: 0.0, b: 1.0 },
-        //     vertices: [].concat(
-        //         [ -1.0, -1.0, 0.75 ],
-        //         [ -1.0, -0.1, -1.0 ],
-        //         [ -0.1, -0.1, -1.0 ],
-        //         [ -0.1, -1.0, 0.75 ]
-        //     ),
-        //     mode: gl.LINE_LOOP
-        // },
-
-        {
-            color: { r: 0.0, g: 0.5, b: 0.0 },
-            vertices: Shapes.toRawLineArray(Shapes.cube()),
-            mode: gl.LINES,
-            children: [
-                {
-                    color: { r: 1.0, g: 0.5, b: 0.0 },
-                    vertices: Shapes.toRawLineArray(Shapes.icosahedron()),
-                    mode: gl.LINES
-                },
-
-                {
-                    color: { r: 0.2, g: 0.2, b: 0.5 },
-                    vertices: Shapes.toRawLineArray(Shapes.pyramid()),
-                    mode: gl.LINES
-                },
-
-                {
-                    color: { r: 0.0, g: 0.0, b: 1.0 },
-                    vertices: Shapes.toRawLineArray(Shapes.sphere()),
-                    mode: gl.LINES
-                }
-            ]
-        }
+    var objectsToDraw = [ 
+        new Shape({ r: 0.0, g: 0.0, b: 1.0}, Shapes.toRawLineArray(Shapes.rectangularPrism(0.7, 0.7, 0.7)), gl.LINES)
     ];
 
     // Pass the vertices to WebGL.
     vertexing = function (objectsToDraw) {
-        for (i = 0, maxi = objectsToDraw.length; i < maxi; i += 1) {
-            objectsToDraw[i].buffer = GLSLUtilities.initVertexBuffer(gl,
-                    objectsToDraw[i].vertices);
+        for (i = 0, maxi = objectsToDraw.children.length; i < maxi; i += 1) {
+            vertexing(objectsToDraw.children[i])
 
-            if (!objectsToDraw[i].colors) {
+            if (!Array.isArray(object.colors)) {
                 // If we have a single color, we expand that into an array
                 // of the same color over and over.
-                objectsToDraw[i].colors = [];
-                for (j = 0, maxj = objectsToDraw[i].vertices.length / 3;
-                        j < maxj; j += 1) {
+                var colorObj = objectsToDraw.colors;
+                object.colors = [];
+                for (j = 0, maxj = objectsToDraw.vertices.length / 3; j < maxj; j += 1) {
                     objectsToDraw[i].colors = objectsToDraw[i].colors.concat(
                         objectsToDraw[i].color.r,
                         objectsToDraw[i].color.g,

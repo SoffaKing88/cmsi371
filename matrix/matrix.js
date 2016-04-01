@@ -160,6 +160,28 @@ var Matrix = (function () {
         }
     };
 
+    matrix.prototype.frustrum = function (left, right, bottom, top, near, far) {
+        var width = right - left,
+            height = top - bottom,
+            depth = far - near;
+
+        if (right === -left && top === -bottom) {
+            return new Matrix([
+                near / right, 0, 0, 0,
+                0, near / top, 0, 0,
+                0, 0, -(far + near) / depth, (-2 * near * far) / depth,
+                0, 0, -1, 0]
+            );
+        } else {
+            return new Matrix([
+                2 * near / width, 0, (right + left) / width,
+                0, 2 * near / height, (top + bottom) / height,
+                0, 0, -(far + near) / depth, (-2 * near * far) / depth,
+                0, 0, -1, 0]
+            );
+        }
+    };
+
     // Projection.
     matrix.prototype.projection = function (m) {
         var unitm;
