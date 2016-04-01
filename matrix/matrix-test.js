@@ -67,4 +67,15 @@ $(function() {
 			 "Rotate Test 1 returned");
 	});
 
+	test( "Ortho Test", function() {
+		var m = new Matrix();
+		var result = m.ortho(-2, 2, -10, 10, -5, 5);
+		deepEqual(result.elements,
+			[0.5, 0, 0, 0,
+			 0, 0.1, 0, 0,
+			 0, 0, -0.2, 0,
+			 0, 0, 0, 1],
+			 "Matrix Ortho Projection returned");
+	});
+
 });

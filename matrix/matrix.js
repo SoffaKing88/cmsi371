@@ -125,17 +125,39 @@ var Matrix = (function () {
         ysin = ry * sin;
         zsin = rz * sin;
 
-        console.log(y2);
-        console.log(cos);
-        console.log(oneMinCos);
-        console.log(xsin);
-        console.log((y2 * oneMinCos) - xsin);
+        // console.log(y2);
+        // console.log(cos);
+        // console.log(oneMinCos);
+        // console.log(xsin);
+        // console.log((y2 * oneMinCos) - xsin);
         return new Matrix([
             (x2 * oneMinCos) + cos, (xy * oneMinCos) - zsin, (xz * oneMinCos) + ysin, 0,
             (xy * oneMinCos) + zsin, (y2 * oneMinCos) + cos, (y2 * oneMinCos) - xsin, 0,
             (xz * oneMinCos) - ysin, (yz * oneMinCos) + xsin, (z2 * oneMinCos) + cos, 0,
             0, 0, 0, 1
             ]);
+    };
+
+    matrix.prototype.ortho = function (left, right, bottom, top, near, far) {
+        var width = right - left,
+            height = top - bottom,
+            depth = far - near;
+
+        if (right === -left && top === -bottom) {
+            return new Matrix([
+                1.0 / right, 0.0, 0.0, 0.0,
+                0.0, 1.0 / top, 0.0, 0.0,
+                0.0, 0.0, -2.0 / depth, -(far + near) / depth,
+                0.0, 0.0, 0.0, 1.0
+                ]);
+        } else {
+            return new Matrix ([
+                2.0 / width, 0.0, 0.0, -(right + left) / width,
+                0.0, 2.0 / height, 0.0, -(top + bottom) / height,
+                0.0, 0.0, -2.0 / depth, -(far + near) / depth,
+                0.0, 0.0, 0.0, 1.0
+            ]);
+        }
     };
 
     // Projection.
