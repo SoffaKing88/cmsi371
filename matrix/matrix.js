@@ -160,7 +160,7 @@ var Matrix = (function () {
         }
     };
 
-    matrix.prototype.frustrum = function (left, right, bottom, top, near, far) {
+    matrix.prototype.frustum = function (left, right, bottom, top, near, far) {
         var width = right - left,
             height = top - bottom,
             depth = far - near;
@@ -180,20 +180,6 @@ var Matrix = (function () {
                 0, 0, -1, 0]
             );
         }
-    };
-
-    // Projection.
-    matrix.prototype.projection = function (m) {
-        var unitm;
-
-        // Dimensionality check.
-        checkDimensions(this, m);
-
-        // Plug and chug :)
-        // The projection of u onto v is u dot the unit vector of v
-        // times the unit vector of v.
-        unitm = m.unit();
-        return unitm.multiply(this.dot(unitm));
     };
 
     return matrix;

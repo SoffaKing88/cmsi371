@@ -135,30 +135,26 @@
     ];
 
     // Pass the vertices to WebGL.
-    vertexing = function (objectsToDraw) {
-        for (i = 0, maxi = objectsToDraw.children.length; i < maxi; i += 1) {
-            vertexing(objectsToDraw.children[i])
+    var vertexing = function (objectsToDraw) {
+        for (var i = 0, maxi = objectsToDraw.length || 0; i < maxi; i += 1) {
+            vertexing(objectsToDraw[i].children);
+        }
+        objectsToDraw.buffer = GLSLUtilities.initVertexBuffer(gl, objectsToDraw.vertices);
 
-            if (!Array.isArray(object.colors)) {
-                // If we have a single color, we expand that into an array
-                // of the same color over and over.
-                var colorObj = objectsToDraw.colors;
-                object.colors = [];
-                for (j = 0, maxj = objectsToDraw.vertices.length / 3; j < maxj; j += 1) {
-                    objectsToDraw[i].colors = objectsToDraw[i].colors.concat(
-                        objectsToDraw[i].color.r,
-                        objectsToDraw[i].color.g,
-                        objectsToDraw[i].color.b
-                    );
-                }
-            }
-            objectsToDraw[i].colorBuffer = GLSLUtilities.initVertexBuffer(gl,
-                    objectsToDraw[i].colors);
-
-            if (objectsToDraw[i].children && (objectsToDraw[i].children.length !== 0)) {
-                vertexing(objectsToDraw[i].children);
+        if (!Array.isArray(objectsToDraw.colors)) {
+            // If we have a single color, we expand that into an array
+            // of the same color over and over.
+            var colorObj = objectsToDraw.colors;
+            objectsToDraw.colors = [];
+            for (var j = 0, maxj = objectsToDraw.vertices.length / 3; j < maxj; j += 1) {
+                objectsToDraw.colors = objectsToDraw.colors.concat(
+                    colorObj.r,
+                    colorObj.g,
+                    colorObj.b
+                );
             }
         }
+        objectsToDraw.colorBuffer = GLSLUtilities.initVertexBuffer(gl, objectsToDraw.colors);
     },
 
     // Initialize the shaders.
@@ -271,7 +267,9 @@
         window.requestAnimationFrame(advanceScene);
     };
 
-    vertexing(objectsToDraw);
+    for(var i = 0; i <objectsToDraw.length; i++){
+        vertexing(objectsToDraw[i]);
+    }
 
     // Draw the initial scene.
     drawScene();
