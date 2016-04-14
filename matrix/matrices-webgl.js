@@ -404,19 +404,19 @@
         // Set up the model-view matrix, if an axis is included.  If not, we
         // specify the identity matrix.
         gl.uniformMatrix4fv(modelViewMatrix, gl.FALSE, new Float32Array(object.axis ?
-                Matrix.getRotationMatrix(currentRotation, object.axis.x, object.axis.y, object.axis.z).elements :
+                Matrix.rotate(currentRotation, object.axis.x, object.axis.y, object.axis.z).elements :
                 new Matrix().elements
             ));
 
         var theMatrix = new Matrix()
 
-        theMatrix = theMatrix.multiplication(
-            Matrix.translation(
+        theMatrix = theMatrix.multiply(
+            Matrix.translate(
                 object.tx, object.ty, object.tz
-            )).multiplication(
+            )).multiply(
                 Matrix.scale(
                     object.sx, object.sy, object.sz
-            )).multiplication(
+            )).multiply(
                 Matrix.rotate(
                     object.angle, object.rx, object.ry, object.rz
             ));

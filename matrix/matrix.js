@@ -60,10 +60,10 @@
         }
 
         return result;
-    }
+    };
 
     // Scaling
-    Matrix.prototype.scale = function (sx, sy, sz) {
+    Matrix.scale = function (sx, sy, sz) {
         var scaleX = sx || 1,
             scaleY = sy || 1,
             scaleZ = sz || 1;
@@ -78,7 +78,7 @@
     };
 
     // Translating
-    Matrix.prototype.translate = function (tx, ty, tz) {
+    Matrix.translate = function (tx, ty, tz) {
         var translateX = tx || 1,
             translateY = ty || 1,
             translateZ = tz || 1;
@@ -94,7 +94,7 @@
     };
 
     // Rotating
-    Matrix.prototype.rotate = function (angle, rx, ry, rz) {
+    Matrix.rotate = function (angle, rx, ry, rz) {
 
         var axisLength = Math.sqrt((rx * rx) + (ry * ry) + (rz * rz)),
             sin = Math.sin(angle * Math.PI / 180),
@@ -140,7 +140,7 @@
             ]);
     };
 
-    Matrix.prototype.ortho = function (left, right, bottom, top, near, far) {
+    Matrix.ortho = function (left, right, bottom, top, near, far) {
         var width = right - left,
             height = top - bottom,
             depth = far - near;
@@ -162,7 +162,7 @@
         }
     };
 
-    Matrix.prototype.frustum = function (left, right, bottom, top, near, far) {
+    Matrix.frustum = function (left, right, bottom, top, near, far) {
         var width = right - left,
             height = top - bottom,
             depth = far - near;
