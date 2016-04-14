@@ -188,18 +188,18 @@
      * Utility function for turning indexed vertices into a "raw" coordinate array
      * arranged as triangles.
      */
-    Shape.prototype.toRawTriangleArray = function (indexedVertices) {
+    Shape.prototype.toRawTriangleArray = function () {
         var result = [],
             i,
             j,
             maxi,
             maxj;
 
-        for (i = 0, maxi = indexedVertices.indices.length; i < maxi; i += 1) {
-            for (j = 0, maxj = indexedVertices.indices[i].length; j < maxj; j += 1) {
+        for (i = 0, maxi = this.indices.length; i < maxi; i += 1) {
+            for (j = 0, maxj = this.indices[i].length; j < maxj; j += 1) {
                 result = result.concat(
-                    indexedVertices.vertices[
-                        indexedVertices.indices[i][j]
+                    this.vertices[
+                        this.indices[i][j]
                     ]
                 );
             }
@@ -212,22 +212,22 @@
      * Utility function for turning indexed vertices into a "raw" coordinate array
      * arranged as line segments.
      */
-    Shape.prototype.toRawLineArray = function (indexedVertices) {
+    Shape.prototype.toRawLineArray = function () {
         var result = [],
             i,
             j,
             maxi,
             maxj;
 
-        for (i = 0, maxi = indexedVertices.indices.length; i < maxi; i += 1) {
-            for (j = 0, maxj = indexedVertices.indices[i].length; j < maxj; j += 1) {
+        for (i = 0, maxi = this.indices.length; i < maxi; i += 1) {
+            for (j = 0, maxj = this.indices[i].length; j < maxj; j += 1) {
                 result = result.concat(
-                    indexedVertices.vertices[
-                        indexedVertices.indices[i][j]
+                    this.vertices[
+                        this.indices[i][j]
                     ],
 
-                    indexedVertices.vertices[
-                        indexedVertices.indices[i][(j + 1) % maxj]
+                    this.vertices[
+                        this.indices[i][(j + 1) % maxj]
                     ]
                 );
             }
@@ -236,12 +236,12 @@
         return result;
     };
 
-    Shape.prototype.toRawPointArray = function (indexedVertices) {
+    Shape.prototype.toRawPointArray = function () {
         var result = [],
-            max = indexedVertices.vertices.length;
+            max = this.vertices.length;
 
         for (i = 0; i < max; i += 1) {
-            result = result.concat(indexedVertices.vertices[i]);
+            result = result.concat(this.vertices[i]);
         }
 
         return result;

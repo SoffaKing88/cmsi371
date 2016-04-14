@@ -1,6 +1,8 @@
-var Matrix = (function () {
+(function () {
+
+    window.Matrix = window.Matrix || {};
     // Define the constructor.
-    var matrix = function (array, height, width) {
+    Matrix = function (array, height, width) {
         this.elements = array || [
                                   1, 0, 0, 0,
                                   0, 1, 0, 0,
@@ -14,20 +16,20 @@ var Matrix = (function () {
         
 
     // Basic methods.
-    matrix.prototype.dimensions = function () {
+    Matrix.prototype.dimensions = function () {
         return this.size;
     };
 
-    matrix.prototype.height = function () {
+    Matrix.prototype.height = function () {
         return this.height;
     }
 
-    matrix.prototype.width = function () {
+    Matrix.prototype.width = function () {
         return this.width;
     }
 
     // Scalar multiplication
-    matrix.prototype.multiply = function (m) {
+    Matrix.prototype.multiply = function (m) {
         var result = []
 
         for (var rowNum = 0, rowMax = this.dimensions(); rowNum < rowMax; rowNum += this.height) {
@@ -50,7 +52,7 @@ var Matrix = (function () {
     };
 
     //Supplemental function to multiply the two array's together
-    matrix.prototype.getProduct = function (row, col) {
+    Matrix.prototype.getProduct = function (row, col) {
         var result = 0;
 
         for (var i = 0; i < row.length; i++) {
@@ -61,7 +63,7 @@ var Matrix = (function () {
     }
 
     // Scaling
-    matrix.prototype.scale = function (sx, sy, sz) {
+    Matrix.prototype.scale = function (sx, sy, sz) {
         var scaleX = sx || 1,
             scaleY = sy || 1,
             scaleZ = sz || 1;
@@ -76,7 +78,7 @@ var Matrix = (function () {
     };
 
     // Translating
-    matrix.prototype.translate = function (tx, ty, tz) {
+    Matrix.prototype.translate = function (tx, ty, tz) {
         var translateX = tx || 1,
             translateY = ty || 1,
             translateZ = tz || 1;
@@ -92,7 +94,7 @@ var Matrix = (function () {
     };
 
     // Rotating
-    matrix.prototype.rotate = function (angle, rx, ry, rz) {
+    Matrix.prototype.rotate = function (angle, rx, ry, rz) {
 
         var axisLength = Math.sqrt((rx * rx) + (ry * ry) + (rz * rz)),
             sin = Math.sin(angle * Math.PI / 180),
@@ -138,7 +140,7 @@ var Matrix = (function () {
             ]);
     };
 
-    matrix.prototype.ortho = function (left, right, bottom, top, near, far) {
+    Matrix.prototype.ortho = function (left, right, bottom, top, near, far) {
         var width = right - left,
             height = top - bottom,
             depth = far - near;
@@ -160,7 +162,7 @@ var Matrix = (function () {
         }
     };
 
-    matrix.prototype.frustum = function (left, right, bottom, top, near, far) {
+    Matrix.prototype.frustum = function (left, right, bottom, top, near, far) {
         var width = right - left,
             height = top - bottom,
             depth = far - near;
@@ -182,5 +184,15 @@ var Matrix = (function () {
         }
     };
 
-    return matrix;
-})();
+    Matrix.prototype.toGL = function () {
+        var result = [];
+
+        for (var i = 0; i < 4; i++) {
+            result.push(this.elements[i], this.elements[i+4], this.elements[i+8], this.elements[i+12]);
+        }
+
+        return result;
+    };
+
+    return Matrix;
+}());
