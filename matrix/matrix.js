@@ -20,11 +20,11 @@
         return this.size;
     };
 
-    Matrix.prototype.height = function () {
+    Matrix.height = function () {
         return this.height;
     }
 
-    Matrix.prototype.width = function () {
+    Matrix.width = function () {
         return this.width;
     }
 
