@@ -1,35 +1,38 @@
 
-var Shape = (function (color, vertices, mode, children) {
-    this.colors = color;
-    this.vertices = vertices;
-    this.mode = mode;
-    this.children = children || [];
-
-    Shape.prototype.addChildren = function (children) {
-        this.children.push(child);
-        return this;
-    }
-
-    Shape.prototype.removeChild = function (index) {
-        this.children.splice(index, 1);
-        return this;
-    }
-
-    Shape.prototype.clearChildren = function () {
-        this.children = [];
-        return this;
-    }
-});
 
 /*
  * This module defines/generates vertex arrays for certain predefined shapes.
  * The "shapes" are returned as indexed vertices, with utility functions for
  * converting these into "raw" coordinate arrays.
  */
-var Shapes = {
+(function() {
+    window.Shape = window.Shape || {};
+
+    Shape = function (parameters) {
+        this.x = parameters.x || 0;
+        this.y = parameters.y || 0;
+        this.z = parameters.z || 0;
+        this.children = parameters.children || [];
+        this.color = parameters.color || {r: 0.0, g: 0.0, b: 0.0};
+        this.colors = parameters.colors || null;
+        this.mode = parameters.mode;
+        this.axis = parameters.axis || {x: 0.0, y: 0.0, z: 0.0};
+        this.sx = parameters.sx || 1;
+        this.sy = parameters.sy || 1;
+        this.sz = parameters.sz || 1;
+        this.tx = parameters.tx || 0;
+        this.ty = parameters.ty || 0;
+        this.tz = parameters.tz || 0;
+        this.angle = parameters.angle || 0;
+        this.rx = parameters.rx || 1;
+        this.ry = parameters.ry || 1;
+        this.rz = parameters.rz || 1;
+        this.vertices = parameters.vertices || [];
+        this.indices = parameters.indices || [];
+    };
 
     //Returns the vertices for a cube
-    rectangularPrism: function (length, height, depth) {
+    Shape.rectangularPrism = function (length, height, depth) {
         
         var x = length || 0.5,
             y = height || 0.5,
@@ -64,7 +67,7 @@ var Shapes = {
         };
     },
 
-    pyramid: function () {
+    Shape.pyramid = function () {
         return {
             vertices: [
                 [0, 1, 0],
@@ -91,7 +94,7 @@ var Shapes = {
     http://stackoverflow.com/questions/20353339/having-trouble-rendering-a-sphere-in-webgl
 
     */
-    sphere: function (radius, resolution) {
+    Shape.sphere = function (radius, resolution) {
         var radius = radius || 0.5
             //Higher the number the more detailed the sphere, but longer loading time
             latitudeBands = resolution || 20,
@@ -135,7 +138,7 @@ var Shapes = {
     /*
      * Returns the vertices for a small icosahedron.
      */
-    icosahedron: function () {
+    Shape.icosahedron = function () {
         // These variables are actually "constants" for icosahedron coordinates.
         var X = 0.525731112119133606,
             Z = 0.850650808352039932;
@@ -185,7 +188,7 @@ var Shapes = {
      * Utility function for turning indexed vertices into a "raw" coordinate array
      * arranged as triangles.
      */
-    toRawTriangleArray: function (indexedVertices) {
+    Shape.prototype.toRawTriangleArray = function (indexedVertices) {
         var result = [],
             i,
             j,
@@ -209,7 +212,7 @@ var Shapes = {
      * Utility function for turning indexed vertices into a "raw" coordinate array
      * arranged as line segments.
      */
-    toRawLineArray: function (indexedVertices) {
+    Shape.prototype.toRawLineArray = function (indexedVertices) {
         var result = [],
             i,
             j,
@@ -233,7 +236,7 @@ var Shapes = {
         return result;
     },
 
-    toRawPointArray: function (indexedVertices) {
+    Shape.prototype.toRawPointArray = function (indexedVertices) {
         var result = [],
             max = indexedVertices.vertices.length;
 
