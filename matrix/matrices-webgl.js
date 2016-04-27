@@ -291,20 +291,28 @@
             // sy: 0.2,
             // sz: 0.2,
             // tx: 0.5,
-            // rx: 0.3,
-            // ry: 1,
-            // rz: 0.1,
+            rx: 0.1,
+            ry: 0.7,
+            rz: 0.1,
             // children: [new Shape({
             //     color: {r: 0.5, g: 0.0, b: 0.0},
-            //     vertices: new Shape(Shape.sphere()).toRawTriangleArray(),
-            //     mode: gl.TRIANGLES,
-            //     axis: {x: 0.0, y: 1.0, z: 1.0},
-            //     sx: 0.3,
-            //     sy: 0.3,
-            //     sz: 0.3,
-            //     rx: 0.3,
-            //     ry: 0.3,
-            //     rz: 0.3,
+            //     vertices: new Shape(Shape.sphere()).toRawLineArray(),
+            //     mode: gl.LINES,
+            // //     axis: {x: 0.0, y: 1.0, z: 1.0},
+            // //     sx: 0.3,
+            // //     sy: 0.3,
+            // //     sz: 0.3,
+            //     rx: 2,
+            //     ry: 2,
+            //     rz: 2,
+            // }),
+            // new Shape({
+            //     color: {r: 0.2, g: 0.8, b: 0.2},
+            //     vertices: new Shape(Shape.rectangularPrism()).toRawLineArray(),
+            //     mode: gl.LINES,
+            //     rx: 2,
+            //     ry: 2,
+            //     rz: 2,
             // })]
         })
     ];
@@ -419,7 +427,7 @@
                     object.sx, object.sy, object.sz
             )).multiply(
                 new Matrix().rotate(
-                    object.angle, object.rx, object.ry, object.rz
+                    currentRotation, object.rx, object.ry, object.rz
             ));
 
         console.log(theMatrix);
@@ -434,7 +442,7 @@
 
         if (object.children.length != 0) {
             for(var i = 0; i < object.children.length; i++){
-                drawObject(object.children[i], theMatrix);
+                drawObject(object.children[i]);
             }
         }
     };

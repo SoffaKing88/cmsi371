@@ -23,7 +23,7 @@
         this.tx = parameters.tx || 0;
         this.ty = parameters.ty || 0;
         this.tz = parameters.tz || 0;
-        this.angle = parameters.angle || 0;
+        this.angle = parameters.angle || 180;
         this.rx = parameters.rx || 1;
         this.ry = parameters.ry || 1;
         this.rz = parameters.rz || 1;
