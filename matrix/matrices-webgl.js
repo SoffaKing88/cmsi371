@@ -283,12 +283,6 @@
         //     axis: { x: 1.0, y: 1.0, z: 1.0 }
         // }
 
-        // new Shape ({
-        //     color: {r: 0.0, g: 0.5, b: 0.0},
-        //     vertices: new Shape(Shape.sphere()).toRawTriangleArray(),
-        //     mode: gl.TRIANGLES,
-        // }),
-
         new Shape ({
             color: {r: 0.0, g: 0.5, b: 0.0},
             vertices: new Shape(Shape.rectangularPrism()).toRawLineArray(),
@@ -417,6 +411,7 @@
         var theMatrix = new Matrix()
 
         theMatrix = theMatrix.multiply(
+
             new Matrix().translate(
                 object.tx, object.ty, object.tz
             )).multiply(
