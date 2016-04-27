@@ -1,67 +1,45 @@
-var Matrix = (function () {
+(function () {
+
+    window.Matrix = window.Matrix || {};
     // Define the constructor.
-    var matrix = function (array, height, width) {
+    Matrix = function (array, height, width) {
         this.elements = array || [
                                   1, 0, 0, 0,
                                   0, 1, 0, 0,
                                   0, 0, 1, 0,
                                   0, 0, 0, 1
                                   ];
-        this.height = height || 4;
-        this.width = width || 4;
-        this.size = height * width || 16;
     }
         
 
     // Basic methods.
-    matrix.prototype.dimensions = function () {
-        return this.size;
-    };
+    // Matrix.height = function () {
+    //     return this.height;
+    // }
 
-    matrix.prototype.height = function () {
-        return this.height;
-    }
-
-    matrix.prototype.width = function () {
-        return this.width;
-    }
+    // Matrix.width = function () {
+    //     return this.width;
+    // }
 
     // Scalar multiplication
-    matrix.prototype.multiply = function (m) {
+    Matrix.prototype.multiply = function (m) {
         var result = []
-
-        for (var rowNum = 0, rowMax = this.dimensions(); rowNum < rowMax; rowNum += this.height) {
-            var row = [];
-            for (var rowIterator = rowNum, rowIteratorMax = rowNum + this.width; rowIterator < rowIteratorMax; rowIterator++) {
-                row.push(this.elements[rowIterator]);
-            }
-            for (var colNum = 0, colNumMax = m.width; colNum < colNumMax; colNum++) {
-                var col = [];
-                for (var colIterator = colNum, colIteratorMax = m.dimensions(); colIterator < colIteratorMax; colIterator += this.width) {
-                    col.push(this.elements[colIterator]);
-                }
-                result.push(this.getProduct(row, col));
-            }
-        }
-        // console.log(result);
-        var endMatrix = new Matrix(result, this.height, this.width);
-        // console.log(endMatrix);
-        return endMatrix;
+        
+        for(var i = 0; i <= 12; i += 4) {
+            for(var j = 0; j <= 3; j++) {
+                result.push(
+                this.elements[i] * m.elements[j] +
+                this.elements[i + 1] * m.elements[j + 4] +
+                this.elements[i + 2] * m.elements[j + 8] +
+                this.elements[i + 3] * m.elements[j + 12]
+                );
+            };
+        };
+        return new Matrix(result);
     };
 
-    //Supplemental function to multiply the two array's together
-    matrix.prototype.getProduct = function (row, col) {
-        var result = 0;
-
-        for (var i = 0; i < row.length; i++) {
-            result = row[i] + col[i];
-        }
-
-        return result;
-    }
-
     // Scaling
-    matrix.prototype.scale = function (sx, sy, sz) {
+    Matrix.prototype.scale = function (sx, sy, sz) {
         var scaleX = sx || 1,
             scaleY = sy || 1,
             scaleZ = sz || 1;
@@ -72,14 +50,15 @@ var Matrix = (function () {
                 0, scaleY, 0, 0,
                 0, 0, scaleZ, 0,
                 0, 0, 0, 1
-            ], 4, 4);
+            ]
+        );
     };
 
     // Translating
-    matrix.prototype.translate = function (tx, ty, tz) {
-        var translateX = tx || 1,
-            translateY = ty || 1,
-            translateZ = tz || 1;
+    Matrix.prototype.translate = function (tx, ty, tz) {
+        var translateX = tx || 0,
+            translateY = ty || 0,
+            translateZ = tz || 0;
 
         return new Matrix(
             [
@@ -92,7 +71,7 @@ var Matrix = (function () {
     };
 
     // Rotating
-    matrix.prototype.rotate = function (angle, rx, ry, rz) {
+    Matrix.prototype.rotate = function (angle, rx, ry, rz) {
 
         var axisLength = Math.sqrt((rx * rx) + (ry * ry) + (rz * rz)),
             sin = Math.sin(angle * Math.PI / 180),
@@ -138,7 +117,7 @@ var Matrix = (function () {
             ]);
     };
 
-    matrix.prototype.ortho = function (left, right, bottom, top, near, far) {
+    Matrix.prototype.ortho = function (left, right, bottom, top, near, far) {
         var width = right - left,
             height = top - bottom,
             depth = far - near;
@@ -160,7 +139,7 @@ var Matrix = (function () {
         }
     };
 
-    matrix.prototype.frustum = function (left, right, bottom, top, near, far) {
+    Matrix.frustum = function (left, right, bottom, top, near, far) {
         var width = right - left,
             height = top - bottom,
             depth = far - near;
@@ -182,5 +161,15 @@ var Matrix = (function () {
         }
     };
 
-    return matrix;
-})();
+    Matrix.prototype.toGL = function () {
+        var result = [];
+
+        for (var i = 0; i < 4; i++) {
+            result.push(this.elements[i], this.elements[i+4], this.elements[i+8], this.elements[i+12]);
+        }
+
+        return result;
+    };
+
+    return Matrix;
+}());
