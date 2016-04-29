@@ -290,36 +290,37 @@
             // sx: 0.2,
             // sy: 0.2,
             // sz: 0.2,
-            // tx: 0.5,
+            tx: 1,
             rx: 0.1,
-            ry: 0.7,
+            ry: 0.1,
             rz: 0.1,
-            // children: [new Shape({
-            //     color: {r: 0.5, g: 0.0, b: 0.0},
-            //     vertices: new Shape(Shape.sphere()).toRawLineArray(),
-            //     mode: gl.LINES,
-            // //     axis: {x: 0.0, y: 1.0, z: 1.0},
-            // //     sx: 0.3,
-            // //     sy: 0.3,
-            // //     sz: 0.3,
-            //     rx: 2,
-            //     ry: 2,
-            //     rz: 2,
-            // }),
-            // new Shape({
-            //     color: {r: 0.2, g: 0.8, b: 0.2},
-            //     vertices: new Shape(Shape.rectangularPrism()).toRawLineArray(),
-            //     mode: gl.LINES,
-            //     rx: 2,
-            //     ry: 2,
-            //     rz: 2,
-            // })]
+            children: [new Shape({
+                color: {r: 0.5, g: 0.0, b: 0.0},
+                vertices: new Shape(Shape.sphere()).toRawLineArray(),
+                mode: gl.LINES,
+            //     axis: {x: 0.0, y: 1.0, z: 1.0},
+            //     sx: 0.3,
+            //     sy: 0.3,
+            //     sz: 0.3,
+                ty: 1,
+                rx: 0,
+                ry: 0,
+                rz: 0,
+            }),
+            new Shape({
+                color: {r: 0.2, g: 0.8, b: 0.2},
+                vertices: new Shape(Shape.pyramid()).toRawLineArray(),
+                mode: gl.LINES,
+                rx: 0,
+                ry: 0,
+                rz: 0,
+            })]
         })
     ];
 
     // Pass the vertices to WebGL.
     var vertexing = function (objectsToDraw) {
-        for (i = 0, maxi = objectsToDraw.length; i < maxi; i += 1) {
+        for (var i = 0, maxi = objectsToDraw.length; i < maxi; i += 1) {
             objectsToDraw[i].buffer = GLSLUtilities.initVertexBuffer(gl,
                     objectsToDraw[i].vertices);
 
@@ -339,7 +340,7 @@
             objectsToDraw[i].colorBuffer = GLSLUtilities.initVertexBuffer(gl,
                     objectsToDraw[i].colors);
 
-            if (objectsToDraw[i].children.length > 0) {
+            if ((objectsToDraw[i].children.length > 0) && objectsToDraw[i].colorBuffer) {
                 vertexing(objectsToDraw[i].children);
             }
         }
@@ -383,10 +384,12 @@
     // Finally, we come to the typical setup for transformation matrices:
     // model-view and projection, managed separately.
     modelViewMatrix = gl.getUniformLocation(shaderProgram, "modelViewMatrix");
-    rotationMatrix = gl.getUniformLocation(shaderProgram, "rotationMatrix");
     projectionMatrix = gl.getUniformLocation(shaderProgram, "projectionMatrix");
+
+    rotationMatrix = gl.getUniformLocation(shaderProgram, "rotationMatrix");
     translationMatrix = gl.getUniformLocation(shaderProgram, "translationMatrix");
     scaleMatrix = gl.getUniformLocation(shaderProgram, "scaleMatrix");
+    frustumMatrix = gl.getUniformLocation(shaderProgram, "frustumMatrix");
     orthoMatrix = gl.getUniformLocation(shaderProgram, "orthoMatrix");
 
     //Instantiate projection matrix
@@ -404,7 +407,7 @@
      * Displays an individual object, including a transformation that now varies
      * for each object drawn.
      */
-    drawObject = function (object) {
+    drawObject = function (object,parentMatrix) {
         // Set the varying colors.
         gl.bindBuffer(gl.ARRAY_BUFFER, object.colorBuffer);
         gl.vertexAttribPointer(vertexColor, 3, gl.FLOAT, false, 0, 0);
@@ -430,7 +433,14 @@
                     currentRotation, object.rx, object.ry, object.rz
             ));
 
-        console.log(theMatrix);
+        if(parentMatrix){
+            theMatrix = theMatrix.multiply(parentMatrix);
+        }
+        // theMatrix = new Matrix().rotate(
+        //             currentRotation, object.rx, object.ry, object.rz
+        //     );
+        console.log(theMatrix.toGL());
+        console.log(object);
         // gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, theMatrix.toGL());
 
         gl.uniformMatrix4fv(modelViewMatrix, gl.FALSE, new Float32Array(theMatrix.toGL()));
@@ -440,9 +450,9 @@
         gl.vertexAttribPointer(vertexPosition, 3, gl.FLOAT, false, 0, 0);
         gl.drawArrays(object.mode, 0, object.vertices.length / 3);
 
-        if (object.children.length != 0) {
+        if (object.children) {
             for(var i = 0; i < object.children.length; i++){
-                drawObject(object.children[i]);
+                drawObject(object.children[i], theMatrix);
             }
         }
     };

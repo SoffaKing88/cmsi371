@@ -73,10 +73,10 @@
     // Rotating
     Matrix.prototype.rotate = function (angle, rx, ry, rz) {
 
-        var axisLength = Math.sqrt((rx * rx) + (ry * ry) + (rz * rz)),
+        var axisLength,
             sin = Math.sin(angle * Math.PI / 180),
             cos = Math.cos(angle * Math.PI / 180),
-            oneMinCos = 1 - cos,
+            oneMinCos = 1.0 - cos,
 
             x2,
             y2,
@@ -89,6 +89,8 @@
             zsin;
             // console.log(cos);
             // console.log(oneMinCos);
+
+        (rx && ry && rz) ? axisLength = Math.sqrt((rx * rx) + (ry * ry) + (rz * rz)) : axisLength = 0;
 
         rx /= axisLength;
         ry /= axisLength;
