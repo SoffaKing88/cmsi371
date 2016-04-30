@@ -287,33 +287,20 @@
             color: {r: 0.0, g: 0.5, b: 0.0},
             vertices: new Shape(Shape.rectangularPrism()).toRawLineArray(),
             mode: gl.LINES,
-            // sx: 0.2,
-            // sy: 0.2,
-            // sz: 0.2,
-            tx: 1,
-            rx: 0.1,
-            ry: 0.1,
-            rz: 0.1,
+            translate: { x: 0.0, y: 0.0, z: 0.0},
+            rotate: {x: 0.1, y: 0.1, z: 0.1},
+            // scale: {x: 0.5, y: 0.5, z: 0.5},
             children: [new Shape({
                 color: {r: 0.5, g: 0.0, b: 0.0},
                 vertices: new Shape(Shape.sphere()).toRawLineArray(),
                 mode: gl.LINES,
-            //     axis: {x: 0.0, y: 1.0, z: 1.0},
-            //     sx: 0.3,
-            //     sy: 0.3,
-            //     sz: 0.3,
-                ty: 1,
-                rx: 0,
-                ry: 0,
-                rz: 0,
+                translate: { x: 0.0, y: 2.0, z: 1.5},
             }),
             new Shape({
                 color: {r: 0.2, g: 0.8, b: 0.2},
                 vertices: new Shape(Shape.pyramid()).toRawLineArray(),
                 mode: gl.LINES,
-                rx: 0,
-                ry: 0,
-                rz: 0,
+                // translate: { x: 0.0, y: 0.0, z: 0.0}
             })]
         })
     ];
@@ -393,7 +380,7 @@
     orthoMatrix = gl.getUniformLocation(shaderProgram, "orthoMatrix");
 
     //Instantiate projection matrix
-    //gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, new Float32Array(Matrix.frustrum(-2, 2, 2, -2, 20, 2000).toGL()));
+    // gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, new Float32Array(Matrix.frustum(-4, 4, 2, -2, 5, 200).toGL()));
 
     //Instantiate translation matrix
     // gl.uniformMatrix4fv(translationMatrix, gl.FALSE, Matrix.translate(0, 0, 0).toGL());
@@ -424,13 +411,13 @@
         theMatrix = theMatrix.multiply(
 
             new Matrix().translate(
-                object.tx, object.ty, object.tz
+                object.translate.x, object.translate.y, object.translate.z
             )).multiply(
                 new Matrix().scale(
-                    object.sx, object.sy, object.sz
+                    object.scale.x, object.scale.y, object.scale.z
             )).multiply(
                 new Matrix().rotate(
-                    currentRotation, object.rx, object.ry, object.rz
+                    currentRotation, object.rotate.x, object.rotate.y, object.rotate.z
             ));
 
         if(parentMatrix){

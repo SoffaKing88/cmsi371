@@ -16,17 +16,13 @@
         this.color = parameters.color || {r: 0.0, g: 0.0, b: 0.0};
         this.colors = parameters.colors || null;
         this.mode = parameters.mode;
+
+        this.scale = parameters.scale || {x: 1.0, y: 1.0, z: 1.0};
+        this.translate = parameters.translate || {x: 0.0, y: 0.0, z: 0.0};
+        this.rotate = parameters.rotate || {x: 1.0, y: 1.0, z: 1.0};
+
         this.axis = parameters.axis || {x: 1.0, y: 1.0, z: 1.0};
-        this.sx = parameters.sx || 1;
-        this.sy = parameters.sy || 1;
-        this.sz = parameters.sz || 1;
-        this.tx = parameters.tx || 0;
-        this.ty = parameters.ty || 0;
-        this.tz = parameters.tz || 0;
         this.angle = parameters.angle || 180;
-        this.rx = parameters.rx || 1;
-        this.ry = parameters.ry || 1;
-        this.rz = parameters.rz || 1;
         this.vertices = parameters.vertices || [];
         this.indices = parameters.indices || [];
     };
