@@ -43,109 +43,6 @@
         j,
         maxj,
 
-        /*
-         * This code does not really belong here: it should live
-         * in a separate library of matrix and transformation
-         * functions.  It is here only to show you how matrices
-         * can be used with GLSL.
-         *
-         * Based on the original glRotate reference:
-         *     http://www.opengl.org/sdk/docs/man/xhtml/glRotate.xml
-         */
-        // getRotationMatrix = function (angle, x, y, z) {
-        //     // In production code, this function should be associated
-        //     // with a matrix object with associated functions.
-        //     var axisLength = Math.sqrt((x * x) + (y * y) + (z * z)),
-        //         s = Math.sin(angle * Math.PI / 180.0),
-        //         c = Math.cos(angle * Math.PI / 180.0),
-        //         oneMinusC = 1.0 - c,
-
-        //         // We can't calculate this until we have normalized
-        //         // the axis vector of rotation.
-        //         x2, // "2" for "squared."
-        //         y2,
-        //         z2,
-        //         xy,
-        //         yz,
-        //         xz,
-        //         xs,
-        //         ys,
-        //         zs;
-
-        //     // Normalize the axis vector of rotation.
-        //     x /= axisLength;
-        //     y /= axisLength;
-        //     z /= axisLength;
-
-        //     // *Now* we can calculate the other terms.
-        //     x2 = x * x;
-        //     y2 = y * y;
-        //     z2 = z * z;
-        //     xy = x * y;
-        //     yz = y * z;
-        //     xz = x * z;
-        //     xs = x * s;
-        //     ys = y * s;
-        //     zs = z * s;
-
-        //     // GL expects its matrices in column major order.
-        //     return [
-        //         (x2 * oneMinusC) + c,
-        //         (xy * oneMinusC) + zs,
-        //         (xz * oneMinusC) - ys,
-        //         0.0,
-
-        //         (xy * oneMinusC) - zs,
-        //         (y2 * oneMinusC) + c,
-        //         (yz * oneMinusC) + xs,
-        //         0.0,
-
-        //         (xz * oneMinusC) + ys,
-        //         (yz * oneMinusC) - xs,
-        //         (z2 * oneMinusC) + c,
-        //         0.0,
-
-        //         0.0,
-        //         0.0,
-        //         0.0,
-        //         1.0
-        //     ];
-        // },
-
-        /*
-         * This is another function that really should reside in a
-         * separate library.  But, because the creation of that library
-         * is part of the student course work, we leave it here for
-         * later refactoring and adaptation by students.
-         */
-        // getOrthoMatrix = function (left, right, bottom, top, zNear, zFar) {
-        //     var width = right - left,
-        //         height = top - bottom,
-        //         depth = zFar - zNear;
-
-        //     return [
-        //         2.0 / width,
-        //         0.0,
-        //         0.0,
-        //         0.0,
-
-        //         0.0,
-        //         2.0 / height,
-        //         0.0,
-        //         0.0,
-
-        //         0.0,
-        //         0.0,
-        //         -2.0 / depth,
-        //         0.0,
-
-        //         -(right + left) / width,
-        //         -(top + bottom) / height,
-        //         -(zFar + zNear) / depth,
-        //         1.0
-        //     ];
-        // };
-
     // Grab the WebGL rendering context.
     gl = GLSLUtilities.getGL(canvas);
     if (!gl) {
@@ -165,142 +62,25 @@
     // Build the objects to display.  Note how each object may come with a
     // rotation axis now.
     objectsToDraw = [
-        // We move our original triangles a bit to accommodate a new addition
-        // to the scene (yes, a translation will also do the trick, if it
-        // where implemented in this program).
-        // {
-        //     vertices: [].concat(
-        //         [ -2.0, 0.0, 0.0 ],
-        //         [ -1.5, 0.0, -0.75 ],
-        //         [ -2.0, 0.5, 0.0 ]
-        //     ),
-        //     colors: [].concat(
-        //         [ 1.0, 0.0, 0.0 ],
-        //         [ 0.0, 1.0, 0.0 ],
-        //         [ 0.0, 0.0, 1.0 ]
-        //     ),
-        //     mode: gl.TRIANGLES
-        // },
-
-        // {
-        //     color: { r: 0.0, g: 1.0, b: 0 },
-        //     vertices: [].concat(
-        //         [ -1.75, 0.0, -0.5 ],
-        //         [ -1.25, 0.0, -0.5 ],
-        //         [ -1.75, 0.5, -0.5 ]
-        //     ),
-        //     mode: gl.TRIANGLES
-        // },
-
-        // {
-        //     color: { r: 0.0, g: 0.0, b: 1.0 },
-        //     vertices: [].concat(
-        //         [ -2.25, 0.0, 0.5 ],
-        //         [ -1.75, 0.0, 0.5 ],
-        //         [ -2.25, 0.5, 0.5 ]
-        //     ),
-        //     mode: gl.TRIANGLES
-        // },
-
-        // {
-        //     color: { r: 0.0, g: 0.0, b: 1.0 },
-        //     vertices: [].concat(
-        //         [ -1.0, -1.0, 0.75 ],
-        //         [ -1.0, -0.1, -1.0 ],
-        //         [ -0.1, -0.1, -1.0 ],
-        //         [ -0.1, -1.0, 0.75 ]
-        //     ),
-        //     mode: gl.LINE_LOOP,
-        //     axis: { x: 1.0, y: 0.0, z: 1.0 }
-        // },
-
-        // {
-        //     color: { r: 0.0, g: 0.5, b: 0.0 },
-        //     vertices: Shapes.toRawLineArray(Shapes.icosahedron()),
-        //     mode: gl.LINES,
-        //     axis: { x: 0.0, y: 1.0, z: 1.0 }
-        // },
-
-        // // Something that would have been clipped before.
-        // {
-        //     vertices: [].concat(
-        //         [ 3.0, 1.5, 0.0 ],
-        //         [ 2.0, -1.5, 0.0 ],
-        //         [ 4.0, -1.5, 0.0 ]
-        //     ),
-        //     colors: [].concat(
-        //         [ 1.0, 0.5, 0.0 ],
-        //         [ 0.0, 0.0, 0.5 ],
-        //         [ 0.5, 0.75, 0.5 ]
-        //     ),
-        //     mode: gl.TRIANGLES,
-        //     axis: { x: -0.5, y: 1.0, z: 0.0 }
-        // },
-
-        // // Show off the new shape.
-        // {
-        //     vertices: Shapes.toRawTriangleArray(Shapes.cube()),
-        //     // 12 triangles in all.
-        //     colors: [].concat(
-        //         [ 1.0, 0.0, 0.0 ],
-        //         [ 1.0, 0.0, 0.0 ],
-        //         [ 1.0, 0.0, 0.0 ],
-        //         [ 1.0, 0.0, 0.0 ],
-        //         [ 1.0, 0.0, 0.0 ],
-        //         [ 1.0, 0.0, 0.0 ],
-        //         [ 0.0, 1.0, 0.0 ],
-        //         [ 0.0, 1.0, 0.0 ],
-        //         [ 0.0, 1.0, 0.0 ],
-        //         [ 0.0, 1.0, 0.0 ],
-        //         [ 0.0, 1.0, 0.0 ],
-        //         [ 0.0, 1.0, 0.0 ],
-        //         [ 0.0, 0.0, 1.0 ],
-        //         [ 0.0, 0.0, 1.0 ],
-        //         [ 0.0, 0.0, 1.0 ],
-        //         [ 0.0, 0.0, 1.0 ],
-        //         [ 0.0, 0.0, 1.0 ],
-        //         [ 0.0, 0.0, 1.0 ],
-        //         [ 1.0, 1.0, 0.0 ],
-        //         [ 1.0, 1.0, 0.0 ],
-        //         [ 1.0, 1.0, 0.0 ],
-        //         [ 1.0, 1.0, 0.0 ],
-        //         [ 1.0, 1.0, 0.0 ],
-        //         [ 1.0, 1.0, 0.0 ],
-        //         [ 1.0, 0.0, 1.0 ],
-        //         [ 1.0, 0.0, 1.0 ],
-        //         [ 1.0, 0.0, 1.0 ],
-        //         [ 1.0, 0.0, 1.0 ],
-        //         [ 1.0, 0.0, 1.0 ],
-        //         [ 1.0, 0.0, 1.0 ],
-        //         [ 0.0, 1.0, 1.0 ],
-        //         [ 0.0, 1.0, 1.0 ],
-        //         [ 0.0, 1.0, 1.0 ],
-        //         [ 0.0, 1.0, 1.0 ],
-        //         [ 0.0, 1.0, 1.0 ],
-        //         [ 0.0, 1.0, 1.0 ]
-        //     ),
-        //     mode: gl.TRIANGLES,
-        //     axis: { x: 1.0, y: 1.0, z: 1.0 }
-        // }
 
         new Shape ({
             color: {r: 0.0, g: 0.5, b: 0.0},
             vertices: new Shape(Shape.rectangularPrism()).toRawLineArray(),
             mode: gl.LINES,
-            translate: { x: 0.0, y: 0.0, z: -10},
+            translate: { x: 0.0, y: 0.0, z: 2.0},
             rotate: {x: 0.1, y: 0.1, z: 0.1},
             // scale: {x: 0.5, y: 0.5, z: 0.5},
             children: [new Shape({
                 color: {r: 0.5, g: 0.0, b: 0.0},
                 vertices: new Shape(Shape.sphere()).toRawLineArray(),
                 mode: gl.LINES,
-                translate: { x: 0.0, y: 2.0, z: 0},
+                translate: { x: 0.0, y: 0.0, z: 1.0},
             }),
             new Shape({
-                color: {r: 0.2, g: 0.8, b: 0.2},
+                color: {r: 1.0, g: 0.0, b: 0.0},
                 vertices: new Shape(Shape.pyramid()).toRawLineArray(),
                 mode: gl.LINES,
-                translate: { x: 0.0, y: 0.0, z: -2}
+                translate: { x: 0.0, y: 0.0, z: 0.0}
             })]
         })
     ];
@@ -380,7 +160,7 @@
     orthoMatrix = gl.getUniformLocation(shaderProgram, "orthoMatrix");
 
     //Instantiate projection matrix
-    gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, new Float32Array(Matrix.frustum(-4, 4, 2, -2, 5, 200).toGL()));
+    // gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, new Float32Array(Matrix.frustum(-4, 4, -2, 2, 1, 200).toGL()));
 
     //Instantiate translation matrix
     // gl.uniformMatrix4fv(translationMatrix, gl.FALSE, Matrix.translate(0, 0, 0).toGL());
@@ -394,7 +174,7 @@
      * Displays an individual object, including a transformation that now varies
      * for each object drawn.
      */
-    drawObject = function (object,parentMatrix) {
+    drawObject = function (object, parentMatrix) {
         // Set the varying colors.
         gl.bindBuffer(gl.ARRAY_BUFFER, object.colorBuffer);
         gl.vertexAttribPointer(vertexColor, 3, gl.FLOAT, false, 0, 0);
@@ -421,7 +201,7 @@
             ));
 
         if(parentMatrix){
-            theMatrix = theMatrix.multiply(parentMatrix);
+            theMatrix = parentMatrix.multiply(theMatrix);
         }
         // theMatrix = new Matrix().rotate(
         //             currentRotation, object.rx, object.ry, object.rz
@@ -437,7 +217,7 @@
         gl.vertexAttribPointer(vertexPosition, 3, gl.FLOAT, false, 0, 0);
         gl.drawArrays(object.mode, 0, object.vertices.length / 3);
 
-        if (object.children) {
+        if (object.children.length > 0) {
             for(var i = 0; i < object.children.length; i++){
                 drawObject(object.children[i], theMatrix);
             }
@@ -466,14 +246,15 @@
     // We keep the vertical range fixed, but change the horizontal range
     // according to the aspect ratio of the canvas.  We can also expand
     // the z range now.
-    // gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, new Float32Array(new Matrix().ortho(
-    //     -2 * (canvas.width / canvas.height),
-    //     2 * (canvas.width / canvas.height),
-    //     -2,
-    //     2,
-    //     -10,
-    //     10
-    // ).toGL()));
+
+    gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, new Float32Array(new Matrix().ortho(
+        -2 * (canvas.width / canvas.height),
+        2 * (canvas.width / canvas.height),
+        -2,
+        2,
+        -10,
+        10
+    ).toGL()));
 
     vertexing(objectsToDraw);
 
