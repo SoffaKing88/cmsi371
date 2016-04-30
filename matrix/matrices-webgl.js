@@ -294,13 +294,13 @@
                 color: {r: 0.5, g: 0.0, b: 0.0},
                 vertices: new Shape(Shape.sphere()).toRawLineArray(),
                 mode: gl.LINES,
-                translate: { x: 0.0, y: 2.0, z: -10},
+                translate: { x: 0.0, y: 2.0, z: 0},
             }),
             new Shape({
                 color: {r: 0.2, g: 0.8, b: 0.2},
                 vertices: new Shape(Shape.pyramid()).toRawLineArray(),
                 mode: gl.LINES,
-                translate: { x: 0.0, y: 0.0, z: -20}
+                translate: { x: 0.0, y: 0.0, z: -2}
             })]
         })
     ];
