@@ -287,20 +287,20 @@
             color: {r: 0.0, g: 0.5, b: 0.0},
             vertices: new Shape(Shape.rectangularPrism()).toRawLineArray(),
             mode: gl.LINES,
-            translate: { x: 0.0, y: 0.0, z: 0.0},
+            translate: { x: 0.0, y: 0.0, z: -10},
             rotate: {x: 0.1, y: 0.1, z: 0.1},
             // scale: {x: 0.5, y: 0.5, z: 0.5},
             children: [new Shape({
                 color: {r: 0.5, g: 0.0, b: 0.0},
                 vertices: new Shape(Shape.sphere()).toRawLineArray(),
                 mode: gl.LINES,
-                translate: { x: 0.0, y: 2.0, z: 1.5},
+                translate: { x: 0.0, y: 2.0, z: -10},
             }),
             new Shape({
                 color: {r: 0.2, g: 0.8, b: 0.2},
                 vertices: new Shape(Shape.pyramid()).toRawLineArray(),
                 mode: gl.LINES,
-                // translate: { x: 0.0, y: 0.0, z: 0.0}
+                translate: { x: 0.0, y: 0.0, z: -20}
             })]
         })
     ];
@@ -380,7 +380,7 @@
     orthoMatrix = gl.getUniformLocation(shaderProgram, "orthoMatrix");
 
     //Instantiate projection matrix
-    // gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, new Float32Array(Matrix.frustum(-4, 4, 2, -2, 5, 200).toGL()));
+    gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, new Float32Array(Matrix.frustum(-4, 4, 2, -2, 5, 200).toGL()));
 
     //Instantiate translation matrix
     // gl.uniformMatrix4fv(translationMatrix, gl.FALSE, Matrix.translate(0, 0, 0).toGL());
@@ -466,14 +466,14 @@
     // We keep the vertical range fixed, but change the horizontal range
     // according to the aspect ratio of the canvas.  We can also expand
     // the z range now.
-    gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, new Float32Array(new Matrix().ortho(
-        -2 * (canvas.width / canvas.height),
-        2 * (canvas.width / canvas.height),
-        -2,
-        2,
-        -10,
-        10
-    ).toGL()));
+    // gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, new Float32Array(new Matrix().ortho(
+    //     -2 * (canvas.width / canvas.height),
+    //     2 * (canvas.width / canvas.height),
+    //     -2,
+    //     2,
+    //     -10,
+    //     10
+    // ).toGL()));
 
     vertexing(objectsToDraw);
 
