@@ -16,13 +16,17 @@
         this.color = parameters.color || {r: 0.0, g: 0.0, b: 0.0};
         this.colors = parameters.colors || null;
         this.mode = parameters.mode;
-
-        this.scale = parameters.scale || {x: 1.0, y: 1.0, z: 1.0};
-        this.translate = parameters.translate || {x: 0.0, y: 0.0, z: 0.0};
-        this.rotate = parameters.rotate || {x: 1.0, y: 1.0, z: 1.0};
-
-        this.axis = parameters.axis || {x: 1.0, y: 1.0, z: 1.0};
-        this.angle = parameters.angle || 180;
+        this.axis = parameters.axis || {x: 0.0, y: 0.0, z: 0.0};
+        this.sx = parameters.sx || 1;
+        this.sy = parameters.sy || 1;
+        this.sz = parameters.sz || 1;
+        this.tx = parameters.tx || 0;
+        this.ty = parameters.ty || 0;
+        this.tz = parameters.tz || 0;
+        this.angle = parameters.angle || 0;
+        this.rx = parameters.rx || 1;
+        this.ry = parameters.ry || 1;
+        this.rz = parameters.rz || 1;
         this.vertices = parameters.vertices || [];
         this.indices = parameters.indices || [];
     };
@@ -184,18 +188,18 @@
      * Utility function for turning indexed vertices into a "raw" coordinate array
      * arranged as triangles.
      */
-    Shape.prototype.toRawTriangleArray = function () {
+    Shape.prototype.toRawTriangleArray = function (indexedVertices) {
         var result = [],
             i,
             j,
             maxi,
             maxj;
 
-        for (i = 0, maxi = this.indices.length; i < maxi; i += 1) {
-            for (j = 0, maxj = this.indices[i].length; j < maxj; j += 1) {
+        for (i = 0, maxi = indexedVertices.indices.length; i < maxi; i += 1) {
+            for (j = 0, maxj = indexedVertices.indices[i].length; j < maxj; j += 1) {
                 result = result.concat(
-                    this.vertices[
-                        this.indices[i][j]
+                    indexedVertices.vertices[
+                        indexedVertices.indices[i][j]
                     ]
                 );
             }
@@ -208,22 +212,22 @@
      * Utility function for turning indexed vertices into a "raw" coordinate array
      * arranged as line segments.
      */
-    Shape.prototype.toRawLineArray = function () {
+    Shape.prototype.toRawLineArray = function (indexedVertices) {
         var result = [],
             i,
             j,
             maxi,
             maxj;
 
-        for (i = 0, maxi = this.indices.length; i < maxi; i += 1) {
-            for (j = 0, maxj = this.indices[i].length; j < maxj; j += 1) {
+        for (i = 0, maxi = indexedVertices.indices.length; i < maxi; i += 1) {
+            for (j = 0, maxj = indexedVertices.indices[i].length; j < maxj; j += 1) {
                 result = result.concat(
-                    this.vertices[
-                        this.indices[i][j]
+                    indexedVertices.vertices[
+                        indexedVertices.indices[i][j]
                     ],
 
-                    this.vertices[
-                        this.indices[i][(j + 1) % maxj]
+                    indexedVertices.vertices[
+                        indexedVertices.indices[i][(j + 1) % maxj]
                     ]
                 );
             }
@@ -232,12 +236,12 @@
         return result;
     };
 
-    Shape.prototype.toRawPointArray = function () {
+    Shape.prototype.toRawPointArray = function (indexedVertices) {
         var result = [],
-            max = this.vertices.length;
+            max = indexedVertices.vertices.length;
 
         for (i = 0; i < max; i += 1) {
-            result = result.concat(this.vertices[i]);
+            result = result.concat(indexedVertices.vertices[i]);
         }
 
         return result;
