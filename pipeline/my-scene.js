@@ -305,4 +305,4 @@
         }
     });
 
-}(document.getElementById("matrices-webgl")));
+}(document.getElementById("my-scene")));
