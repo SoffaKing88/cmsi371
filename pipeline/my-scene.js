@@ -25,7 +25,15 @@
         modelViewMatrix,
         projectionMatrix,
         vertexPosition,
-        vertexColor,
+        vertexDiffuseColor,
+        vertexSpecularColor,
+        shininess,
+
+        //Lighting Variables
+        normalVector,
+        lightPosition,
+        lightDiffuse,
+        lightSpecular,
 
         // An individual "draw object" function.
         drawObject,
@@ -65,21 +73,30 @@
 
         new Shape ({
             color: {r: 0.0, g: 0.5, b: 0.0},
-            vertices: new Shape(Shape.rectangularPrism()).toRawLineArray(),
-            mode: gl.LINES,
+            specularColor: {r: 1.0, g: 1.0, b: 1.0 },
+            shininess: 16,
+
+            vertices: new Shape(Shape.rectangularPrism()).toRawTriangleArray(),
+            mode: gl.TRIANGLES,
             translate: { x: 0.0, y: 0.0, z: 2.0},
             rotate: {x: 0.1, y: 0.1, z: 0.1},
             // scale: {x: 0.5, y: 0.5, z: 0.5},
             children: [new Shape({
                 color: {r: 0.5, g: 0.0, b: 0.0},
-                vertices: new Shape(Shape.sphere()).toRawLineArray(),
-                mode: gl.LINES,
+                specularColor: {r: 1.0, g: 1.0, b: 1.0 },
+                shininess: 16,
+
+                vertices: new Shape(Shape.sphere()).toRawTriangleArray(),
+                mode: gl.TRIANGLES,
                 translate: { x: 0.0, y: 0.0, z: 1.0},
             }),
             new Shape({
                 color: {r: 1.0, g: 0.0, b: 0.0},
-                vertices: new Shape(Shape.pyramid()).toRawLineArray(),
-                mode: gl.LINES,
+                specularColor: {r: 1.0, g: 1.0, b: 1.0 },
+                shininess: 16,
+
+                vertices: new Shape(Shape.pyramid()).toRawTriangleArray(),
+                mode: gl.TRIANGLES,
                 translate: { x: 0.0, y: 0.0, z: 0.0}
             })]
         })
@@ -110,7 +127,7 @@
             if (!objectsToDraw[i].specularColors) {
             // Future refactor: helper function to convert a single value or
             // array into an array of copies of itself.
-            objectsToDraw[i].specularColors = [];
+                objectsToDraw[i].specularColors = [];
                 for (j = 0, maxj = objectsToDraw[i].vertices.length / 3;
                        j < maxj; j += 1) {
                     objectsToDraw[i].specularColors = objectsToDraw[i].specularColors.concat(
@@ -175,8 +192,8 @@
     // Finally, we come to the typical setup for transformation matrices:
     // model-view and projection, managed separately.
     modelViewMatrix = gl.getUniformLocation(shaderProgram, "modelViewMatrix");
-    xRotationMatrix = gl.getUniformLocation(shaderProgram, "xRotationMatrix");
-    yRotationMatrix = gl.getUniformLocation(shaderProgram, "yRotationMatrix");
+    // xRotationMatrix = gl.getUniformLocation(shaderProgram, "xRotationMatrix");
+    // yRotationMatrix = gl.getUniformLocation(shaderProgram, "yRotationMatrix");
     projectionMatrix = gl.getUniformLocation(shaderProgram, "projectionMatrix");
 
     rotationMatrix = gl.getUniformLocation(shaderProgram, "rotationMatrix");
@@ -250,6 +267,10 @@
         // gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, theMatrix.toGL());
 
         gl.uniformMatrix4fv(modelViewMatrix, gl.FALSE, new Float32Array(theMatrix.toGL()));
+
+        //Set the varying normal vectors.
+        gl.bindBuffer(gl.ARRAY_BUFFER, object.normalBuffer);
+        gl.vertexAttribPointer(normalVector, 3, gl.FLOAT, false, 0, 0);
 
         // Set the varying vertex coordinates.
         gl.bindBuffer(gl.ARRAY_BUFFER, object.buffer);
