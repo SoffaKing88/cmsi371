@@ -13,8 +13,11 @@
         this.y = parameters.y || 0;
         this.z = parameters.z || 0;
         this.children = parameters.children || [];
+
         this.color = parameters.color || {r: 0.0, g: 0.0, b: 0.0};
         this.colors = parameters.colors || null;
+        this.specularColor = parameters.specularColor || {r: 1.0, g: 1.0, b: 1.0};
+
         this.mode = parameters.mode;
 
         this.scale = parameters.scale || {x: 1.0, y: 1.0, z: 1.0};

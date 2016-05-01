@@ -105,7 +105,27 @@
                 }
             }
             objectsToDraw[i].colorBuffer = GLSLUtilities.initVertexBuffer(gl,
-                    objectsToDraw[i].colors);
+                objectsToDraw[i].colors);
+
+            if (!objectsToDraw[i].specularColors) {
+            // Future refactor: helper function to convert a single value or
+            // array into an array of copies of itself.
+            objectsToDraw[i].specularColors = [];
+                for (j = 0, maxj = objectsToDraw[i].vertices.length / 3;
+                       j < maxj; j += 1) {
+                    objectsToDraw[i].specularColors = objectsToDraw[i].specularColors.concat(
+                        objectsToDraw[i].specularColor.r,
+                        objectsToDraw[i].specularColor.g,
+                        objectsToDraw[i].specularColor.b
+                    );
+                }
+            }
+            objectsToDraw[i].specularBuffer = GLSLUtilities.initVertexBuffer(gl,
+                    objectsToDraw[i].specularColors);
+
+            // One more buffer: normals.
+            objectsToDraw[i].normalBuffer = GLSLUtilities.initVertexBuffer(gl,
+                    objectsToDraw[i].normals);
 
             if ((objectsToDraw[i].children.length > 0) && objectsToDraw[i].colorBuffer) {
                 vertexing(objectsToDraw[i].children);
@@ -145,12 +165,18 @@
     // Hold on to the important variables within the shaders.
     vertexPosition = gl.getAttribLocation(shaderProgram, "vertexPosition");
     gl.enableVertexAttribArray(vertexPosition);
-    vertexColor = gl.getAttribLocation(shaderProgram, "vertexColor");
-    gl.enableVertexAttribArray(vertexColor);
+    vertexDiffuseColor = gl.getAttribLocation(shaderProgram, "vertexDiffuseColor");
+    gl.enableVertexAttribArray(vertexDiffuseColor);
+    vertexSpecularColor = gl.getAttribLocation(shaderProgram, "vertexSpecularColor");
+    gl.enableVertexAttribArray(vertexSpecularColor);
+    normalVector = gl.getAttribLocation(shaderProgram, "normalVector");
+    gl.enableVertexAttribArray(normalVector);
 
     // Finally, we come to the typical setup for transformation matrices:
     // model-view and projection, managed separately.
     modelViewMatrix = gl.getUniformLocation(shaderProgram, "modelViewMatrix");
+    xRotationMatrix = gl.getUniformLocation(shaderProgram, "xRotationMatrix");
+    yRotationMatrix = gl.getUniformLocation(shaderProgram, "yRotationMatrix");
     projectionMatrix = gl.getUniformLocation(shaderProgram, "projectionMatrix");
 
     rotationMatrix = gl.getUniformLocation(shaderProgram, "rotationMatrix");
@@ -158,6 +184,11 @@
     scaleMatrix = gl.getUniformLocation(shaderProgram, "scaleMatrix");
     frustumMatrix = gl.getUniformLocation(shaderProgram, "frustumMatrix");
     orthoMatrix = gl.getUniformLocation(shaderProgram, "orthoMatrix");
+
+    lightPosition = gl.getUniformLocation(shaderProgram, "lightPosition");
+    lightDiffuse = gl.getUniformLocation(shaderProgram, "lightDiffuse");
+    lightSpecular = gl.getUniformLocation(shaderProgram, "lightSpecular");
+    shininess = gl.getUniformLocation(shaderProgram, "shininess");
 
     //Instantiate projection matrix
     // gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, new Float32Array(Matrix.frustum(-4, 4, -2, 2, 1, 200).toGL()));
@@ -178,6 +209,14 @@
         // Set the varying colors.
         gl.bindBuffer(gl.ARRAY_BUFFER, object.colorBuffer);
         gl.vertexAttribPointer(vertexColor, 3, gl.FLOAT, false, 0, 0);
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, object.specularBuffer);
+        gl.vertexAttribPointer(vertexSpecularColor, 3, gl.FLOAT, false, 0, 0);
+
+        gl.uniform1f(shininess, object.shininess);
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, object.normalBuffer);
+        gl.vertexAttribPointer(normalVector, 3, gl.FLOAT, false, 0, 0);
 
         // Set up the model-view matrix, if an axis is included.  If not, we
         // specify the identity matrix.
@@ -231,6 +270,14 @@
         // Clear the display.
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
+        // Set the overall rotation.
+        gl.uniformMatrix4fv(xRotationMatrix, gl.FALSE, new Float32Array(
+                getRotationMatrix(rotationAroundX, 1.0, 0.0, 0.0)
+        ));
+        gl.uniformMatrix4fv(yRotationMatrix, gl.FALSE, new Float32Array(
+                getRotationMatrix(rotationAroundY, 0.0, 1.0, 0.0)
+        ));
+
         // Display the objects.
         for (i = 0, maxi = objectsToDraw.length; i < maxi; i += 1) {
             drawObject(objectsToDraw[i]);
@@ -238,7 +285,7 @@
 
         // All done.
         gl.flush();
-    };
+    },
 
     // Because our canvas element will not change size (in this program),
     // we can set up the projection matrix once, and leave it at that.
@@ -255,6 +302,10 @@
         -10,
         10
     ).toGL()));
+
+    gl.uniform4fv(lightPosition, [500.0, 1000.0, 100.0, 1.0]);
+    gl.uniform3fv(lightDiffuse, [1.0, 1.0, 1.0]);
+    gl.uniform3fv(lightSpecular, [1.0, 1.0, 1.0]);
 
     vertexing(objectsToDraw);
 
