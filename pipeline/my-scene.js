@@ -72,33 +72,36 @@
     objectsToDraw = [
 
         new Shape ({
-            color: {r: 0.0, g: 0.5, b: 0.0},
+            color: {r: 0.0, g: 1.0, b: 0.0},
             specularColor: {r: 1.0, g: 1.0, b: 1.0 },
             shininess: 16,
 
-            vertices: new Shape(Shape.rectangularPrism()).toRawTriangleArray(),
+            vertices: new Shape(Shape.icosahedron()).toRawTriangleArray(),
+            normals: new Shape(Shape.icosahedron()).toNormalArray(),
             mode: gl.TRIANGLES,
-            translate: { x: 0.0, y: 0.0, z: 2.0},
+            translate: { x: 0.0, y: 0.0, z: -2.0},
             rotate: {x: 0.1, y: 0.1, z: 0.1},
             // scale: {x: 0.5, y: 0.5, z: 0.5},
-            children: [new Shape({
-                color: {r: 0.5, g: 0.0, b: 0.0},
-                specularColor: {r: 1.0, g: 1.0, b: 1.0 },
-                shininess: 16,
+            // children: [new Shape({
+            //     color: {r: 1.0, g: 0.0, b: 0.0},
+            //     specularColor: {r: 1.0, g: 1.0, b: 1.0 },
+            //     shininess: 16,
 
-                vertices: new Shape(Shape.sphere()).toRawTriangleArray(),
-                mode: gl.TRIANGLES,
-                translate: { x: 0.0, y: 0.0, z: 1.0},
-            }),
-            new Shape({
-                color: {r: 1.0, g: 0.0, b: 0.0},
-                specularColor: {r: 1.0, g: 1.0, b: 1.0 },
-                shininess: 16,
+            //     vertices: new Shape(Shape.sphere()).toRawTriangleArray(),
+            //     normals: new Shape(Shape.sphere()).toNormalArray(),
+            //     mode: gl.TRIANGLES,
+            //     translate: { x: 0.0, y: 0.0, z: 1.0},
+            // }),
+            // new Shape({
+            //     color: {r: 0.0, g: 0.0, b: 1.0},
+            //     specularColor: {r: 1.0, g: 1.0, b: 1.0 },
+            //     shininess: 16,
 
-                vertices: new Shape(Shape.pyramid()).toRawTriangleArray(),
-                mode: gl.TRIANGLES,
-                translate: { x: 0.0, y: 0.0, z: 0.0}
-            })]
+            //     vertices: new Shape(Shape.pyramid()).toRawTriangleArray(),
+            //     normals: new Shape(Shape.pyramid()).toNormalArray(),
+            //     mode: gl.TRIANGLES,
+            //     translate: { x: 0.0, y: 0.0, z: 0.0}
+            // })]
         })
     ];
 
@@ -225,7 +228,7 @@
     drawObject = function (object, parentMatrix) {
         // Set the varying colors.
         gl.bindBuffer(gl.ARRAY_BUFFER, object.colorBuffer);
-        gl.vertexAttribPointer(vertexColor, 3, gl.FLOAT, false, 0, 0);
+        gl.vertexAttribPointer(vertexDiffuseColor, 3, gl.FLOAT, false, 0, 0);
 
         gl.bindBuffer(gl.ARRAY_BUFFER, object.specularBuffer);
         gl.vertexAttribPointer(vertexSpecularColor, 3, gl.FLOAT, false, 0, 0);
@@ -292,12 +295,12 @@
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         // Set the overall rotation.
-        gl.uniformMatrix4fv(xRotationMatrix, gl.FALSE, new Float32Array(
-                getRotationMatrix(rotationAroundX, 1.0, 0.0, 0.0)
-        ));
-        gl.uniformMatrix4fv(yRotationMatrix, gl.FALSE, new Float32Array(
-                getRotationMatrix(rotationAroundY, 0.0, 1.0, 0.0)
-        ));
+        // gl.uniformMatrix4fv(xRotationMatrix, gl.FALSE, new Float32Array(
+        //         getRotationMatrix(rotationAroundX, 1.0, 0.0, 0.0)
+        // ));
+        // gl.uniformMatrix4fv(yRotationMatrix, gl.FALSE, new Float32Array(
+        //         getRotationMatrix(rotationAroundY, 0.0, 1.0, 0.0)
+        // ));
 
         // Display the objects.
         for (i = 0, maxi = objectsToDraw.length; i < maxi; i += 1) {
