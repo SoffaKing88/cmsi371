@@ -81,7 +81,6 @@
             mode: gl.TRIANGLES,
             translate: { x: 0.0, y: 0.0, z: -2.0},
             rotate: {x: 0.1, y: 0.1, z: 0.1},
-            scale: {x: 0.5, y: 0.5, z: 0.5},
             children: [
                 // new Shape({
                 //     color: {r: 1.0, g: 0.0, b: 0.0},
@@ -327,7 +326,7 @@
         10
     ).toGL()));
 
-    gl.uniform4fv(lightPosition, [500.0, -1000.0, 100.0, 1.0]);
+    gl.uniform4fv(lightPosition, [500.0, 1000.0, 100.0, 1.0]);
     gl.uniform3fv(lightDiffuse, [1.0, 1.0, 1.0]);
     gl.uniform3fv(lightSpecular, [1.0, 1.0, 1.0]);
 
