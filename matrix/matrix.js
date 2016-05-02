@@ -141,7 +141,7 @@
         }
     };
 
-    Matrix.frustum = function (left, right, bottom, top, near, far) {
+    Matrix.prototype.frustum = function (left, right, bottom, top, near, far) {
         var width = right - left,
             height = top - bottom,
             depth = far - near;

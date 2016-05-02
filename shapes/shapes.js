@@ -53,18 +53,18 @@
             ],
 
             indices: [
-                [0, 1, 3],
-                [3, 1, 2],
-                [0, 5, 1],
-                [5, 0, 4],
-                [3, 2, 6],
-                [6, 7, 3],
-                [0, 3, 4],
-                [3, 7, 4],
-                [1, 5, 2],
-                [2, 5, 6],
-                [4, 6, 5],
-                [4, 7, 6]
+                [0, 3, 1],
+                [3, 2, 1],
+                [0, 1, 5],
+                [5, 4, 0],
+                [3, 6, 2],
+                [6, 3, 7],
+                [0, 4, 3],
+                [3, 4, 7],
+                [1, 2, 5],
+                [2, 6, 5],
+                [4, 5, 6],
+                [4, 6, 7]
             ]
         };
     };
@@ -121,15 +121,23 @@
                 var z = sinPhi * sinTheta * radius;
 
                 vertices.push([x, y, z]);
+
+                var indexPartOne = (i * (longitudeBands + 1)) + j;
+                var indexPartTwo = indexPartOne + longitudeBands + 1;
+
+                if(i != latitudeBands && j != longitudeBands){
+                    indices.push([indexPartOne, indexPartTwo, indexPartOne + 1]);
+                    indices.push([indexPartTwo, indexPartTwo + 1, indexPartOne + 1]);
+                }
             }
         }
 
-        for (var k = 0; k <= vertices.length - latitudeBands - 2; k += 1) {
-            indices.push(
-                [k, k + 1, k + latitudeBands + 1],
-                [k + 1, k + latitudeBands + 1, k + latitudeBands + 2]
-            );
-        }
+        // for (var k = 0; k <= vertices.length - latitudeBands - 3; k += 1) {
+        //     indices.push(
+        //         [k, k + 1, k + latitudeBands + 1],
+        //         [k + 1, k + latitudeBands + 1, k + latitudeBands + 2]
+        //     );
+        // }
 
         return {
             vertices: vertices,
@@ -272,6 +280,8 @@
             v2,
             normal;
 
+        console.log(this.vertices);
+        console.log(this.indices);
         // For each face...
         for (i = 0, maxi = this.indices.length; i < maxi; i += 1) {
             // We form vectors from the first and second then second and third vertices.
@@ -281,6 +291,8 @@
 
             // Technically, the first value is not a vector, but v can stand for vertex
             // anyway, so...
+            console.log(i);
+            console.log(p2[0]);
             v0 = new Vector(p0[0], p0[1], p0[2]);
             v1 = new Vector(p1[0], p1[1], p1[2]).subtract(v0);
             v2 = new Vector(p2[0], p2[1], p2[2]).subtract(v0);
