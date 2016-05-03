@@ -51,6 +51,7 @@
         j,
         maxj,
 
+        //Camera Movement Variables
         camPosX = 0,
         camPosZ = 0,
 
@@ -58,6 +59,67 @@
         keyA = false,
         keyS = false,
         keyD = false;
+
+    // Keystrokes commands
+    keystrokes = function(event) {
+        canvas = document.getElementById('my-scene');
+
+        document.addEventListener('mousedown', function(event) {
+            lastDownTarget = event.target;
+            // alert('mousedown');
+        }, false);
+
+        document.addEventListener('keydown', function(event) {
+            if(lastDownTarget == canvas) {
+                // alert('keydown');
+
+                var keyCode = event.keyCode;
+                switch (keyCode) {
+                case 68: //d
+                  keyD = true;
+                  console.log("D down");
+                  break;
+                case 83: //s
+                  keyS = true;
+                  console.log("S down");
+                  break;
+                case 65: //as
+                  keyA = true;
+                  console.log("A down");
+                  break;
+                case 87: //w
+                  keyW = true;
+                  console.log("W down");
+                  break;
+                }
+            }
+        }, false);
+
+        document.addEventListener('keyup', function(event) {
+            if(lastDownTarget == canvas) {
+
+                var keyCode = event.keyCode;
+                switch (keyCode) {
+                case 68: //d
+                  keyD = false;
+                    console.log("D up");
+                  break;
+                case 83: //s
+                  keyS = false;
+                    console.log("S up");
+                  break;
+                case 65: //a
+                  keyA = false;
+                    console.log("A up");
+                  break;
+                case 87: //w
+                  keyW = false;
+                    console.log("W up");
+                  break;
+                }
+            }
+        })
+    };
 
     // Grab the WebGL rendering context.
     gl = GLSLUtilities.getGL(canvas);
@@ -224,11 +286,6 @@
     lightSpecular = gl.getUniformLocation(shaderProgram, "lightSpecular");
     shininess = gl.getUniformLocation(shaderProgram, "shininess");
 
-
-
-    //Instantiate projection matrix
-    // gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, new Float32Array(new Matrix().frustum(-4, 4, -2, 2, 1, 200).toGL()));
-
     /*
      * Displays an individual object, including a transformation that now varies
      * for each object drawn.
@@ -260,8 +317,8 @@
         if(parentMatrix){
             theMatrix = parentMatrix.multiply(theMatrix);
         }
-        console.log(theMatrix.toGL());
-        console.log(object);
+        // console.log(theMatrix.toGL());
+        // console.log(object);
 
         gl.uniformMatrix4fv(modelViewMatrix, gl.FALSE, new Float32Array(theMatrix.toGL()));
 
@@ -285,13 +342,28 @@
      * Displays the scene.
      */
 
-    var DEGREE_TO_RADIANS = Math.PI / 180;
-
     drawScene = function () {
         // Clear the display.
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
+        //Attempting to change CamPosX and Z Values for cameraMatrix to move
+        if(keyD == true){
+            camPosX += 0.1;
+        }
+        if(keyS == true){
+            camPosZ += 0.1;
+        }
+        if(keyA == true){
+            camPosX -= 0.1;
+        }
+        if(keyW == true){
+            camPosZ -= 0.1;
+        }
+
         gl.uniformMatrix4fv(cameraMatrix, gl.FALSE, new Matrix().cameraMatrix(camPosX, 0, -camPosZ, 0, 0, -1 - camPosZ, 0, 1, 0).toGL());
+        console.log(camPosX);
+        console.log(camPosZ);
+
         //Orthographic View
         // gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, new Float32Array(new Matrix().ortho(
         //     -2 * (canvas.width / canvas.height),
@@ -321,13 +393,7 @@
         gl.flush();
     },
 
-    // Because our canvas element will not change size (in this program),
-    // we can set up the projection matrix once, and leave it at that.
-    // Note how this finally allows us to "see" a greater coordinate range.
-    // We keep the vertical range fixed, but change the horizontal range
-    // according to the aspect ratio of the canvas.  We can also expand
-    // the z range now.
-
+    //Lighting Values
     gl.uniform4fv(lightPosition, [500.0, 1000.0, 100.0, 1.0]);
     gl.uniform3fv(lightDiffuse, [1.0, 1.0, 1.0]);
     gl.uniform3fv(lightSpecular, [1.0, 1.0, 1.0]);
@@ -358,11 +424,12 @@
         }
 
         // All clear.
-        currentRotation += 0.001 * progress;
+        // currentRotation += 0.001 * progress;
         drawScene();
-        if (currentRotation >= 360.0) {
-            currentRotation -= 360.0;
-        }
+        keystrokes();
+        // if (currentRotation >= 360.0) {
+        //     currentRotation -= 360.0;
+        // }
 
         // Request the next frame.
         previousTimestamp = timestamp;
@@ -371,45 +438,7 @@
 
     // Draw the initial scene.
     drawScene();
-
-    // Keystrokes commands
-    function onKeyDown(event) {
-        var keyCode = event.keyCode;
-        switch (keyCode) {
-        case 68: //d
-          keyD = true;
-          break;
-        case 83: //s
-          keyS = true;
-          break;
-        case 65: //a
-          keyA = true;
-          break;
-        case 87: //w
-          keyW = true;
-          break;
-        }
-    }
-
-    function onKeyUp(event) {
-        var keyCode = event.keyCode;
-        switch (keyCode) {
-        case 68: //d
-          keyD = false;
-          break;
-        case 83: //s
-          keyS = false;
-          break;
-        case 65: //a
-          keyA = false;
-          break;
-        case 87: //w
-          keyW = false;
-          break;
-        }
-    }
-
-
+    keystrokes();
 
     // Set up the rotation toggle: clicking on the canvas does it.
     $(canvas).click(function () {
