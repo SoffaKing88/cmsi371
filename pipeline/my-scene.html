@@ -67,8 +67,9 @@
             uniform vec4 lightPosition;
 
             void main(void) {
-                fragmentNormal = normalVector;
-                fragmentEye = vertexPosition;
+                fragmentNormal = vec3(vec4(normalVector, 1.0) * modelViewMatrix);
+                vec4 finalVertexPosition = modelViewMatrix * vec4(2.0 * vertexPosition, 1.0);
+                fragmentEye = vec3(finalVertexPosition); // or finalVertexPosition.xyz
                 fragmentLight = lightPosition.xyz;
 
                 // No conditional expressions in GLSL, unfortunately.  We have to
@@ -81,7 +82,7 @@
                 // We now defer all color calculations to the fragment shader.
                 fragmentDiffuseColor = vertexDiffuseColor;
                 fragmentSpecularColor = vertexSpecularColor;
-                gl_Position = projectionMatrix * modelViewMatrix * vec4(2.0 * vertexPosition, 1.0);
+                gl_Position = projectionMatrix * finalVertexPosition;
             }
         </script>
 

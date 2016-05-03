@@ -85,7 +85,7 @@
                 [0, 2, 3],
                 [0, 3, 4],
                 [1, 2, 3],
-                [2, 3, 1]
+                [3, 4, 1]
             ]
         };
     };
@@ -125,6 +125,7 @@
                 var indexPartOne = (i * (longitudeBands + 1)) + j;
                 var indexPartTwo = indexPartOne + longitudeBands + 1;
 
+                //Indices Method #2 - Lighting is upside down
                 if(i != latitudeBands && j != longitudeBands){
                     indices.push([indexPartOne, indexPartTwo, indexPartOne + 1]);
                     indices.push([indexPartTwo, indexPartTwo + 1, indexPartOne + 1]);
@@ -132,6 +133,7 @@
             }
         }
 
+        //Indices method #1 - Lighting is checkered
         // for (var k = 0; k <= vertices.length - latitudeBands - 3; k += 1) {
         //     indices.push(
         //         [k, k + 1, k + latitudeBands + 1],
@@ -280,8 +282,8 @@
             v2,
             normal;
 
-        console.log(this.vertices);
-        console.log(this.indices);
+        // console.log(this.vertices);
+        // console.log(this.indices);
         // For each face...
         for (i = 0, maxi = this.indices.length; i < maxi; i += 1) {
             // We form vectors from the first and second then second and third vertices.
@@ -291,8 +293,8 @@
 
             // Technically, the first value is not a vector, but v can stand for vertex
             // anyway, so...
-            console.log(i);
-            console.log(p2[0]);
+            // console.log(i);
+            // console.log(p2[0]);
             v0 = new Vector(p0[0], p0[1], p0[2]);
             v1 = new Vector(p1[0], p1[1], p1[2]).subtract(v0);
             v2 = new Vector(p2[0], p2[1], p2[2]).subtract(v0);
