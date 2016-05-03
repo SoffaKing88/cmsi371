@@ -127,8 +127,10 @@
 
                 //Indices Method #2 - Lighting is upside down
                 if(i != latitudeBands && j != longitudeBands){
-                    indices.push([indexPartOne, indexPartTwo, indexPartOne + 1]);
-                    indices.push([indexPartTwo, indexPartTwo + 1, indexPartOne + 1]);
+                    // indices.push([indexPartOne, indexPartTwo, indexPartOne + 1]);
+                    // indices.push([indexPartTwo, indexPartTwo + 1, indexPartOne + 1]);
+                    indices.push([indexPartOne + 1, indexPartTwo, indexPartOne]);
+                    indices.push([indexPartOne + 1, indexPartTwo + 1, indexPartTwo]);
                 }
             }
         }

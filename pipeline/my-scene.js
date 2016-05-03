@@ -51,6 +51,14 @@
         j,
         maxj,
 
+        camPosX = 0,
+        camPosZ = 0,
+
+        keyW = false,
+        keyA = false,
+        keyS = false,
+        keyD = false;
+
     // Grab the WebGL rendering context.
     gl = GLSLUtilities.getGL(canvas);
     if (!gl) {
@@ -79,7 +87,7 @@
             vertices: new Shape(Shape.rectangularPrism()).toRawTriangleArray(),
             normals: new Shape(Shape.rectangularPrism()).toNormalArray(),
             mode: gl.TRIANGLES,
-            translate: { x: 0.0, y: 0.0, z: -3.0},
+            translate: { x: 0.0, y: 0.0, z: -10.0},
             // rotate: {x: 0.1, y: 0.1, z: 0.1},
             scale: {x: 0.5, y: 0.5, z: 0.5},
             children: [
@@ -196,37 +204,31 @@
     normalVector = gl.getAttribLocation(shaderProgram, "normalVector");
     gl.enableVertexAttribArray(normalVector);
 
-    // Finally, we come to the typical setup for transformation matrices:
-    // model-view and projection, managed separately.
+    // Matrices to see the scene
     modelViewMatrix = gl.getUniformLocation(shaderProgram, "modelViewMatrix");
-    // xRotationMatrix = gl.getUniformLocation(shaderProgram, "xRotationMatrix");
-    // yRotationMatrix = gl.getUniformLocation(shaderProgram, "yRotationMatrix");
     projectionMatrix = gl.getUniformLocation(shaderProgram, "projectionMatrix");
+    cameraMatrix = gl.getUniformLocation(shaderProgram, "cameraMatrix");
 
-    rotationMatrix = gl.getUniformLocation(shaderProgram, "rotationMatrix");
+    // Matrix functions
+    // rotationMatrix = gl.getUniformLocation(shaderProgram, "rotationMatrix");
     translationMatrix = gl.getUniformLocation(shaderProgram, "translationMatrix");
     scaleMatrix = gl.getUniformLocation(shaderProgram, "scaleMatrix");
+
+    // Perspective view or orthographic view
     frustumMatrix = gl.getUniformLocation(shaderProgram, "frustumMatrix");
     orthoMatrix = gl.getUniformLocation(shaderProgram, "orthoMatrix");
 
+    // Lighting stuff
     lightPosition = gl.getUniformLocation(shaderProgram, "lightPosition");
     lightDiffuse = gl.getUniformLocation(shaderProgram, "lightDiffuse");
     lightSpecular = gl.getUniformLocation(shaderProgram, "lightSpecular");
     shininess = gl.getUniformLocation(shaderProgram, "shininess");
 
-    
+
 
     //Instantiate projection matrix
-    gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, new Float32Array(new Matrix().frustum(-4, 4, -2, 2, 1, 200).toGL()));
+    // gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, new Float32Array(new Matrix().frustum(-4, 4, -2, 2, 1, 200).toGL()));
 
-    //Instantiate translation matrix
-    // gl.uniformMatrix4fv(translationMatrix, gl.FALSE, Matrix.translate(0, 0, 0).toGL());
-
-    //Instantiate scale matrix
-    // gl.uniformMatrix4fv(scaleMatrix, gl.FALSE, Matrix.scale(1, 1, 1).toGL());
-
-    //Instantiate rotation matrix
-    // gl.uniformMatrix4fv(rotationMatrix, gl.FALSE, Matrix.rotate(0, 1, 1, 1).toGL());
     /*
      * Displays an individual object, including a transformation that now varies
      * for each object drawn.
@@ -240,13 +242,6 @@
         gl.vertexAttribPointer(vertexSpecularColor, 3, gl.FLOAT, false, 0, 0);
 
         gl.uniform1f(shininess, object.shininess);
-
-        // Set up the model-view matrix, if an axis is included.  If not, we
-        // specify the identity matrix.
-        // gl.uniformMatrix4fv(modelViewMatrix, gl.FALSE, new Float32Array(object.axis ?
-        //         Matrix.rotate(currentRotation, object.axis.x, object.axis.y, object.axis.z).elements :
-        //         new Matrix().elements
-        //     ));
 
         var theMatrix = new Matrix()
 
@@ -265,12 +260,8 @@
         if(parentMatrix){
             theMatrix = parentMatrix.multiply(theMatrix);
         }
-        // theMatrix = new Matrix().rotate(
-        //             currentRotation, object.rx, object.ry, object.rz
-        //     );
         console.log(theMatrix.toGL());
         console.log(object);
-        // gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, theMatrix.toGL());
 
         gl.uniformMatrix4fv(modelViewMatrix, gl.FALSE, new Float32Array(theMatrix.toGL()));
 
@@ -300,26 +291,26 @@
         // Clear the display.
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-        // Set the overall rotation.
-        // gl.uniformMatrix4fv(xRotationMatrix, gl.FALSE, new Float32Array(
-        //         getRotationMatrix(rotationAroundX, 1.0, 0.0, 0.0)
-        // ));
-        // gl.uniformMatrix4fv(yRotationMatrix, gl.FALSE, new Float32Array(
-        //         getRotationMatrix(rotationAroundY, 0.0, 1.0, 0.0)
-        // ));
+        gl.uniformMatrix4fv(cameraMatrix, gl.FALSE, new Matrix().cameraMatrix(camPosX, 0, -camPosZ, 0, 0, -1 - camPosZ, 0, 1, 0).toGL());
+        //Orthographic View
+        // gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, new Float32Array(new Matrix().ortho(
+        //     -2 * (canvas.width / canvas.height),
+        //     2 * (canvas.width / canvas.height),
+        //     -2,
+        //     2,
+        //     -10,
+        //     10
+        // ).toGL()));
 
-        var lookAt = Matrix.cameraMatrix(Math.sin(currentRotation * DEGREE_TO_RADIANS) * 10,
-                                            0,
-                                            Math.cos(currentRotation * DEGREE_TO_RADIANS) * 10,
-
-                                            0,
-                                            0,
-                                            0,
-
-                                            0,
-                                            1,
-                                            0);
-        gl.uniformMatrix4fv(cameraMatrix, gl.FALSE, lookAt.toGL());
+        //Perspective View
+        gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, new Float32Array(new Matrix().frustum(
+            -2 * (canvas.width / canvas.height),
+            2 * (canvas.width / canvas.height),
+            -2,
+            2,
+            5,
+            2000
+        ).toGL()));
 
         // Display the objects.
         for (i = 0, maxi = objectsToDraw.length; i < maxi; i += 1) {
@@ -336,15 +327,6 @@
     // We keep the vertical range fixed, but change the horizontal range
     // according to the aspect ratio of the canvas.  We can also expand
     // the z range now.
-
-    // gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, new Float32Array(new Matrix().ortho(
-    //     -2 * (canvas.width / canvas.height),
-    //     2 * (canvas.width / canvas.height),
-    //     -2,
-    //     2,
-    //     -10,
-    //     10
-    // ).toGL()));
 
     gl.uniform4fv(lightPosition, [500.0, 1000.0, 100.0, 1.0]);
     gl.uniform3fv(lightDiffuse, [1.0, 1.0, 1.0]);
@@ -376,7 +358,7 @@
         }
 
         // All clear.
-        currentRotation += 0.033 * progress;
+        currentRotation += 0.001 * progress;
         drawScene();
         if (currentRotation >= 360.0) {
             currentRotation -= 360.0;
@@ -389,6 +371,45 @@
 
     // Draw the initial scene.
     drawScene();
+
+    // Keystrokes commands
+    function onKeyDown(event) {
+        var keyCode = event.keyCode;
+        switch (keyCode) {
+        case 68: //d
+          keyD = true;
+          break;
+        case 83: //s
+          keyS = true;
+          break;
+        case 65: //a
+          keyA = true;
+          break;
+        case 87: //w
+          keyW = true;
+          break;
+        }
+    }
+
+    function onKeyUp(event) {
+        var keyCode = event.keyCode;
+        switch (keyCode) {
+        case 68: //d
+          keyD = false;
+          break;
+        case 83: //s
+          keyS = false;
+          break;
+        case 65: //a
+          keyA = false;
+          break;
+        case 87: //w
+          keyW = false;
+          break;
+        }
+    }
+
+
 
     // Set up the rotation toggle: clicking on the canvas does it.
     $(canvas).click(function () {
