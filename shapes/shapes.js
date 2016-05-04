@@ -18,7 +18,7 @@
         this.colors = parameters.colors || null;
         this.specularColor = parameters.specularColor || {r: 1.0, g: 1.0, b: 1.0};
         this.specularColors = parameters.specularColors || null;
-        this.shininess = parameters.shininess || 10;
+        this.shininess = parameters.shininess || 0;
         this.normals = parameters.normals || null;
 
         this.mode = parameters.mode;

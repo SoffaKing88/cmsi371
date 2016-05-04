@@ -68,10 +68,10 @@
             uniform vec4 lightPosition;
 
             void main(void) {
-                fragmentNormal = vec3(vec4(normalVector, 1.0) * modelViewMatrix * cameraMatrix);
                 vec4 finalVertexPosition = modelViewMatrix * vec4(2.0 * vertexPosition, 1.0) * cameraMatrix;
                 fragmentEye = vec3(finalVertexPosition); // or finalVertexPosition.xyz
                 fragmentLight = lightPosition.xyz;
+                fragmentNormal = vec3(vec4(normalVector, 1.0) * modelViewMatrix * cameraMatrix);
 
                 // No conditional expressions in GLSL, unfortunately.  We have to
                 // do this the other way.

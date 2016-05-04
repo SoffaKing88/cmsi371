@@ -34,6 +34,9 @@
         lightPosition,
         lightDiffuse,
         lightSpecular,
+        lightPosition2,
+        lightDiffuse2,
+        lightSpecular2,
 
         // An individual "draw object" function.
         drawObject,
@@ -54,6 +57,8 @@
         //Camera Movement Variables
         camPosX = 0,
         camPosZ = 0,
+        camFocX = 0,
+        camFocZ = 0,
 
         keyW = false,
         keyA = false,
@@ -77,19 +82,15 @@
                 switch (keyCode) {
                 case 68: //d
                   keyD = true;
-                  console.log("D down");
                   break;
                 case 83: //s
                   keyS = true;
-                  console.log("S down");
                   break;
                 case 65: //as
                   keyA = true;
-                  console.log("A down");
                   break;
                 case 87: //w
                   keyW = true;
-                  console.log("W down");
                   break;
                 }
             }
@@ -102,19 +103,15 @@
                 switch (keyCode) {
                 case 68: //d
                   keyD = false;
-                    console.log("D up");
                   break;
                 case 83: //s
                   keyS = false;
-                    console.log("S up");
                   break;
                 case 65: //a
                   keyA = false;
-                    console.log("A up");
                   break;
                 case 87: //w
                   keyW = false;
-                    console.log("W up");
                   break;
                 }
             }
@@ -144,39 +141,107 @@
         new Shape ({
             color: {r: 1.0, g: 0.0, b: 0.0},
             specularColor: {r: 1.0, g: 1.0, b: 1.0 },
-            shininess: 16,
+            shininess: 30,
 
-            vertices: new Shape(Shape.rectangularPrism()).toRawTriangleArray(),
-            normals: new Shape(Shape.rectangularPrism()).toNormalArray(),
+            vertices: new Shape(Shape.rectangularPrism(5, 0.5, 5)).toRawTriangleArray(),
+            normals: new Shape(Shape.rectangularPrism(5, 0.5, 5)).toNormalArray(),
             mode: gl.TRIANGLES,
-            translate: { x: 0.0, y: 0.0, z: -10.0},
-            // rotate: {x: 0.1, y: 0.1, z: 0.1},
+            translate: { x: 0.0, y: -3.0, z: -10.0},
             scale: {x: 0.5, y: 0.5, z: 0.5},
-            children: [
+            children: [new Shape({
+                    color: {r: 1.0, g: 0.0, b: 0.0},
+                    specularColor: {r: 1.0, g: 1.0, b: 1.0 },
+                    shininess: 30,
+
+                    vertices: new Shape(Shape.rectangularPrism(0.5, 5, 10)).toRawTriangleArray(),
+                    normals: new Shape(Shape.rectangularPrism(0.5, 5, 10)).toNormalArray(),
+                    mode: gl.TRIANGLES,
+                    translate: { x: -10.0, y: 6.0, z: 0.0},
+                    scale: {x: 0.5, y: 0.5, z: 0.5},
+                }),
+                new Shape({
+                    color: {r: 1.0, g: 0.0, b: 0.0},
+                    specularColor: {r: 1.0, g: 1.0, b: 1.0 },
+                    shininess: 30,
+
+                    vertices: new Shape(Shape.rectangularPrism(0.5, 5, 10)).toRawTriangleArray(),
+                    normals: new Shape(Shape.rectangularPrism(0.5, 5, 10)).toNormalArray(),
+                    mode: gl.TRIANGLES,
+                    translate: { x: 10.0, y: 6.0, z: 0.0},
+                    scale: {x: 0.5, y: 0.5, z: 0.5},
+                }),
+            ]
+        }),
+
+        new Shape ({
+            color: {r: 0.0, g: 1.0, b: 0.0},
+            specularColor: {r: 1.0, g: 1.0, b: 1.0 },
+            shininess: 30,
+
+            vertices: new Shape(Shape.rectangularPrism(5, 0.5, 5)).toRawTriangleArray(),
+            normals: new Shape(Shape.rectangularPrism(5, 0.5, 5)).toNormalArray(),
+            mode: gl.TRIANGLES,
+            translate: { x: 0.0, y: -3.0, z: -20.0},
+            scale: {x: 0.5, y: 0.5, z: 0.5},
+            children: [new Shape({
+                    color: {r: 0.0, g: 1.0, b: 0.0},
+                    specularColor: {r: 1.0, g: 1.0, b: 1.0 },
+                    shininess: 30,
+
+                    vertices: new Shape(Shape.rectangularPrism(0.5, 5, 10)).toRawTriangleArray(),
+                    normals: new Shape(Shape.rectangularPrism(0.5, 5, 10)).toNormalArray(),
+                    mode: gl.TRIANGLES,
+                    translate: { x: -10.0, y: 6.0, z: 0.0},
+                    scale: {x: 0.5, y: 0.5, z: 0.5},
+                }),
                 new Shape({
                     color: {r: 0.0, g: 1.0, b: 0.0},
                     specularColor: {r: 1.0, g: 1.0, b: 1.0 },
-                    shininess: 16,
+                    shininess: 30,
 
-                    vertices: new Shape(Shape.sphere()).toRawTriangleArray(),
-                    normals: new Shape(Shape.sphere()).toNormalArray(),
+                    vertices: new Shape(Shape.rectangularPrism(0.5, 5, 10)).toRawTriangleArray(),
+                    normals: new Shape(Shape.rectangularPrism(0.5, 5, 10)).toNormalArray(),
                     mode: gl.TRIANGLES,
-                    translate: { x: 3.0, y: 0.0, z: 0.0},
-                    axis: {x: 1.0, y: 0.0, z: 0.0}
+                    translate: { x: 10.0, y: 6.0, z: 0.0},
+                    scale: {x: 0.5, y: 0.5, z: 0.5},
                 }),
+            ]
+        }),
 
+        new Shape ({
+            color: {r: 0.0, g: 0.0, b: 1.0},
+            specularColor: {r: 1.0, g: 1.0, b: 1.0 },
+            shininess: 30,
+
+            vertices: new Shape(Shape.rectangularPrism(5, 0.5, 5)).toRawTriangleArray(),
+            normals: new Shape(Shape.rectangularPrism(5, 0.5, 5)).toNormalArray(),
+            mode: gl.TRIANGLES,
+            translate: { x: 0.0, y: -3.0, z: -30.0},
+            scale: {x: 0.5, y: 0.5, z: 0.5},
+            children: [new Shape({
+                    color: {r: 0.0, g: 0.0, b: 1.0},
+                    specularColor: {r: 1.0, g: 1.0, b: 1.0 },
+                    shininess: 30,
+
+                    vertices: new Shape(Shape.rectangularPrism(0.5, 5, 10)).toRawTriangleArray(),
+                    normals: new Shape(Shape.rectangularPrism(0.5, 5, 10)).toNormalArray(),
+                    mode: gl.TRIANGLES,
+                    translate: { x: -10.0, y: 6.0, z: 0.0},
+                    scale: {x: 0.5, y: 0.5, z: 0.5},
+                }),
                 new Shape({
                     color: {r: 0.0, g: 0.0, b: 1.0},
                     specularColor: {r: 1.0, g: 1.0, b: 1.0 },
-                    shininess: 16,
+                    shininess: 30,
 
-                    vertices: new Shape(Shape.pyramid()).toRawTriangleArray(),
-                    normals: new Shape(Shape.pyramid()).toNormalArray(),
+                    vertices: new Shape(Shape.rectangularPrism(0.5, 5, 10)).toRawTriangleArray(),
+                    normals: new Shape(Shape.rectangularPrism(0.5, 5, 10)).toNormalArray(),
                     mode: gl.TRIANGLES,
-                    translate: { x: -3.0, y: 0.0, z: 0.0}
-                })
+                    translate: { x: 10.0, y: 6.0, z: 0.0},
+                    scale: {x: 0.5, y: 0.5, z: 0.5},
+                }),
             ]
-        })
+        }),
     ];
 
     // Pass the vertices to WebGL.
@@ -284,6 +349,9 @@
     lightPosition = gl.getUniformLocation(shaderProgram, "lightPosition");
     lightDiffuse = gl.getUniformLocation(shaderProgram, "lightDiffuse");
     lightSpecular = gl.getUniformLocation(shaderProgram, "lightSpecular");
+    lightPosition2 = gl.getUniformLocation(shaderProgram, "lightPosition2");
+    lightDiffuse2 = gl.getUniformLocation(shaderProgram, "lightDiffuse2");
+    lightSpecular2 = gl.getUniformLocation(shaderProgram, "lightSpecular2");
     shininess = gl.getUniformLocation(shaderProgram, "shininess");
 
     /*
@@ -349,20 +417,28 @@
         //Attempting to change CamPosX and Z Values for cameraMatrix to move
         if(keyD == true){
             camPosX += 0.1;
+            camFocX += 0.1;
         }
         if(keyS == true){
             camPosZ += 0.1;
+            camFocZ += 0.1;
+            if(camPosZ >= 1 && camFocZ >= 0){
+                camPosZ = 1;
+                camFocZ = 0;
+            }
         }
         if(keyA == true){
             camPosX -= 0.1;
+            camFocX -= 0.1;
         }
         if(keyW == true){
             camPosZ -= 0.1;
+            camFocZ -= 0.1;
         }
 
-        gl.uniformMatrix4fv(cameraMatrix, gl.FALSE, new Matrix().cameraMatrix(camPosX, 0, -camPosZ, 0, 0, -1 - camPosZ, 0, 1, 0).toGL());
-        console.log(camPosX);
-        console.log(camPosZ);
+        gl.uniformMatrix4fv(cameraMatrix, gl.FALSE, new Matrix().cameraMatrix(camPosX, 0, camPosZ, camFocX, 0, -1 + camFocZ, 0, 1, 0).toGL());
+        // console.log(camPosX);
+        // console.log(camPosZ);
 
         //Orthographic View
         // gl.uniformMatrix4fv(projectionMatrix, gl.FALSE, new Float32Array(new Matrix().ortho(
@@ -397,6 +473,10 @@
     gl.uniform4fv(lightPosition, [500.0, 1000.0, 100.0, 1.0]);
     gl.uniform3fv(lightDiffuse, [1.0, 1.0, 1.0]);
     gl.uniform3fv(lightSpecular, [1.0, 1.0, 1.0]);
+
+    gl.uniform4fv(lightPosition2, [-500.0, 1000.0, 100.0, 1.0]);
+    gl.uniform3fv(lightDiffuse2, [1.0, 1.0, 1.0]);
+    gl.uniform3fv(lightSpecular2, [1.0, 1.0, 1.0]);
 
     vertexing(objectsToDraw);
 
