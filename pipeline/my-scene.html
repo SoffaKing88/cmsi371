@@ -83,6 +83,7 @@
                 // We now defer all color calculations to the fragment shader.
                 fragmentDiffuseColor = vertexDiffuseColor;
                 fragmentSpecularColor = vertexSpecularColor;
+
                 gl_Position = projectionMatrix * finalVertexPosition;
             }
         </script>
